@@ -11,6 +11,7 @@ public class RoomManager : MonoBehaviour
     private int lastRoom = -1;
     private Room currentRoom;
     private GameObject player;
+    [SerializeField] private bool roomCleared = true;
     
     void Start()
     {
@@ -48,5 +49,10 @@ public class RoomManager : MonoBehaviour
         {
             player.transform.position = spawnPoint.position;
         }
+    }
+
+    public bool IsRoomCleared()
+    {
+        return roomCleared;
     }
 }

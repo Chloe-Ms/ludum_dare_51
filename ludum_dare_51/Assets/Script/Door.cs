@@ -7,12 +7,12 @@ public class Door : MonoBehaviour
     private RoomManager manager;
 
     void Start(){
-        GameObject go = GameObject.Find("RoomManager");
-        manager = (RoomManager)go.GetComponent(typeof(RoomManager));
+        GameObject go = GameObject.Find("RoomManager"); //Get the room manager to call its function
+        manager = (RoomManager) go.GetComponent(typeof(RoomManager));
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player" && manager.IsRoomCleared())
         {
             manager.ChangeRoom();
         }
