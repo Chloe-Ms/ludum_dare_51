@@ -5,12 +5,6 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
 
-    
-    void Start()
-    {
-        
-    }
-
     public void DeleteRoom()
     {
         Destroy(gameObject);
