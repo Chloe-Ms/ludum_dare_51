@@ -9,6 +9,7 @@ public class Chargement : MonoBehaviour
 {
     public string level_1;
     public GameObject panel;
+    public Player_Life mort;
     private void Start()
     {
         Time.timeScale = 1f;
@@ -16,8 +17,9 @@ public class Chargement : MonoBehaviour
     }
     private void Update()
     {
-        if (Time.timeScale == 0)
+        if (mort.isDead == true)
         {
+            Time.timeScale = 0;
             panel.SetActive(true);
         }
     }
