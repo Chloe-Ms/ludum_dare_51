@@ -5,49 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class Player_Life : MonoBehaviour
 {
-    public int vie = 5;
-    [HideInInspector] public int vieMax;
-    private Vector2 spawnPoint;
-
+    public int vie = 1;
+    public int vieMax = 1;
+    public bool isDead;
 
     void Start()
     {
-        if (PlayerPrefs.GetInt("playerLIFE") == 0)
-        {
-            PlayerPrefs.SetInt("playerLIFE", 5);
-        }
-        vieMax = PlayerPrefs.GetInt("playerLIFE");
         vie = vieMax;
+        isDead = false;
     }
-
-    void Update()
+    private void Update()
     {
-        if (vie <= 0)
+        if (isDead)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-    }
-
-    public void takeDamage(int damage)
-    {
-        vie = vie - damage;
-    }
-
-    public void heal(int heal)
-    {
-        vieMax = PlayerPrefs.GetInt("playerLIFE");
-        vie = vie + heal;
-        if (vie > vieMax)
-        {
-            vie = vieMax;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D truc)
-    {
-        if (truc.tag == "checkPoint")
-        {
-            spawnPoint = truc.transform.position;
+            Time.timeScale = 0f;
         }
     }
     void OnCollisionEnter2D(Collision2D truc)
@@ -55,6 +26,7 @@ public class Player_Life : MonoBehaviour
         if (truc.gameObject.tag == "Piege")
         {
             vie = 0;
+            isDead=true;    
         }
     }
 }

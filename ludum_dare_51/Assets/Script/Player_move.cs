@@ -7,7 +7,6 @@ public class Player_move : MonoBehaviour
 
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
-    public SpriteRenderer monSprite;
 
     Vector2 movement;
 
@@ -17,6 +16,8 @@ public class Player_move : MonoBehaviour
     public float dashLength = .5f, dashCooldown = 1f;
 
     public bool canDash;
+
+    public bool facing;
 
     private void Start()
     {
@@ -35,12 +36,14 @@ public class Player_move : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            monSprite.flipX = true;
+            facing = true;
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            monSprite.flipX = false;
+            facing = false;
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
             if (Input.GetKeyDown(KeyCode.Space))
         {
