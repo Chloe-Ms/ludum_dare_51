@@ -543,6 +543,10 @@ MonoBehaviour:
   speed: 2
   range: 100
   Distance: 2
+  Bullet: {fileID: 70127471241892514, guid: 80134296a23de9d4ab476d266b9f0e75, type: 3}
+  bulletSpeed: 2
+  shootDelay: 1
+  shoot_time: 0
 --- !u!1 &811113334
 GameObject:
   m_ObjectHideFlags: 0
@@ -719,6 +723,9 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
+  attackRadius: 0
+  degats: 2
+  attackPosition: {x: 0, y: 0}
 --- !u!212 &855221370
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -972,6 +979,7 @@ GameObject:
   - component: {fileID: 1429509067}
   - component: {fileID: 1429509066}
   - component: {fileID: 1429509065}
+  - component: {fileID: 1429509068}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1044,6 +1052,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429509068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429509064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1471557329
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,46 +1173,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1a150744da38545b6134a164140c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentCharge: 3
   bulletPrefab: {fileID: 70127471241892514, guid: 52026f587f95adb49b1637c2ffd86363, type: 3}
   bulletSpeed: 20
   currentWeapon: {fileID: 0}
   PistolModel: {fileID: 257263360}
   AssaultRifleModel: {fileID: 900102022}
   ShotGunModel: {fileID: 2088975703}
-  SabreModel: {fileID: 756615548}
   pistol: {fileID: 350664829}
   damageWeaponPistol: 100
   rangeWeaponPistol: 10
   fireRateWeaponPistol: 100
   impactForceWeaponPistol: 100
   reloadTimeWeaponPistol: 10
-  maxAmmoWeaponPistol: 100
-  currentAmmoWeaponPistol: 100
   isReloadingWeaponPistol: 0
   weaponAssaultRifle: {fileID: 1267690307}
   damageWeaponAssaultRifle: 0
   rangeWeaponAssaultRifle: 0
   fireRateWeaponAssaultRifle: 0
   reloadTimeWeaponAssaultRifle: 0
-  maxAmmoWeaponAssaultRifle: 0
-  currentAmmoWeaponAssaultRifle: 0
   isReloadingWeaponAssaultRifle: 0
   weaponShotGun: {fileID: 1858907239}
   damageWeaponShotGun: 0
   rangeWeaponShotGun: 0
   fireRateWeaponShotGun: 0
   reloadTimeWeaponShotGun: 0
-  maxAmmoWeaponShotGun: 0
-  currentAmmoWeaponShotGun: 0
   isReloadingWeaponShotGun: 0
-  weaponSabre: {fileID: 1868988566}
-  damageWeaponSabre: 0
-  rangeWeaponSabre: 0
-  fireRateWeaponSabre: 0
-  reloadTimeWeaponSabre: 0
-  maxAmmoWeaponSabre: 0
-  currentAmmoWeaponSabre: 0
-  isReloadingWeaponSabre: 0
+  Direction: 0
 --- !u!114 &1652849486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,12 +1214,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   rb: {fileID: 1652849484}
-  monSprite: {fileID: 1652849488}
   activeMoveSpeed: 0
   dashSpeed: 0
   dashLength: 0.5
   dashCooldown: 1
   canDash: 0
+  facing: 0
 --- !u!114 &1652849487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1206,6 +1234,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vie: 5
   vieMax: 0
+  isDead: 0
 --- !u!212 &1652849488
 SpriteRenderer:
   m_ObjectHideFlags: 0
