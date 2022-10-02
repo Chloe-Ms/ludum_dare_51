@@ -5,18 +5,25 @@ using UnityEngine.UI;
 
 enum RoomModificationType
 {
-    ZeroG,
     Frost,
     Hole
 }
 
+[System.Serializable]
+public class ModificationsPerRoom
+{
+    public GameObject[] Modifications;
+}
+
 public class EventManager : MonoBehaviour
 {
+    
     public Text timerText;
     private float timer;
     private float waitTime = 10.0f;
     public RoomManager roomManager;
     private RoomModificationType lastModType;
+    public ModificationsPerRoom[] mods;
 
     void Start()
     {
@@ -32,6 +39,7 @@ public class EventManager : MonoBehaviour
 
         if (timer < 0)
         {
+            ApplyRoomModification();
             timer = waitTime - timer;
         }
     }
@@ -43,13 +51,21 @@ public class EventManager : MonoBehaviour
 
     void ApplyRoomModification()
     {
-        //Select random change (not the same as the last one)
-        //RoomModificationType mod;
-        //do {
-        //    mod = (RoomModificationType)Random.Range(0, Enum.GetValues(typeof(RoomModificationType)).Count);
-        //} while (mod == lastModType);
+        // //Select random change (not the same as the last one)
+        // RoomModificationType mod;
+        // do {
+        //     mod = (RoomModificationType)Random.Range(0, System.Enum.GetValues(typeof(RoomModificationType)).Length);
+        // } while (mod == lastModType);
+        // lastModType = mod;
         
+        // GameObject modGO = Instantiate(mods[roomManager.GetLastRoom()].Modifications[(int)mod]) as GameObject;
+        // modGO.transform.parent = roomManager.GetCurrentRoom().transform.Find("Grid").transform;
+    }
 
-        //lastModType = mod;
+    void GetRoomModifications(string path){
+
+        Object[] data = UnityEditor.AssetDatabase.LoadAllAssetsAtPath("Assets/Prefabs/Modifications/"+path);
+
+
     }
 }

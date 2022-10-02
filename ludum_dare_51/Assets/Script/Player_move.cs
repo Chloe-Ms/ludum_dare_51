@@ -47,6 +47,7 @@ public class Player_move : MonoBehaviour
 
             if (canDash)
             {
+
                 activeMoveSpeed = dashSpeed;
                 canDash = false;
                 StartCoroutine(Dash());
@@ -62,7 +63,10 @@ public class Player_move : MonoBehaviour
         
     }
 
-    void ChangeSpeed()
+    public void SetSpeed(float newSpeed)
     {
+        if (canDash){ //Si il est pas en train de dasher
+            activeMoveSpeed = newSpeed;
+        }
     }
 }
