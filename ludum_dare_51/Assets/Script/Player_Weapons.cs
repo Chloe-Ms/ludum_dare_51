@@ -7,6 +7,8 @@ using UnityEngine.UIElements;
 
 public class Player_Weapons : MonoBehaviour
 {
+    public float CurrentCharge = 3f;
+    
     [SerializeField] 
     private GameObject bulletPrefab;
     public float bulletSpeed = 20f;
@@ -16,7 +18,6 @@ public class Player_Weapons : MonoBehaviour
     public GameObject PistolModel;
     public GameObject AssaultRifleModel;
     public GameObject ShotGunModel;
-    public GameObject SabreModel;
     
     public GameObject pistol;
     public float damageWeaponPistol;
@@ -46,60 +47,66 @@ public class Player_Weapons : MonoBehaviour
     public int currentAmmoWeaponShotGun;
     public bool isReloadingWeaponShotGun;
 
-    public GameObject weaponSabre;
-    public float damageWeaponSabre;
-    public float rangeWeaponSabre;
-    public float fireRateWeaponSabre;
-    public float reloadTimeWeaponSabre;
-    public int maxAmmoWeaponSabre;
-    public int currentAmmoWeaponSabre;
-    public bool isReloadingWeaponSabre;
+    public int Direction;
+    private int Spread;
+        
 
     private void Start()
     {
         PistolModel.SetActive(false);
         AssaultRifleModel.SetActive(false);
         ShotGunModel.SetActive(false);
-        SabreModel.SetActive(false);
         
+    }
+
+    IEnumerator Reload()
+    {
+        isReloadingWeaponPistol = true;
+        Debug.Log("Reloading...");
+        yield return new WaitForSeconds(reloadTimeWeaponPistol);
+        currentAmmoWeaponPistol = maxAmmoWeaponPistol;
+        isReloadingWeaponPistol = false;
+    }
+    IEnumerator ReloadAssaultRifle()
+    {
+        isReloadingWeaponAssaultRifle = true;
+        Debug.Log("Reloading...");
+        yield return new WaitForSeconds(reloadTimeWeaponAssaultRifle);
+        currentAmmoWeaponAssaultRifle = maxAmmoWeaponAssaultRifle;
+        isReloadingWeaponAssaultRifle = false;
+    }
+    IEnumerator ReloadShotGun()
+    {
+        isReloadingWeaponShotGun = true;
+        Debug.Log("Reloading...");
+        yield return new WaitForSeconds(reloadTimeWeaponShotGun);
+        currentAmmoWeaponShotGun = maxAmmoWeaponShotGun;
+        isReloadingWeaponShotGun = false;
+    }
+    IEnumerator Rafale()
+    {
+        shoot();
+        yield return new WaitForSeconds(0.1f);
+        shoot();
+        yield return new WaitForSeconds(0.1f);
+        shoot();
+    }
+    IEnumerator ShotGun()
+    {
+        shootShotGun();
+        yield return new WaitForSeconds(0.01f);
+        shootShotGun();
+        yield return new WaitForSeconds(0.01f);
+        shootShotGun();
+        yield return new WaitForSeconds(0.01f);
+        shootShotGun();
+
+        yield return new WaitForSeconds(2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        IEnumerator Reload()
-        {
-            isReloadingWeaponPistol = true;
-            Debug.Log("Reloading...");
-            yield return new WaitForSeconds(reloadTimeWeaponPistol);
-            currentAmmoWeaponPistol = maxAmmoWeaponPistol;
-            isReloadingWeaponPistol = false;
-        }
-        IEnumerator ReloadAssaultRifle()
-        {
-            isReloadingWeaponAssaultRifle = true;
-            Debug.Log("Reloading...");
-            yield return new WaitForSeconds(reloadTimeWeaponAssaultRifle);
-            currentAmmoWeaponAssaultRifle = maxAmmoWeaponAssaultRifle;
-            isReloadingWeaponAssaultRifle = false;
-        }
-        IEnumerator ReloadShotGun()
-        {
-            isReloadingWeaponShotGun = true;
-            Debug.Log("Reloading...");
-            yield return new WaitForSeconds(reloadTimeWeaponShotGun);
-            currentAmmoWeaponShotGun = maxAmmoWeaponShotGun;
-            isReloadingWeaponShotGun = false;
-        }
-        IEnumerator ReloadSabre()
-        {
-            isReloadingWeaponSabre = true;
-            Debug.Log("Reloading...");
-            yield return new WaitForSeconds(reloadTimeWeaponSabre);
-            currentAmmoWeaponSabre = maxAmmoWeaponSabre;
-            isReloadingWeaponSabre = false;
-        }
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
 
@@ -114,7 +121,6 @@ public class Player_Weapons : MonoBehaviour
                     PistolModel.SetActive(true);
                     AssaultRifleModel.SetActive(false);
                     ShotGunModel.SetActive(false);
-                    SabreModel.SetActive(false);
                 }
                 if (collider.gameObject.name == "AssaultRifle")
                 {
@@ -123,25 +129,14 @@ public class Player_Weapons : MonoBehaviour
                     PistolModel.SetActive(false);
                     AssaultRifleModel.SetActive(true);
                     ShotGunModel.SetActive(false);
-                    SabreModel.SetActive(false);
                 }
-                if (collider.gameObject.name == "ShotGun")
+                if (collider.gameObject.name == "fusil")
                 {
                     weaponShotGun.SetActive(false);
                     gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponShotGun;
                     PistolModel.SetActive(false);
                     AssaultRifleModel.SetActive(false);
                     ShotGunModel.SetActive(true);
-                    SabreModel.SetActive(false);
-                }
-                if (collider.gameObject.name == "Sabre")
-                {
-                    weaponSabre.SetActive(false);
-                    gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponSabre;
-                    PistolModel.SetActive(false);
-                    AssaultRifleModel.SetActive(false);
-                    ShotGunModel.SetActive(false);
-                    SabreModel.SetActive(true);
                 }
             }
         }
@@ -150,12 +145,10 @@ public class Player_Weapons : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                currentAmmoWeaponPistol--;
-                
                 if (currentAmmoWeaponPistol > 0)
                 {
                     shoot();
-                    
+                    currentAmmoWeaponPistol--;
                 }
                 else
                 {
@@ -167,12 +160,10 @@ public class Player_Weapons : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                currentAmmoWeaponAssaultRifle--;
-
                 if (currentAmmoWeaponAssaultRifle > 0)
                 {
-                    shootAssaultRifle();
-
+                    StartCoroutine(Rafale());
+                    currentAmmoWeaponAssaultRifle--;
                 }
                 else
                 {
@@ -184,12 +175,10 @@ public class Player_Weapons : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                currentAmmoWeaponShotGun--;
-
                 if (currentAmmoWeaponShotGun > 0)
                 {
-                    shootShotGun();
-
+                    StartCoroutine(ShotGun());
+                    currentAmmoWeaponShotGun--;
                 }
                 else
                 {
@@ -197,29 +186,28 @@ public class Player_Weapons : MonoBehaviour
                 }
             }
         }
-        if (currentWeapon == weaponSabre && !isReloadingWeaponSabre)
-        {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                currentAmmoWeaponSabre--;
 
-                if (currentAmmoWeaponSabre > 0)
-                {
-                    shootSabre();
-
-                }
-                else
-                {
-                    StartCoroutine(ReloadSabre());
-                }
-            }
-        }
     }
     void shoot()
     {
-        Player_move movement = GetComponent<Player_move>();
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponPistol);
-        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponPistol, Color.red, 100f);
+        Spread = Random.Range(1, -1);
+        Player_move monSprite = GetComponent<Player_move>();
+        if (monSprite.facing == true)
+        {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Spread);
+            Direction = -1;
+        }
+        else
+        {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, Spread);
+            Direction = 1;
+        }
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponPistol);
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
@@ -229,58 +217,39 @@ public class Player_Weapons : MonoBehaviour
                 enemy.TakeDamage(damageWeaponPistol);
                 Debug.Log("Hit");
             }
-
         }
     }
-    void shootAssaultRifle()
-    {
-        Player_move movement = GetComponent<Player_move>();
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponAssaultRifle);
-        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponAssaultRifle, Color.red, 100f);
-        if (hitInfo)
-        {
-            Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            Debug.Log(hitInfo.transform.name);
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damageWeaponAssaultRifle);
-                Debug.Log("Hit");
-            }
 
-        }
-    }
     void shootShotGun()
     {
-        Player_move movement = GetComponent<Player_move>();
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponShotGun);
-        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponShotGun, Color.red, 100f);
-        if (hitInfo)
+        Spread = Random.Range(1, -2);
+        Player_move monSprite = GetComponent<Player_move>();
+        if (monSprite.facing == true)
         {
-            Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            Debug.Log(hitInfo.transform.name);
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damageWeaponShotGun);
-                Debug.Log("Hit");
-            }
-
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Spread);
+            Direction = -1;
         }
-    }
-    void shootSabre()
-    {
-        Player_move movement = GetComponent<Player_move>();
-        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponSabre);
-        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponSabre, Color.red, 100f);
+        else
+        {
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, Spread);
+            Direction = 1;
+        }
+
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponPistol);
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
             Debug.Log(hitInfo.transform.name);
             if (enemy != null)
             {
-                enemy.TakeDamage(damageWeaponSabre);
+                enemy.TakeDamage(damageWeaponPistol);
                 Debug.Log("Hit");
             }
-
         }
     }
 }

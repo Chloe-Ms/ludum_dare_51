@@ -18,6 +18,8 @@ public class Player_move : MonoBehaviour
 
     public bool canDash;
 
+    public bool facing;
+
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
@@ -35,12 +37,12 @@ public class Player_move : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            monSprite.flipX = true;
+            facing = monSprite.flipX = true;
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            monSprite.flipX = false;
+            facing = monSprite.flipX = false;
         }
             if (Input.GetKeyDown(KeyCode.Space))
         {
