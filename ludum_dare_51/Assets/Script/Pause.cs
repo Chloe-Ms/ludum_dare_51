@@ -7,6 +7,10 @@ public class Pause : MonoBehaviour
     public GameObject panel;
     private bool cLaPause;
 
+    void Start(){
+        unPause();
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !cLaPause)
