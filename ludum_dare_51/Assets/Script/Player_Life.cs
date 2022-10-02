@@ -16,17 +16,23 @@ public class Player_Life : MonoBehaviour
     }
     private void Update()
     {
-        if (isDead)
+        
+    }
+    public void Damage(int damage)
+    {
+        vie -= damage;
+        if (vie <= 0)
         {
-            Time.timeScale = 0f;
+            isDead = true;  
         }
     }
+
     void OnCollisionEnter2D(Collision2D truc)
     {
         if (truc.gameObject.tag == "Piege")
         {
-            vie = 0;
-            isDead=true;    
+            Damage(1);
+       
         }
     }
 }
