@@ -24,6 +24,10 @@ public class EventManager : MonoBehaviour
     public RoomManager roomManager;
     private RoomModificationType lastModType;
     public ModificationsPerRoom[] mods;
+    [SerializeField] private int maxNumberTilesFrozen = 5;
+    [SerializeField] private int minNumberTilesFrozen = 1;
+    [SerializeField] private int maxNumberTilesHole = 5;
+    [SerializeField] private int minNumberTilesHole = 1;
 
     void Start()
     {
@@ -51,21 +55,30 @@ public class EventManager : MonoBehaviour
 
     void ApplyRoomModification()
     {
-        // //Select random change (not the same as the last one)
-        // RoomModificationType mod;
-        // do {
-        //     mod = (RoomModificationType)Random.Range(0, System.Enum.GetValues(typeof(RoomModificationType)).Length);
-        // } while (mod == lastModType);
-        // lastModType = mod;
+        //Select random change (not the same as the last one)
+        RoomModificationType mod;
+        do {
+            mod = (RoomModificationType)Random.Range(0, System.Enum.GetValues(typeof(RoomModificationType)).Length);
+        } while (mod == lastModType);
+        lastModType = mod;
         
-        // GameObject modGO = Instantiate(mods[roomManager.GetLastRoom()].Modifications[(int)mod]) as GameObject;
-        // modGO.transform.parent = roomManager.GetCurrentRoom().transform.Find("Grid").transform;
+        //GameObject modGO = Instantiate(mods[roomManager.GetLastRoom()].Modifications[(int)mod]) as GameObject;
+        //modGO.transform.parent = roomManager.GetCurrentRoom().transform.Find("Grid").transform;
+        switch(mod){
+            case RoomModificationType.Frost:
+                
+            break;
+            case RoomModificationType.Hole:
+
+            break;
+        }
     }
 
-    void GetRoomModifications(string path){
+    void SelectTiles(ModificationsPerRoom mod){
 
-        Object[] data = UnityEditor.AssetDatabase.LoadAllAssetsAtPath("Assets/Prefabs/Modifications/"+path);
-
-
+        int width = roomManager.width;
+        int height = roomManager.height;
+        
+        int randW = Random.Range(0,width);
     }
 }
