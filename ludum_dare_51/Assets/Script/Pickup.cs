@@ -6,12 +6,28 @@ public class Pickup : MonoBehaviour
 {
     private Inventory inventory;
     public GameObject itemButton;
+    public GameObject item;
+    private Transform player;
 
     private void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
-
+    public void SpawnDroppedITem()
+    {
+        Vector2 playerPos = new Vector2(player.position.x, player.position.y + 1 );
+        Instantiate(item, playerPos, Quaternion.identity);
+    }
+    public void DropItem()
+    {
+        print("a");
+        foreach (Transform child in transform)
+        {
+            print("b");
+            GameObject.Destroy(child.gameObject);
+        }
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -22,6 +38,14 @@ public class Pickup : MonoBehaviour
                 {
                     inventory.isFull[i] = true;
                     Instantiate(itemButton, inventory.slots[i].transform, false) ;
+                    Destroy(gameObject);
+                    break;
+                }
+                else if (inventory.isFull[i] == true)
+                {
+                    SpawnDroppedITem();
+                    DropItem();
+                    Instantiate(itemButton, inventory.slots[i].transform, false);
                     Destroy(gameObject);
                     break;
                 }
