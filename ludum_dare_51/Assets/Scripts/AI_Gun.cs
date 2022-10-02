@@ -18,6 +18,19 @@ public class AI_Gun : MonoBehaviour
 
     GameObject[] enemis;
 
+    private int Spread;
+
+    [SerializeField]
+    private GameObject Bullet;
+
+    [SerializeField]
+    public int bulletSpeed;
+
+    [SerializeField]
+    public int shootDelay;
+
+    public float shoot_time;
+
 
 
 
@@ -25,6 +38,27 @@ public class AI_Gun : MonoBehaviour
     void Start()
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
+
+    }
+    void shoot()
+    {
+        shoot_time += Time.deltaTime;
+        if (shoot_time > shootDelay)
+        {
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            foreach (GameObject Player in enemis)
+            {
+                Vector2 direction = (Player.transform.position - bullet.transform.position).normalized;
+                Vector2 force = direction * bulletSpeed;
+                rb.velocity = force;
+                Debug.Log(rb.velocity);
+                shoot_time = 0;
+
+                //bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Player.transform.position.y + Spread);
+            }
+        }
+        //Spread = Random.Range(1, -2);
 
     }
 
@@ -37,7 +71,9 @@ public class AI_Gun : MonoBehaviour
             {
                 transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
 
+            } else{
+                shoot();
             }
-        }
+        } 
     }
 }

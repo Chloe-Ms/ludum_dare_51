@@ -15,17 +15,26 @@ public class Explosion : MonoBehaviour
 
     }
 
-    
-    void OnCollisionStay2D(Collision2D other)
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("deeznuts");
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+    }
+    /*void OnCollisionStay2D(Collision2D other)
     {
             Debug.Log("DoorDeezNutz");
 
         if (other.gameObject.layer == 3 )
         {
-            DestroyObject(gameObject);
+            Destroy(other.gameObject);
             
         }
-    }
+    }*/
+
     // Update is called once per frame
     void Update()
     {
