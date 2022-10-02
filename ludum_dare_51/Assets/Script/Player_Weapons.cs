@@ -43,7 +43,6 @@ public class Player_Weapons : MonoBehaviour
 
     public int Direction;
     private int Spread;
-        
 
     private void Start()
     {
