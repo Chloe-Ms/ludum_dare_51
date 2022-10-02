@@ -48,7 +48,7 @@ public class Attack_CAC : MonoBehaviour
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
             foreach (Collider2D truc in target)
             {
-                if (truc.tag == "Ennemi")
+                if (truc.tag == "Ennemy")
                 {
                     truc.SendMessage("takeDamage", degats);
                 }

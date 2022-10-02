@@ -523,13 +523,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0caf34fdee68be844a087a4f56b7e5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 421712119}
-  activeMoveSpeed: 0
-  dashSpeed: 50
-  dashLength: 0.1
-  dashCooldown: 1
-  canDash: 0
 --- !u!212 &421712121
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1536,6 +1529,7 @@ GameObject:
   - component: {fileID: 1161932112}
   - component: {fileID: 1161932111}
   - component: {fileID: 1161932110}
+  - component: {fileID: 1161932113}
   m_Layer: 0
   m_Name: Square (1)
   m_TagString: Piege
@@ -1634,6 +1628,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1161932113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161932109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1177c076e627f5e4186eda5b33deb11b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  rb: {fileID: 0}
+  activeMoveSpeed: 0
+  dashSpeed: 0
+  dashLength: 0.5
+  dashCooldown: 1
+  canDash: 0
+  facing: 0
 --- !u!1 &1180119389
 GameObject:
   m_ObjectHideFlags: 0
