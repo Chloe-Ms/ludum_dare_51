@@ -17,6 +17,8 @@ public class Player_move : MonoBehaviour
 
     public bool canDash;
 
+    public bool facing;
+
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
@@ -34,11 +36,13 @@ public class Player_move : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") < 0)
         {
+            facing = true;
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
+            facing = false;
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
             if (Input.GetKeyDown(KeyCode.Space))
