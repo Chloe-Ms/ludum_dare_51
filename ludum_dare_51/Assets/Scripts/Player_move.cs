@@ -7,6 +7,7 @@ public class Player_move : MonoBehaviour
 
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
+    public SpriteRenderer monSprite;
 
     Vector2 movement;
 
@@ -32,6 +33,15 @@ public class Player_move : MonoBehaviour
 
         rb.velocity = movement * activeMoveSpeed;
 
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            monSprite.flipX = true;
+        }
+
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            monSprite.flipX = false;
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
@@ -40,7 +50,6 @@ public class Player_move : MonoBehaviour
                 activeMoveSpeed = dashSpeed;
                 canDash = false;
                 StartCoroutine(Dash());
-                //dashCounter = dashLength;
             }
         }
         IEnumerator Dash()
@@ -48,8 +57,8 @@ public class Player_move : MonoBehaviour
             yield return new WaitForSeconds(dashLength);
             activeMoveSpeed = moveSpeed;
             yield return new WaitForSeconds(dashCooldown);
-            canDash = true; 
+            canDash = true;
         }
-        
+
     }
 }
