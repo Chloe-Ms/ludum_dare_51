@@ -90,8 +90,7 @@ public class EventManager : MonoBehaviour
                 vec.x = vec.x - roomManager.width/2;
                 vec.y = vec.y + (int)roomManager.spawnPoint.position.y - 1;
                 map.Add(vec);
-            }
-                    
+            }       
         }
         roomManager.PaintTiles(map,tilemap,tile);
     }

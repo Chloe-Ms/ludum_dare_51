@@ -928,13 +928,15 @@ MonoBehaviour:
   eventManager: {fileID: 1069097756}
   floorTilemap: {fileID: 974110798}
   teleporteurTilemap: {fileID: 1899274752}
+  wallsTilemap: {fileID: 987139388}
   floorTile: {fileID: 11400000, guid: 2944ccbddafc8d443bfcd0a9e949eb28, type: 2}
   teleportTileOpen: {fileID: 11400000, guid: 602ea86ead909974e9c27005877eb84e, type: 2}
   teleportTileClose: {fileID: 11400000, guid: 602ea86ead909974e9c27005877eb84e, type: 2}
+  wallsTile: {fileID: 11400000, guid: 870dac8611e3d9b479999bc2967a0028, type: 2}
   spawnPoint: {fileID: 1924937174}
   maxHeight: 10
   minHeight: 6
-  maxWidth: 10
+  maxWidth: 12
   minWidth: 6
   height: 0
   width: 0
@@ -1695,4 +1697,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c60f996131909c438c88c6809a33b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedMultiplier: 2
+  speedMultiplier: 8

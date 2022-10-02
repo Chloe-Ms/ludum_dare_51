@@ -14,9 +14,11 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] Tilemap floorTilemap;
     [SerializeField] Tilemap teleporteurTilemap;
+    [SerializeField] Tilemap wallsTilemap;
     [SerializeField] private TileBase floorTile;
     [SerializeField] private TileBase teleportTileOpen;
     [SerializeField] private TileBase teleportTileClose;
+    [SerializeField] private TileBase wallsTile;
     public Transform spawnPoint;
 
     [SerializeField] private int maxHeight = 10;
@@ -41,6 +43,7 @@ public class RoomManager : MonoBehaviour
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
             PaintFloorTiles(map);
             PaintTeleportTiles(false);
+            PaintWallsTiles();
             eventManager.createMap(width,height);
     }
 
@@ -56,6 +59,26 @@ public class RoomManager : MonoBehaviour
             }
         }
         return path;
+    }
+
+    public void PaintWallsTiles(){
+        Vector2Int positionToAdd;
+        HashSet<Vector2Int> path = new HashSet<Vector2Int>();
+        int diffWallSpawn = (int) (width/2f);
+        for (int i = -1; i < width+1; i++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y -2)); //Mur du bas 
+            path.Add(positionToAdd);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 1)); //Mur du haut
+            path.Add(positionToAdd);
+        }
+
+        for (int j = 0; j < height; j++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(-1 - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur gauche
+            path.Add(positionToAdd);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(width - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur droite
+            path.Add(positionToAdd);
+        }
+        PaintTiles(path,wallsTilemap,wallsTile);
     }
 
     public void ChangeRoom()
@@ -104,12 +127,13 @@ public class RoomManager : MonoBehaviour
             PaintTiles(path,teleporteurTilemap,teleportTileOpen);
         } else {
             PaintTiles(path,teleporteurTilemap,teleportTileClose);
-        }
-        
+        } 
     }
+    
 
     public void Clear(){
         floorTilemap.ClearAllTiles();
+        wallsTilemap.ClearAllTiles();
         teleporteurTilemap.ClearAllTiles();
         eventManager.Clear();
     }
