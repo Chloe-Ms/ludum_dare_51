@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementForTest : MonoBehaviour
+public class Player_move : MonoBehaviour
 {
 
     Vector2 movement;
     public Rigidbody2D rb;
+    public float speed = 2f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,11 @@ public class MovementForTest : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        rb.velocity = movement * 2f;
+        rb.velocity = movement * speed;
+    }
+
+    void ChangeSpeed()
+    {
+
     }
 }

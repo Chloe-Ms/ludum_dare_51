@@ -15,8 +15,8 @@ public class EventManager : MonoBehaviour
     public Text timerText;
     private float timer;
     private float waitTime = 10.0f;
-    
-    
+    public RoomManager roomManager;
+    private RoomModificationType lastModType;
 
     void Start()
     {
@@ -43,6 +43,7 @@ public class EventManager : MonoBehaviour
 
     void ApplyRoomModification()
     {
-
+        //Select random change (not the same as the last one)
+        
     }
 }
