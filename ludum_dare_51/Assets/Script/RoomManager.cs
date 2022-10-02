@@ -7,18 +7,17 @@ using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField] private List<Room> rooms = new List<Room>();
     private int lastRoom = -1;
-    private Room currentRoom;
     private GameObject player;
     [SerializeField] private bool roomCleared = true;
-
+    [SerializeField] private EventManager eventManager;
 
     [SerializeField] Tilemap floorTilemap;
     [SerializeField] Tilemap teleporteurTilemap;
     [SerializeField] private TileBase floorTile;
-    [SerializeField] private TileBase teleportTile;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private TileBase teleportTileOpen;
+    [SerializeField] private TileBase teleportTileClose;
+    public Transform spawnPoint;
 
     [SerializeField] private int maxHeight = 10;
     [SerializeField] private int minHeight = 5;
@@ -26,7 +25,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int minWidth = 5;
     public int height;
     public int width;
-    private char[][] mapMod;
+
 
     void Start()
     {
@@ -36,22 +35,13 @@ public class RoomManager : MonoBehaviour
 
     void LoadNewRoom()
     {
-        // int indexRoom = -1;
-        // do {
-
-        //     indexRoom = UnityEngine.Random.Range(0, rooms.Count);
-
-        // } while (lastRoom == indexRoom || indexRoom < 0);
-        // if (indexRoom != -1)
-        // {
             width = GetRandomWidth(minWidth,maxWidth);
             height = GetRandomHeight(minHeight,maxHeight);
+            
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
             PaintFloorTiles(map);
-            PaintTeleportTiles();
-            mapMod = new char[width][];
-            //lastRoom = indexRoom;
-        //} 
+            PaintTeleportTiles(false);
+            eventManager.createMap(width,height);
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -68,14 +58,8 @@ public class RoomManager : MonoBehaviour
         return path;
     }
 
-    void DeleteCurrentRoom()
-    {
-        //currentRoom.DeleteRoom();
-    }
-
     public void ChangeRoom()
     {
-        //DeleteCurrentRoom();
         Clear();
         LoadNewRoom();
         if (player != null)
@@ -93,22 +77,18 @@ public class RoomManager : MonoBehaviour
         return lastRoom;
     }
 
-    public Room GetCurrentRoom(){
-        return currentRoom;
-    }
-
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions){
         PaintTiles(floorPositions,floorTilemap,floorTile);
     }
 
-    private void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile){
+    public void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile){
         foreach (var position in positions){
             var tilePosition = tilemap.WorldToCell((Vector3Int) position);
             tilemap.SetTile(tilePosition,tile);
         }
     }
 
-    private void PaintTeleportTiles(){
+    private void PaintTeleportTiles(bool open){
         HashSet<Vector2Int> path = new HashSet<Vector2Int>();
         int diffWallSpawnW = (int) (width/2f);
         float diffWallSpawnH = height/2f;
@@ -118,7 +98,13 @@ public class RoomManager : MonoBehaviour
         path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,spawnPoint.position.y-1)));
         path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH))));
 
-        PaintTiles(path,teleporteurTilemap,teleportTile);
+        teleporteurTilemap.ClearAllTiles();
+        if (open){
+            PaintTiles(path,teleporteurTilemap,teleportTileOpen);
+        } else {
+            PaintTiles(path,teleporteurTilemap,teleportTileClose);
+        }
+        
     }
 
     public void Clear(){
