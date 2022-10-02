@@ -56,21 +56,18 @@ public class Player_Weapons : MonoBehaviour
     IEnumerator Reload()
     {
         isReloadingWeaponPistol = true;
-        Debug.Log("Reloading...");
         yield return new WaitForSeconds(reloadTimeWeaponPistol);
         isReloadingWeaponPistol = false;
     }
     IEnumerator ReloadAssaultRifle()
     {
         isReloadingWeaponAssaultRifle = true;
-        Debug.Log("Reloading...");
         yield return new WaitForSeconds(reloadTimeWeaponAssaultRifle);
         isReloadingWeaponAssaultRifle = false;
     }
     IEnumerator ReloadShotGun()
     {
         isReloadingWeaponShotGun = true;
-        Debug.Log("Reloading...");
         yield return new WaitForSeconds(reloadTimeWeaponShotGun);
         isReloadingWeaponShotGun = false;
     }
@@ -202,15 +199,12 @@ public class Player_Weapons : MonoBehaviour
         }
         
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponPistol);
-        Debug.DrawRay(transform.position, new Vector2(Direction, 0) * transform.localScale.y, Color.red, 10f);
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            Debug.Log(hitInfo.transform.name);
             if (enemy != null)
             {
                 enemy.TakeDamage(damageWeaponPistol);
-                Debug.Log("Hit");
             }
         }
     }
@@ -236,15 +230,12 @@ public class Player_Weapons : MonoBehaviour
         }
         
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponShotGun);
-        Debug.DrawRay(transform.position, new Vector2(Direction, 0) * transform.localScale.y, Color.red, 10f);
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            Debug.Log(hitInfo.transform.name);
             if (enemy != null)
             {
                 enemy.TakeDamage(damageWeaponShotGun);
-                Debug.Log("Hit");
             }
         }
     }
