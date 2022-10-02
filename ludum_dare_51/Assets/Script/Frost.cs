@@ -8,7 +8,7 @@ public class Frost : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player")
         {
-            //collider.gameObject.GetComponent<Player_move>().
+            //collider.gameObject.GetComponent<Player_move>().ChangeSpeed();
         }
     }
 }

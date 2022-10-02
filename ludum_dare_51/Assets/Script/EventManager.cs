@@ -44,6 +44,12 @@ public class EventManager : MonoBehaviour
     void ApplyRoomModification()
     {
         //Select random change (not the same as the last one)
+        //RoomModificationType mod;
+        //do {
+        //    mod = (RoomModificationType)Random.Range(0, Enum.GetValues(typeof(RoomModificationType)).Count);
+        //} while (mod == lastModType);
         
+
+        //lastModType = mod;
     }
 }
