@@ -730,9 +730,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d8ab2f40c2f9e4ca24fde50f59557a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 00
-  slots:
-  - {fileID: 848427118}
+  player: {fileID: 0}
+  item: {fileID: 0}
+  itemSlot: {fileID: 848427119}
+  originalScale: {x: 0, y: 0, z: 0}
+  iconScale: {x: 300, y: 300, z: 1}
 --- !u!1 &503191120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,8 +1453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e5c72c71c9b9246815ded3dbcb7a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButton: {fileID: 0}
-  item: {fileID: 0}
 --- !u!1 &854137598
 GameObject:
   m_ObjectHideFlags: 0
