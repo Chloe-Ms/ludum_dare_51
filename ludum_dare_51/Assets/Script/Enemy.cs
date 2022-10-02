@@ -7,11 +7,11 @@ public class Enemy : MonoBehaviour
 
     public GameObject enemy;
     
-    public float health = 100;
+    public float health = 100f;
 
     private void Start()
     {
-        enemy = GameObject.Find("Enemy");
+        enemy = gameObject;
     }
 
     public void TakeDamage(float amount)

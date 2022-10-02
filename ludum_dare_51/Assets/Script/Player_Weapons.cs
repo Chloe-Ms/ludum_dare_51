@@ -17,8 +17,6 @@ public class Player_Weapons : MonoBehaviour
     public GameObject AssaultRifleModel;
     public GameObject ShotGunModel;
     public GameObject SabreModel;
-
-    public GameObject Enemy;
     
     public GameObject pistol;
     public float damageWeaponPistol;
@@ -57,6 +55,15 @@ public class Player_Weapons : MonoBehaviour
     public int currentAmmoWeaponSabre;
     public bool isReloadingWeaponSabre;
 
+    private void Start()
+    {
+        PistolModel.SetActive(false);
+        AssaultRifleModel.SetActive(false);
+        ShotGunModel.SetActive(false);
+        SabreModel.SetActive(false);
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -69,7 +76,6 @@ public class Player_Weapons : MonoBehaviour
             currentAmmoWeaponPistol = maxAmmoWeaponPistol;
             isReloadingWeaponPistol = false;
         }
-
         IEnumerator ReloadAssaultRifle()
         {
             isReloadingWeaponAssaultRifle = true;
@@ -78,7 +84,6 @@ public class Player_Weapons : MonoBehaviour
             currentAmmoWeaponAssaultRifle = maxAmmoWeaponAssaultRifle;
             isReloadingWeaponAssaultRifle = false;
         }
-
         IEnumerator ReloadShotGun()
         {
             isReloadingWeaponShotGun = true;
@@ -86,6 +91,14 @@ public class Player_Weapons : MonoBehaviour
             yield return new WaitForSeconds(reloadTimeWeaponShotGun);
             currentAmmoWeaponShotGun = maxAmmoWeaponShotGun;
             isReloadingWeaponShotGun = false;
+        }
+        IEnumerator ReloadSabre()
+        {
+            isReloadingWeaponSabre = true;
+            Debug.Log("Reloading...");
+            yield return new WaitForSeconds(reloadTimeWeaponSabre);
+            currentAmmoWeaponSabre = maxAmmoWeaponSabre;
+            isReloadingWeaponSabre = false;
         }
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
@@ -150,27 +163,122 @@ public class Player_Weapons : MonoBehaviour
                 }
             }
         }
+        if (currentWeapon == weaponAssaultRifle && !isReloadingWeaponAssaultRifle)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                currentAmmoWeaponAssaultRifle--;
+
+                if (currentAmmoWeaponAssaultRifle > 0)
+                {
+                    shootAssaultRifle();
+
+                }
+                else
+                {
+                    StartCoroutine(ReloadAssaultRifle());
+                }
+            }
+        }
+        if (currentWeapon == weaponShotGun && !isReloadingWeaponShotGun)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                currentAmmoWeaponShotGun--;
+
+                if (currentAmmoWeaponShotGun > 0)
+                {
+                    shootShotGun();
+
+                }
+                else
+                {
+                    StartCoroutine(ReloadShotGun());
+                }
+            }
+        }
+        if (currentWeapon == weaponSabre && !isReloadingWeaponSabre)
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                currentAmmoWeaponSabre--;
+
+                if (currentAmmoWeaponSabre > 0)
+                {
+                    shootSabre();
+
+                }
+                else
+                {
+                    StartCoroutine(ReloadSabre());
+                }
+            }
+        }
     }
     void shoot()
     {
-        if ()
-        {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0);
-        }
-        else
-        {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, 0);
-        }
+        Player_move movement = GetComponent<Player_move>();
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponPistol);
         Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponPistol, Color.red, 100f);
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            if (enemy = null)
+            Debug.Log(hitInfo.transform.name);
+            if (enemy != null)
             {
                 enemy.TakeDamage(damageWeaponPistol);
+                Debug.Log("Hit");
+            }
+
+        }
+    }
+    void shootAssaultRifle()
+    {
+        Player_move movement = GetComponent<Player_move>();
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponAssaultRifle);
+        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponAssaultRifle, Color.red, 100f);
+        if (hitInfo)
+        {
+            Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
+            Debug.Log(hitInfo.transform.name);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageWeaponAssaultRifle);
+                Debug.Log("Hit");
+            }
+
+        }
+    }
+    void shootShotGun()
+    {
+        Player_move movement = GetComponent<Player_move>();
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponShotGun);
+        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponShotGun, Color.red, 100f);
+        if (hitInfo)
+        {
+            Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
+            Debug.Log(hitInfo.transform.name);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageWeaponShotGun);
+                Debug.Log("Hit");
+            }
+
+        }
+    }
+    void shootSabre()
+    {
+        Player_move movement = GetComponent<Player_move>();
+        RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.y, rangeWeaponSabre);
+        Debug.DrawRay(transform.position, Vector2.right * transform.localScale.y * rangeWeaponSabre, Color.red, 100f);
+        if (hitInfo)
+        {
+            Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
+            Debug.Log(hitInfo.transform.name);
+            if (enemy != null)
+            {
+                enemy.TakeDamage(damageWeaponSabre);
+                Debug.Log("Hit");
             }
 
         }
