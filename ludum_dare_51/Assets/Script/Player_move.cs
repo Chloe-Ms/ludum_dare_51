@@ -61,4 +61,8 @@ public class Player_move : MonoBehaviour
         }
         
     }
+
+    void ChangeSpeed()
+    {
+    }
 }
