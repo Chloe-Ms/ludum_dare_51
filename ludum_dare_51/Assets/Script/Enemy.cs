@@ -26,6 +26,8 @@ public class Enemy : MonoBehaviour
     void Die()
     {
         Destroy(gameObject);
+        Player_Weapons CurrentCharges = GameObject.Find("Square").GetComponent<Player_Weapons>();
+        CurrentCharges.CurrentCharge += 1;
     }
 }
 
