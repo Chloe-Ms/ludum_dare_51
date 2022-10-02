@@ -65,6 +65,7 @@ public class RoomManager : MonoBehaviour
         if (player != null)
         {
             player.transform.position = spawnPoint.position;
+            player.GetComponent<Player_move>().activeMoveSpeed = player.GetComponent<Player_move>().moveSpeed;
         }
     }
 
@@ -110,6 +111,7 @@ public class RoomManager : MonoBehaviour
     public void Clear(){
         floorTilemap.ClearAllTiles();
         teleporteurTilemap.ClearAllTiles();
+        eventManager.Clear();
     }
 
     public int GetRandomHeight (int min, int max){

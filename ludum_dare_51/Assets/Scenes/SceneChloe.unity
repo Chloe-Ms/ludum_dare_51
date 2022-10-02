@@ -874,12 +874,13 @@ MonoBehaviour:
   roomManager: {fileID: 1454156548}
   maxNumberTilesFrozen: 5
   minNumberTilesFrozen: 1
-  maxNumberTilesHole: 5
+  maxNumberTilesHole: 3
   minNumberTilesHole: 1
   holeTilemap: {fileID: 943010137}
   freezeTilemap: {fileID: 2140028690}
   holeTile: {fileID: 11400000, guid: 85e100aed5f83ad4eb818018b279b6d2, type: 2}
   freezeTile: {fileID: 11400000, guid: 39dac318853d4d644adc17eef5d9492d, type: 2}
+  nbTilesVidesParLigne: 1
 --- !u!4 &1069097757
 Transform:
   m_ObjectHideFlags: 0
