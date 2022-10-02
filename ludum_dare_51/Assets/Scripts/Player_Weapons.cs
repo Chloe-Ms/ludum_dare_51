@@ -153,7 +153,7 @@ public class Player_Weapons : MonoBehaviour
     }
     void shoot()
     {
-        if (Player_move.facingRight)
+        if ()
         {
             GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, 0);
@@ -168,8 +168,7 @@ public class Player_Weapons : MonoBehaviour
         if (hitInfo)
         {
             Enemy enemy = hitInfo.transform.GetComponent<Enemy>();
-            Destroy(bullet, 2f);
-            if (enemy != null)
+            if (enemy = null)
             {
                 enemy.TakeDamage(damageWeaponPistol);
             }
