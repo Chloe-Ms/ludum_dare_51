@@ -7,7 +7,6 @@ public class Player_move : MonoBehaviour
 
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
-    public SpriteRenderer monSprite;
 
     Vector2 movement;
 
@@ -35,12 +34,12 @@ public class Player_move : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            monSprite.flipX = true;
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            monSprite.flipX = false;
+            transform.eulerAngles = new Vector3(0f, 0f, 0f);
         }
             if (Input.GetKeyDown(KeyCode.Space))
         {

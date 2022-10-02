@@ -6,19 +6,27 @@ using UnityEngine.SceneManagement;
 public class Player_Life : MonoBehaviour
 {
     public int vie = 1;
-    [HideInInspector] public int vieMax = 1;
-    private Vector2 spawnPoint;
-
+    public int vieMax = 1;
+    public bool isDead;
 
     void Start()
     {
         vie = vieMax;
+        isDead = false;
+    }
+    private void Update()
+    {
+        if (isDead)
+        {
+            Time.timeScale = 0f;
+        }
     }
     void OnCollisionEnter2D(Collision2D truc)
     {
         if (truc.gameObject.tag == "Piege")
         {
             vie = 0;
+            isDead=true;    
         }
     }
 }
