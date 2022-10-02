@@ -16,6 +16,9 @@ public class AI_Kamikaze : MonoBehaviour
     [SerializeField]
     public int range_BoomBoom;
 
+    [SerializeField]
+    public GameObject explosion;
+
     GameObject[] enemis; 
 
 
@@ -36,9 +39,7 @@ public class AI_Kamikaze : MonoBehaviour
               transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
             } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
             {
-                
-                    Destroy(gameObject);
-                
+                Instantiate(explosion, transform.position, transform.rotation);
             }
         }
     }

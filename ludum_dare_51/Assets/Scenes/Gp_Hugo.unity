@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 165051669}
   - component: {fileID: 165051668}
   - component: {fileID: 165051670}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ GameObject:
   - component: {fileID: 238753318}
   - component: {fileID: 238753317}
   - component: {fileID: 238753319}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy_BoomBoom
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -331,6 +331,7 @@ MonoBehaviour:
   speed: 1
   range: 100
   range_BoomBoom: 1
+  explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
 --- !u!1 &323280191
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,7 +344,7 @@ GameObject:
   - component: {fileID: 323280192}
   - component: {fileID: 323280194}
   - component: {fileID: 323280195}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy_Brawler
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -460,7 +461,7 @@ GameObject:
   - component: {fileID: 435255246}
   - component: {fileID: 435255245}
   - component: {fileID: 435255244}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy_Gun
   m_TagString: Enemy
   m_Icon: {fileID: 0}
