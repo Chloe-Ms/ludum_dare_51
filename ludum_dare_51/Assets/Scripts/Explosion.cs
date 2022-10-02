@@ -8,21 +8,16 @@ public class Explosion : MonoBehaviour
 
     public int Door = 42; // 42 is the answer to life, the universe and everything
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
 
-    }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("deeznuts");
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.layer == 3 )
         {
             Destroy(collision.gameObject);
-            Destroy(gameObject);
         }
+
     }
     /*void OnCollisionStay2D(Collision2D other)
     {

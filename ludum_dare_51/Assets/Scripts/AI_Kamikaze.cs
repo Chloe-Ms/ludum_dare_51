@@ -39,7 +39,8 @@ public class AI_Kamikaze : MonoBehaviour
               transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
             } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
             {
-                Instantiate(explosion, transform.position, transform.rotation);
+                Instantiate(explosion, this.transform.position, this.transform.rotation);
+                Destroy(this.gameObject);
             }
         }
     }
