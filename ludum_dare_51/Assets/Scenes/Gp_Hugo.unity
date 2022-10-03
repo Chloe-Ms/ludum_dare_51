@@ -535,6 +535,10 @@ MonoBehaviour:
   speed: 2
   range: 100
   Distance: 2
+  Bullet: {fileID: 70127471241892514, guid: 4838b56e88898a84eaf150c5c6f48ce6, type: 3}
+  bulletSpeed: 2
+  shootDelay: 1
+  shoot_time: 0
 --- !u!4 &435255246
 Transform:
   m_ObjectHideFlags: 0
