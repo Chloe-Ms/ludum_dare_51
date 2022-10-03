@@ -179,9 +179,11 @@ public class RoomManager : MonoBehaviour
 
     public void CreateEnemies(){
         nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
-        int index = UnityEngine.Random.Range(0,enemies.Length);
-        Vector3 vec = GetRandomPosition();
-        enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+        for (int i = 0; i < nbEnemiesLeft; i++){
+            int index = UnityEngine.Random.Range(0,enemies.Length);
+            Vector3 vec = GetRandomPosition();
+            enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+        }
     } 
 
     public Vector3 GetRandomPosition(){
@@ -200,6 +202,8 @@ public class RoomManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
-         Debug.Log(enemiesInGame.Count);
+         if (enemiesInGame.Count == 0){
+            RoomCleared();
+         }
     }
 }
