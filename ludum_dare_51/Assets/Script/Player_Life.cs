@@ -8,6 +8,7 @@ public class Player_Life : MonoBehaviour
     public int vie = 1;
     public int vieMax = 1;
     public bool isDead;
+    public bool canTakeDamage = true;
 
     void Start()
     {

@@ -8,6 +8,8 @@ TagManager:
   - Weapon
   - Piege
   - Inventory
+  - Grenade
+  - Shield
   layers:
   - Default
   - TransparentFX

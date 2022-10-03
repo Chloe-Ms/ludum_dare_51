@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
+using static UnityEditor.Progress;
+
 
 public class Player_Weapons : MonoBehaviour
 {
@@ -11,6 +14,8 @@ public class Player_Weapons : MonoBehaviour
     
     [SerializeField] 
     private GameObject bulletPrefab;
+    private GameObject GrenadePrefab;
+    public GameObject Explosion;
     public float bulletSpeed = 20f;
 
     public GameObject currentWeapon;
@@ -43,7 +48,9 @@ public class Player_Weapons : MonoBehaviour
 
     public int Direction;
     private int Spread;
-        
+
+    private bool GrenadeActive;
+    private bool ShieldActive;
 
     private void Start()
     {
@@ -92,10 +99,132 @@ public class Player_Weapons : MonoBehaviour
         yield return new WaitForSeconds(5f);
         
     }
+    IEnumerator Shield()
+    {
+        Player_Life vie = GetComponent<Player_Life>();
+        Inventory inventory = GetComponent<Inventory>();
+        vie.canTakeDamage = false;
+        inventory.RemoveItem();
+        yield return new WaitForSeconds(5f);
+        vie.canTakeDamage =  true;
+    }
 
-    // Update is called once per frame
+    private IEnumerator Gren()
+    {
+        Player_move monSprite = GetComponent<Player_move>();
+        Inventory inventory = GetComponent<Inventory>();
+        GameObject[] Grenade;
+        Grenade = GameObject.FindGameObjectsWithTag("Grenade");
+
+        if (monSprite.facing == true)
+        {
+            Vector2 playerPos = new Vector2(inventory.player.position.x - 1 , inventory.player.position.y );
+            GameObject drop = Instantiate(inventory.item, playerPos, Quaternion.identity);
+            drop.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos1 = new Vector2(inventory.player.position.x - 2, inventory.player.position.y + 1);
+            GameObject drop1 = Instantiate(inventory.item, playerPos1, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos2 = new Vector2(inventory.player.position.x + 3, inventory.player.position.y + 1);
+            GameObject drop2 = Instantiate(inventory.item, playerPos2, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(false);
+            drop2.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos3 = new Vector2(inventory.player.position.x, inventory.player.position.y - 4);
+            GameObject drop3 = Instantiate(inventory.item, playerPos3, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(false);
+            drop2.SetActive(false);
+            drop3.SetActive(true);
+            inventory.RemoveItem();
+            yield return new WaitForSeconds(2f);
+            drop3.SetActive(false);
+
+
+
+
+            GameObject Explode = Instantiate(Explosion, playerPos3, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+            Destroy(Explode);
+            Destroy(drop);
+            Destroy(drop1);
+            Destroy(drop2);
+            Destroy(drop3);
+
+
+        }
+        else
+        {
+            Vector2 playerPos = new Vector2(inventory.player.position.x + 1, inventory.player.position.y);
+            GameObject drop = Instantiate(inventory.item, playerPos, Quaternion.identity);
+            drop.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos1 = new Vector2(inventory.player.position.x + 2, inventory.player.position.y + 1);
+            GameObject drop1 = Instantiate(inventory.item, playerPos1, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(true);
+            
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos2 = new Vector2(inventory.player.position.x + 3, inventory.player.position.y + 1);
+            GameObject drop2 = Instantiate(inventory.item, playerPos2, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(false);
+            drop2.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            Vector2 playerPos3 = new Vector2(inventory.player.position.x + 4, inventory.player.position.y);
+            GameObject drop3 = Instantiate(inventory.item, playerPos3, Quaternion.identity);
+            drop.SetActive(false);
+            drop1.SetActive(false);
+            drop2.SetActive(false);
+            drop3.SetActive(true);
+            inventory.RemoveItem();
+            yield return new WaitForSeconds(2f);
+            drop3.SetActive(false);
+
+
+
+
+            GameObject Explode = Instantiate(Explosion, playerPos3, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+            Destroy(Explode);
+            Destroy(drop);
+            Destroy(drop1);
+            Destroy(drop2);
+            Destroy(drop3);
+            
+        }
+        
+        
+    }
+
+        // Update is called once per frame
     void Update()
     {
+
+        Inventory inventory = GetComponent<Inventory>();
+        
+        GameObject[] Grenade;
+        Grenade = GameObject.FindGameObjectsWithTag("Grenade");
+        if (GrenadeActive)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                ShotGrenade();
+                GrenadeActive = false;
+            }
+            
+        }
+        else if (ShieldActive)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                UseShield();
+            }
+        }
+
 
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
 
@@ -147,7 +276,7 @@ public class Player_Weapons : MonoBehaviour
         }
         if (currentWeapon == weaponAssaultRifle && !isReloadingWeaponAssaultRifle)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (CurrentCharge > 0)
                 {
@@ -162,7 +291,7 @@ public class Player_Weapons : MonoBehaviour
         }
         if (currentWeapon == weaponShotGun && !isReloadingWeaponShotGun)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (CurrentCharge > 0)
                 {
@@ -176,6 +305,11 @@ public class Player_Weapons : MonoBehaviour
             }
         }
 
+    }
+
+    void ShotGrenade()
+    {
+        StartCoroutine(Gren());
     }
     void shoot()
     {
@@ -208,7 +342,6 @@ public class Player_Weapons : MonoBehaviour
             }
         }
     }
-
     void shootShotGun()
     {
         Spread = Random.Range(1, -2);
@@ -237,6 +370,22 @@ public class Player_Weapons : MonoBehaviour
             {
                 enemy.TakeDamage(damageWeaponShotGun);
             }
+        }
+    }
+    void UseShield()
+    {
+        StartCoroutine(Shield());
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Grenade")
+        {
+            GrenadeActive = true;
+        }
+        if (collision.gameObject.tag == "Shield")
+        {
+            ShieldActive = true;
         }
     }
 }

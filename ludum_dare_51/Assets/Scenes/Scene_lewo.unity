@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 421712124}
   - component: {fileID: 421712125}
   - component: {fileID: 421712126}
+  - component: {fileID: 421712127}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -700,6 +701,7 @@ MonoBehaviour:
   vie: 5
   vieMax: 1
   isDead: 0
+  canTakeDamage: 1
 --- !u!114 &421712125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +735,46 @@ MonoBehaviour:
   player: {fileID: 0}
   item: {fileID: 0}
   display: {fileID: 0}
+--- !u!114 &421712127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421712118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f1a150744da38545b6134a164140c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CurrentCharge: 3
+  bulletPrefab: {fileID: 70127471241892514, guid: 52026f587f95adb49b1637c2ffd86363, type: 3}
+  Explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
+  bulletSpeed: 20
+  currentWeapon: {fileID: 0}
+  PistolModel: {fileID: 0}
+  AssaultRifleModel: {fileID: 0}
+  ShotGunModel: {fileID: 0}
+  pistol: {fileID: 0}
+  damageWeaponPistol: 0
+  rangeWeaponPistol: 0
+  fireRateWeaponPistol: 0
+  impactForceWeaponPistol: 0
+  reloadTimeWeaponPistol: 0
+  isReloadingWeaponPistol: 0
+  weaponAssaultRifle: {fileID: 0}
+  damageWeaponAssaultRifle: 0
+  rangeWeaponAssaultRifle: 0
+  fireRateWeaponAssaultRifle: 0
+  reloadTimeWeaponAssaultRifle: 0
+  isReloadingWeaponAssaultRifle: 0
+  weaponShotGun: {fileID: 0}
+  damageWeaponShotGun: 0
+  rangeWeaponShotGun: 0
+  fireRateWeaponShotGun: 0
+  reloadTimeWeaponShotGun: 0
+  isReloadingWeaponShotGun: 0
+  Direction: 0
 --- !u!1 &503191120
 GameObject:
   m_ObjectHideFlags: 0
@@ -1357,7 +1399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828457250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.51, y: 3.74, z: 0}
+  m_LocalPosition: {x: -7.553799, y: 3.9690905, z: 0}
   m_LocalScale: {x: 2.5318, y: 2.5318, z: 2.5318}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3220,11 +3262,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5938804729850488241, guid: 16efc8e9a767b9c4496bd463276e5bfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.73
+      value: -6.6
       objectReference: {fileID: 0}
     - target: {fileID: 5938804729850488241, guid: 16efc8e9a767b9c4496bd463276e5bfa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.41
+      value: 0.62
       objectReference: {fileID: 0}
     - target: {fileID: 5938804729850488241, guid: 16efc8e9a767b9c4496bd463276e5bfa, type: 3}
       propertyPath: m_LocalPosition.z

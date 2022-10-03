@@ -32,8 +32,6 @@ public class AI_Gun : MonoBehaviour
     public float shoot_time;
 
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +50,7 @@ public class AI_Gun : MonoBehaviour
                 Vector2 direction = (Player.transform.position - bullet.transform.position).normalized;
                 Vector2 force = direction * bulletSpeed;
                 rb.velocity = force;
-                Debug.Log(rb.velocity);
+                //Debug.Log(rb.velocity);
                 shoot_time = 0;
 
                 //bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Player.transform.position.y + Spread);
@@ -67,13 +65,15 @@ public class AI_Gun : MonoBehaviour
     {
         foreach (GameObject Player in enemis)
         {
-            if (Vector3.Distance(transform.position, Player.transform.position) > Distance)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+            if (Player != null){
+                if (Vector3.Distance(transform.position, Player.transform.position) > Distance)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
 
-            } else{
-                shoot();
-            }
+                } else{
+                    shoot();
+                }
+            } 
         } 
     }
 }
