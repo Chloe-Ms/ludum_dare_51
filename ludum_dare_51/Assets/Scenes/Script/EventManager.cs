@@ -40,13 +40,13 @@ public class EventManager : MonoBehaviour
     void Start()
     {
         timer = waitTime;
-        timerText.text = timer + "";
+        //timerText.text = timer + "";
     }
 
 
     void Update()
     {
-        timerText.text = timer + "";
+        //timerText.text = timer + "";
         timer -= Time.deltaTime;
 
         if (timer < 0)
