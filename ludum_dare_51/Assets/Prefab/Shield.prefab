@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5938804729850488243}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: Shield
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,8 +96,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21e5c72c71c9b9246815ded3dbcb7a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemButton: {fileID: 336261497831041876, guid: 0ac06b02b4cc3804ca468391a0fd5b7e, type: 3}
-  item: {fileID: 5938804729850488255}
 --- !u!58 &5938804729850488243
 CircleCollider2D:
   m_ObjectHideFlags: 0
