@@ -5,6 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+enum TypeRoom{
+    Sol,
+    Cuisine,
+    Labo,
+    Machine
+}
+
 public class RoomManager : MonoBehaviour
 {
     private GameObject player;
@@ -14,8 +21,13 @@ public class RoomManager : MonoBehaviour
 
     [SerializeField] Tilemap floorTilemap;
     [SerializeField] Tilemap wallsTilemap;
-    [SerializeField] private TileBase floorTile;
+    [SerializeField] private TileBase[] floorTiles;
+    [SerializeField] private TileBase floorTile; //Boss floor tiles
     [SerializeField] private TileBase wallsTile;
+    public TileBase[] solWallsTiles;
+    public TileBase[] cuisineWallsTiles;
+    public TileBase[] laboWallsTiles;
+    public TileBase[] machineWallsTiles;
     public Transform spawnPoint;
 
     [SerializeField] private int maxHeight = 10;
@@ -38,6 +50,7 @@ public class RoomManager : MonoBehaviour
     private GameObject[] teleporter;
     [SerializeField]private List<GameObject> recompenses;
     private GameObject recompense = null;
+    private TypeRoom type;
 
     void Start()
     {
@@ -54,9 +67,16 @@ public class RoomManager : MonoBehaviour
             height = GetRandomHeight(minHeight,maxHeight);
             
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
+            type = (TypeRoom)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(TypeRoom)).Length);
             PaintFloorTiles(map);
             PaintWallsTiles();
-            MoveTeleport();
+            if (nbRoomsBeforeBoss > 0){
+                MoveTeleport();
+            } else {
+                for(int i = 0; i < teleporter.Length; i++){
+                    Destroy(teleporter[i]);
+                } 
+            }
             eventManager.createMap(width,height);
             CreateEnemies();
             nbRoomsBeforeBoss -= 1;
@@ -122,7 +142,11 @@ public class RoomManager : MonoBehaviour
     }
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions){
-        PaintTiles(floorPositions,floorTilemap,floorTile);
+        if (nbRoomsBeforeBoss > 0){
+            PaintTiles(floorPositions,floorTilemap,floorTiles[(int)type]);
+        } else {
+            PaintTiles(floorPositions,floorTilemap,floorTile);
+        }
     }
 
     public void PaintTiles(IEnumerable<Vector2Int> positions, Tilemap tilemap, TileBase tile){
@@ -237,6 +261,5 @@ public class RoomManager : MonoBehaviour
             int rec = UnityEngine.Random.Range(0,recompenses.Count);
             teleporter[i].transform.Find("Object").GetComponent<Door>().recompense = recompenses[rec];
         }
-        
     }
 }
