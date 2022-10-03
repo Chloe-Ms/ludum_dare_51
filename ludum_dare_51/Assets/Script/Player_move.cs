@@ -19,10 +19,27 @@ public class Player_move : MonoBehaviour
 
     public bool facing;
 
+    public Animator animController;
+    private string currentAnimaton;
+
+    const string PLAYER_IDLE = "Idle";
+    const string PLAYER_WALK = "Walk";
+    //const string PLAYER_DASH = "Dash";
+    const string PLAYER_ATTACK = "melee";
+    const string PLAYER_DEATH = "mort";
+
+    private bool ismooving = false;
+
+    private SpriteRenderer Sr;
+
+
     private void Start()
     {
         activeMoveSpeed = moveSpeed;
         canDash = true;
+        Sr = GetComponentInChildren<SpriteRenderer>();
+
+
     }
 
     void Update()
@@ -34,18 +51,35 @@ public class Player_move : MonoBehaviour
 
         rb.velocity = movement * activeMoveSpeed;
 
-        if (Input.GetAxis("Horizontal") < 0)
+        if (Input.GetAxis("Horizontal") < 0.1f)
         {
             facing = true;
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
+            Sr.flipX = false;
+            ismooving = true;
         }
 
-        if (Input.GetAxis("Horizontal") > 0)
+        if (Input.GetAxis("Horizontal") > 0.1f)
         {
             facing = false;
             transform.eulerAngles = new Vector3(0f, 0f, 0f);
+            ismooving = true;
+            Sr.flipX = true;
+
         }
-            if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetAxis("Horizontal") == -0.1f && Input.GetAxis("Vertical") == 0.1f)
+        {
+            ismooving = false;
+        }
+        if (ismooving)
+        {
+            ChangeAnimationState(PLAYER_WALK);
+        } else if (ismooving == false)
+        {
+            ChangeAnimationState(PLAYER_IDLE);
+        }
+    
+        if (Input.GetKeyDown(KeyCode.Space))
         {
 
             if (canDash)
@@ -84,5 +118,12 @@ public class Player_move : MonoBehaviour
                 activeMoveSpeed = moveSpeed;
             }
         }
+    }
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimaton == newAnimation) return;
+
+        animController.Play(newAnimation);
+        currentAnimaton = newAnimation;
     }
 }
