@@ -1032,7 +1032,7 @@ MonoBehaviour:
   freezeTile: {fileID: 11400000, guid: 39dac318853d4d644adc17eef5d9492d, type: 2}
   nbTilesVidesParLigne: 1
   timerDisplay: {fileID: 1377107201}
-  lightManager: {fileID: 0}
+  lightManager: {fileID: 772614054}
 --- !u!4 &735706510
 Transform:
   m_ObjectHideFlags: 0

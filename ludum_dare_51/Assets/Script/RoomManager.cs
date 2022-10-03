@@ -228,7 +228,7 @@ public class RoomManager : MonoBehaviour
 
     public void SpawnRecompense(){
         int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
-        Vector2 vec = new Vector2(spawnPoint.position.y,bottom + top /2f);
+        Vector2 vec = new Vector2(spawnPoint.position.x,bottom + top /2f);
         Instantiate(recompense,vec,Quaternion.identity);
     }
 
