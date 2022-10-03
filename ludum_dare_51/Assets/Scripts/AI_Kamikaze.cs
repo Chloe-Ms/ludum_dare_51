@@ -16,6 +16,9 @@ public class AI_Kamikaze : MonoBehaviour
     [SerializeField]
     public int range_BoomBoom;
 
+    [SerializeField]
+    public GameObject explosion;
+
     GameObject[] enemis; 
 
 
@@ -31,15 +34,28 @@ public class AI_Kamikaze : MonoBehaviour
     {
         foreach (GameObject Player in enemis)
         {
-            if (Vector3.Distance(transform.position, Player.transform.position) > range_BoomBoom)
-            {
-              transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
-            } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
-            {
-                
-                    Destroy(gameObject);
-                
+            if (Player != null){
+                if (Vector3.Distance(transform.position, Player.transform.position) > range_BoomBoom)
+                {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
+                } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
+                {
+                    StartCoroutine(wait());
+                }
             }
         }
+    }
+    private void boomBoom()
+    {
+        speed = speed /3 ;
+        Instantiate(explosion, this.transform.position, this.transform.rotation);
+        Enemy enemy = GetComponent<Enemy>();
+        enemy.Die();
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(2f);
+        boomBoom();
     }
 }

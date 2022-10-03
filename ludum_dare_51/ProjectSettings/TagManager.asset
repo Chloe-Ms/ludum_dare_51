@@ -8,11 +8,14 @@ TagManager:
   - Weapon
   - Piege
   - Inventory
+  - Grenade
+  - Shield
+  - Walls
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Action
   - Water
   - UI
   - 

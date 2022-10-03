@@ -44,14 +44,8 @@ public class AI_Brawler : MonoBehaviour
            
 
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
-            foreach (Collider2D truc in target)
-            {
-                if (truc.tag == "Player")
-                {
-                    truc.SendMessage("takeDamage", degats);
-                    Debug.Log("isoké");
-                }
-            }
+            StartCoroutine(wait());
+
         }
     }
     void OnDrawGizmos()
@@ -59,4 +53,22 @@ public class AI_Brawler : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere((Vector2)transform.position + attackPosition, attackRadius);
     }
+
+    private void  hit()
+    {
+        foreach (Collider2D truc in target)
+        {
+            if (truc.tag == "Player")
+            {
+                truc.gameObject.GetComponent<Player_Life>().Damage(1);
+            }
+        }
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(2f);
+        hit();
+    }
+
 }

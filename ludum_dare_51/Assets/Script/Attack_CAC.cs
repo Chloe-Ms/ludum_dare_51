@@ -9,7 +9,7 @@ public class Attack_CAC : MonoBehaviour
     private Vector2 attackPositionSave;
     public float attackRadius;
     public float reloadTime = 0.5f;
-    private bool reloading;
+    public bool reloading;
     private Collider2D[] target;
     public SpriteRenderer skin;
     private Renderer rend;
@@ -29,18 +29,17 @@ public class Attack_CAC : MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetButtonDown("Fire1") && !reloading)
         {
             rend.material.color = colorToTurnTo;
             degats = PlayerPrefs.GetInt("degatCAC");
             reloading = true;
-
-            if (!skin.flipX)
+            bool facing = GetComponent<Player_move>().facing;
+            if (!facing)
             {
                 attackPosition = (Vector2)transform.position + new Vector2(attackPositionSave.x, attackPositionSave.y);
-            }
-
-            if (skin.flipX)
+            } else 
             {
                 attackPosition = (Vector2)transform.position + new Vector2(-attackPositionSave.x, attackPositionSave.y);
             }
@@ -48,9 +47,9 @@ public class Attack_CAC : MonoBehaviour
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
             foreach (Collider2D truc in target)
             {
-                if (truc.tag == "Ennemi")
+                if (truc.tag == "Enemy")
                 {
-                    truc.SendMessage("takeDamage", degats);
+                    truc.gameObject.GetComponent<Enemy>().Die();
                 }
             }
             StartCoroutine(waitShoot());
