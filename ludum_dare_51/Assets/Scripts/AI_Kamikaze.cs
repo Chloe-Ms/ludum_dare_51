@@ -40,10 +40,22 @@ public class AI_Kamikaze : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
                 } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
                 {
-                    Instantiate(explosion, this.transform.position, this.transform.rotation);
-                    Destroy(this.gameObject);
+                    StartCoroutine(wait());
                 }
             }
         }
+    }
+    private void boomBoom()
+    {
+        speed = speed /3 ;
+        Instantiate(explosion, this.transform.position, this.transform.rotation);
+        Enemy enemy = GetComponent<Enemy>();
+        enemy.Die();
+    }
+
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(2f);
+        boomBoom();
     }
 }

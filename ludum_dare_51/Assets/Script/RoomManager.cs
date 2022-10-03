@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 public class RoomManager : MonoBehaviour
 {
     private GameObject player;
+    public int nbRoomsBeforeBoss = 9;
     [SerializeField] public bool roomCleared = false;
     [SerializeField] private EventManager eventManager;
 
@@ -33,9 +34,10 @@ public class RoomManager : MonoBehaviour
     public GameObject colliderD;
     [SerializeField] private GameObject[] enemies;
     private List<GameObject> enemiesInGame;
-    [SerializeField]
-    private GameObject Teleporter;
+    [SerializeField]private GameObject teleport;
     private GameObject[] teleporter;
+    [SerializeField]private List<GameObject> recompenses;
+    private GameObject recompense = null;
 
     void Start()
     {
@@ -43,8 +45,7 @@ public class RoomManager : MonoBehaviour
         enemiesInGame = new List<GameObject>();
         teleporter = new GameObject[4];
         AddTeleport();
-        LoadNewRoom();
-        
+        LoadNewRoom(); 
     }
 
     void LoadNewRoom()
@@ -58,7 +59,10 @@ public class RoomManager : MonoBehaviour
             MoveTeleport();
             eventManager.createMap(width,height);
             CreateEnemies();
+            nbRoomsBeforeBoss -= 1;
     }
+
+    
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
         HashSet<Vector2Int> path = new HashSet<Vector2Int>();
@@ -99,10 +103,11 @@ public class RoomManager : MonoBehaviour
     
     }
 
-    public void ChangeRoom()
+    public void ChangeRoom(GameObject rec)
     {
         Clear();
         roomCleared = false;
+        recompense = rec;
         LoadNewRoom();
         if (player != null)
         {
@@ -128,11 +133,11 @@ public class RoomManager : MonoBehaviour
     }
 
     private void AddTeleport(){
-        teleporter[0] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Droite-bas
-        teleporter[1] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//droite-haut
-        teleporter[2] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Gauche-bas
-        teleporter[3] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//Gauche-haut
-        
+        teleporter[0] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity); //Droite-bas
+        teleporter[1] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity);//droite-haut
+        teleporter[2] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity); //Gauche-bas
+        teleporter[3] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity);//Gauche-haut
+        ChooseRecompenses();
     }
 
     public void MoveTeleport(){
@@ -143,7 +148,8 @@ public class RoomManager : MonoBehaviour
         teleporter[0].transform.position = new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1);
         teleporter[1].transform.position = new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH));
         teleporter[2].transform.position = new Vector2(-diffWallSpawnW,spawnPoint.position.y-1);
-        teleporter[3].transform.position = new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH));
+        teleporter[3].transform.position = new Vector2(-diffWallSpawnW,Mathf.Floor( center + diffWallSpawnH));
+        ChooseRecompenses();
     }
     
 
@@ -172,13 +178,25 @@ public class RoomManager : MonoBehaviour
 
     public void RoomCleared(){
         roomCleared = true;
+        SpawnRecompense();
     }
 
     public void CreateEnemies(){
-        nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
-        for (int i = 0; i < nbEnemiesLeft; i++){
-            int index = UnityEngine.Random.Range(0,enemies.Length);
+        if (nbRoomsBeforeBoss > 0){
+            nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+            for (int i = 0; i < nbEnemiesLeft; i++){
+                int index = UnityEngine.Random.Range(1,enemies.Length);
+                Vector3 vec = GetRandomPosition();
+                enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+            }
+        } else {
             Vector3 vec = GetRandomPosition();
+            vec.x = 0f;
+            enemiesInGame.Add(Instantiate(enemies[0],vec,Quaternion.identity));//Boss
+
+            int index = UnityEngine.Random.Range(1,enemies.Length); //Le gars qui pilote
+            vec.x = 0f;
+            vec.y = spawnPoint.position.y + height - 2;
             enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
         }
     } 
@@ -192,15 +210,32 @@ public class RoomManager : MonoBehaviour
         do {
             x = UnityEngine.Random.Range( (float)left, (float) right);
             y = UnityEngine.Random.Range( (float)bottom, (float) top);
-        } while (Mathf.Abs(playerPos.x - x) < 1f && Mathf.Abs(playerPos.y - y) < 1f );
+        } while (Mathf.Abs(playerPos.x - x) < 1.5f && Mathf.Abs(playerPos.y - y) < 1.5f );
         
         return new Vector3(x,y,0f);
     }
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
+        Debug.Log(enemiesInGame.Count);
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
+         Destroy(obj);
+    }
+
+    public void SpawnRecompense(){
+        int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
+        Vector2 vec = new Vector2(spawnPoint.position.y,bottom + top /2f);
+        Instantiate(recompense,vec,Quaternion.identity);
+    }
+
+    public void ChooseRecompenses(){
+        
+        for(int i = 0; i < teleporter.Length; i++){
+            int rec = UnityEngine.Random.Range(0,recompenses.Count);
+            teleporter[i].transform.Find("Object").GetComponent<Door>().recompense = recompenses[rec];
+        }
+        
     }
 }

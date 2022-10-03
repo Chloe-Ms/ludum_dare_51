@@ -101,7 +101,7 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
-  attackRadius: 0
+  attackRadius: 1
   degats: 2
   attackPosition: {x: 0, y: 0}
 --- !u!114 &106613087478613616
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6803bb1f65f424ebafb7a7abb542c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomManager: {fileID: 0}
   enemy: {fileID: 106613087478613618}
   health: 100
 --- !u!58 &106613087478613619
@@ -128,7 +129,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

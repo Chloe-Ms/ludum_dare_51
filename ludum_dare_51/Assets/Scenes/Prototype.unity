@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbRoomsBeforeBoss: 9
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -252,10 +253,17 @@ MonoBehaviour:
   colliderU: {fileID: 463696695}
   colliderD: {fileID: 1385516812}
   enemies:
+  - {fileID: 7103832088553496706, guid: 2dfffcc92ccd3a14298000054690c933, type: 3}
   - {fileID: 9068967520523776985, guid: 7cee549868038f44ca160988662dfa72, type: 3}
   - {fileID: 106613087478613618, guid: 0343e9cd2edcdc348922461fbdfbc523, type: 3}
   - {fileID: 7432993418386057611, guid: c62b0d4ce6bfc4a49b37829a57a8c5c8, type: 3}
-  Teleporter: {fileID: 7601091693362196486, guid: b3ecfce0690490445a1e256aec80bbfd, type: 3}
+  teleport: {fileID: 7601091693362196486, guid: b3ecfce0690490445a1e256aec80bbfd, type: 3}
+  recompenses:
+  - {fileID: 2494198221878611543, guid: f02c8a84ce04cdd498a49de281a07b9b, type: 3}
+  - {fileID: 5938804729850488255, guid: 16efc8e9a767b9c4496bd463276e5bfa, type: 3}
+  - {fileID: 5430510854373031473, guid: d7e5b2d3c264eda47b1b86aff09f42f7, type: 3}
+  - {fileID: 5318763871367095949, guid: 320d12b4336e3aa4e8512ef9f433733c, type: 3}
+  - {fileID: 7907570687099529658, guid: 3a9378fbb408fbb45a6a45ea1dba9312, type: 3}
 --- !u!4 &381368365
 Transform:
   m_ObjectHideFlags: 0
@@ -920,6 +928,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4974547620461486476, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: dashSpeed
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Color.b
       value: 0.78679246
@@ -931,10 +943,6 @@ PrefabInstance:
     - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Color.r
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
-      propertyPath: m_SortingOrder
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486478, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_RootOrder
@@ -1892,6 +1900,22 @@ MonoBehaviour:
   reloadTimeWeaponShotGun: 0
   isReloadingWeaponShotGun: 0
   Direction: 0
+--- !u!70 &1129879211
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1129879209}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.07, y: 0}
+  m_Size: {x: 0.1, y: 0.45}
+  m_Direction: 0
 --- !u!114 &1129879212 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4974547620461486472, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
@@ -2374,7 +2398,7 @@ GameObject:
   - component: {fileID: 1349751805}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Walls
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

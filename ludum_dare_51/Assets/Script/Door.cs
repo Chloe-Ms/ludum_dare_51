@@ -5,6 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     private RoomManager manager;
+    public GameObject recompense;
 
     void Start(){
         GameObject go = GameObject.Find("RoomManager"); //Get the room manager to call its function
@@ -14,7 +15,7 @@ public class Door : MonoBehaviour
     {
         if (collider.gameObject.tag == "Player" && manager.IsRoomCleared())
         {
-            manager.ChangeRoom();
+            manager.ChangeRoom(recompense);
         }
     }
 }
