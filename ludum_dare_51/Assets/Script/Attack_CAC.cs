@@ -9,7 +9,7 @@ public class Attack_CAC : MonoBehaviour
     private Vector2 attackPositionSave;
     public float attackRadius;
     public float reloadTime = 0.5f;
-    private bool reloading;
+    public bool reloading;
     private Collider2D[] target;
     public SpriteRenderer skin;
     private Renderer rend;
@@ -29,6 +29,7 @@ public class Attack_CAC : MonoBehaviour
 
     void Update()
     {
+        
         if (Input.GetButtonDown("Fire1") && !reloading)
         {
             rend.material.color = colorToTurnTo;
