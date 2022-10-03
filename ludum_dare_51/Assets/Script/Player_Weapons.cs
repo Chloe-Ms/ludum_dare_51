@@ -276,7 +276,7 @@ public class Player_Weapons : MonoBehaviour
         }
         if (currentWeapon == weaponAssaultRifle && !isReloadingWeaponAssaultRifle)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (CurrentCharge > 0)
                 {
@@ -291,7 +291,7 @@ public class Player_Weapons : MonoBehaviour
         }
         if (currentWeapon == weaponShotGun && !isReloadingWeaponShotGun)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (CurrentCharge > 0)
                 {
