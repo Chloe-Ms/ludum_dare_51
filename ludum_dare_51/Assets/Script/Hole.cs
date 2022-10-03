@@ -11,6 +11,7 @@ public class Hole : MonoBehaviour
             collider.gameObject.GetComponent<Player_Life>().Damage(1);
         }
         if (collider.gameObject.tag == "Enemy"){
+            GameObject.Find("RoomManager").GetComponent<RoomManager>().RemoveEnemy(collider.gameObject);
             Destroy(collider.gameObject);
         }
     }
@@ -22,6 +23,7 @@ public class Hole : MonoBehaviour
             collider.gameObject.GetComponent<Player_Life>().Damage(1);
         }
         if (collider.gameObject.tag == "Enemy"){
+            GameObject.Find("RoomManager").GetComponent<RoomManager>().RemoveEnemy(collider.gameObject);
             Destroy(collider.gameObject);
         }
     }
