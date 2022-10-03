@@ -178,7 +178,9 @@ public class RoomManager : MonoBehaviour
 
     public void RoomCleared(){
         roomCleared = true;
-        SpawnRecompense();
+        if (recompense != null){
+            SpawnRecompense();
+        }
     }
 
     public void CreateEnemies(){
