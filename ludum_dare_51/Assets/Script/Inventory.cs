@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private GameObject item;
+    [SerializeField] public Transform player;
+    [SerializeField] public GameObject item;
     [SerializeField] private InventoryDisplay display;
 
-
+    
     private void Start()
     {
         player = transform;
@@ -19,12 +19,14 @@ public class Inventory : MonoBehaviour
     {
         Vector2 playerPos = new Vector2(player.position.x, player.position.y + 1 );
         GameObject drop = Instantiate(item, playerPos, Quaternion.identity);
+        
         drop.SetActive(true);
         RemoveItem();
     }
 
     public void RemoveItem()
     {
+        display.HideIcon();
         GameObject.Destroy(item);
         item = null;
     }

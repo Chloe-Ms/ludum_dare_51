@@ -9,12 +9,16 @@ public class InventoryDisplay : MonoBehaviour
 
     private void Start() 
     {
-        itemIcon.color = new Color(1,1,1,0);
+        HideIcon();
     }
 
     public void SetItemIcon(Sprite icon)
     {
         itemIcon.color = Color.white;
         itemIcon.sprite = icon;
+    }
+    public void HideIcon()
+    {
+        itemIcon.color = new Color(1, 1, 1, 0);
     }
 }
