@@ -88,10 +88,10 @@ public class RoomManager : MonoBehaviour
             path.Add(positionToAdd);
         }
         PaintTiles(path,wallsTilemap,wallsTile);
-        colliderL.transform.position = new Vector2((int)-1 -diffWallSpawn,colliderL.transform.position.y);
-        colliderR.transform.position = new Vector2((int)(width + 1 - diffWallSpawn),colliderR.transform.position.y);
-        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 2);
-        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height);
+        colliderL.transform.position = new Vector2(-diffWallSpawn,colliderL.transform.position.y); //Gauche
+        colliderR.transform.position = new Vector2((int)(width - diffWallSpawn),colliderR.transform.position.y); //Droite
+        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 1); //Bas
+        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height -1); //Haut
     
     }
 
