@@ -8,11 +8,13 @@ public class Cinematic : MonoBehaviour
 {
 
     public string level_1;
+    public string Menu;
     public Image spriteRenderer;
     public Sprite newSprite;
     public Sprite newSprite2;
     public Sprite newSprite3;
     private int count;
+    public int number;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +26,25 @@ public class Cinematic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        if(number == 434) {
+            ChangeScene();
+        }
+        else {
+            Debug.Log("ça marche pas");
+        }
+        
         if(Input.GetButtonUp("Jump"))
         {
             ChangeSprite();
         }
+    }
+
+    IEnumerator ChangeScene()
+    {
+        Debug.Log("Changement de scène !");
+        yield return new WaitForSeconds(3.5f);
+        SceneManager.LoadScene(Menu);
     }
 
     
