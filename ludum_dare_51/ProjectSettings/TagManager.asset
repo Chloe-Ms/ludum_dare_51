@@ -11,6 +11,7 @@ TagManager:
   - Grenade
   - Shield
   - Walls
+  - Projectile
   layers:
   - Default
   - TransparentFX

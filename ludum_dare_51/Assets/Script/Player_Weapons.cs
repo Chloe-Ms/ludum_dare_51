@@ -267,7 +267,7 @@ public class Player_Weapons : MonoBehaviour
 
         if (currentWeapon == pistol && !isReloadingWeaponPistol)
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (CurrentCharge > 0)
                 {
