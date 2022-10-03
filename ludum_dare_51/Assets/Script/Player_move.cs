@@ -63,13 +63,17 @@ public class Player_move : MonoBehaviour
             yield return new WaitForSeconds(dashCooldown);
             canDash = true; 
         }
-        
     }
 
     public void SetSpeed(float newSpeed)
     {
+
         if (canDash){ //Si il est pas en train de dasher
-            activeMoveSpeed = newSpeed;
+            if (activeMoveSpeed == moveSpeed && newSpeed > 0){
+                activeMoveSpeed = moveSpeed + newSpeed;
+            } else if (activeMoveSpeed == moveSpeed - newSpeed && newSpeed < 0){
+                activeMoveSpeed = moveSpeed;
+            }
         }
     }
 }
