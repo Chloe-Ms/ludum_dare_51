@@ -215,5 +215,6 @@ public class RoomManager : MonoBehaviour
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
+         Destroy(obj);
     }
 }
