@@ -12,10 +12,14 @@ public class Explosion : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("deeznuts");
+
+        if (collision.gameObject.tag == "Player"){
+            collision.gameObject.GetComponent<Player_Life>().Damage(1);
+        }
         if (collision.gameObject.layer == 3 )
         {
             Destroy(collision.gameObject);
+
         }
 
     }
@@ -33,7 +37,7 @@ public class Explosion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Door = Door;
+        //Door = Door;
       
     }
 }

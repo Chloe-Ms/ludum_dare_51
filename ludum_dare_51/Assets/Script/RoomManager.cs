@@ -128,4 +128,38 @@ public class RoomManager : MonoBehaviour
         return var;
     }
 
+    public void RoomCleared(){
+        roomCleared = true;
+        PaintTeleportTiles(true);
+    }
+
+    public void CreateEnemies(){
+        nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+        for (int i = 0; i < nbEnemiesLeft; i++){
+            int index = UnityEngine.Random.Range(0,enemies.Length);
+            Vector3 vec = GetRandomPosition();
+            enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+        }
+    } 
+
+    public Vector3 GetRandomPosition(){
+        int diffWallSpawn = (int) (width/2f);
+        int left = - diffWallSpawn, right = width - diffWallSpawn;
+        int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
+        Vector2 playerPos = player.transform.position;
+        float x,y; 
+        do {
+            x = UnityEngine.Random.Range( (float)left, (float) right);
+            y = UnityEngine.Random.Range( (float)bottom, (float) top);
+        } while (Mathf.Abs(playerPos.x - x) < 1f && Mathf.Abs(playerPos.y - y) < 1f );
+        
+        return new Vector3(x,y,0f);
+    }
+
+    public void RemoveEnemy(GameObject obj){
+         enemiesInGame.Remove(obj);
+         if (enemiesInGame.Count == 0){
+            RoomCleared();
+         }
+    }
 }
