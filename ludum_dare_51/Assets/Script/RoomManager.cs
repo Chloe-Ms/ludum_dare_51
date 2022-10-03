@@ -13,11 +13,8 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private EventManager eventManager;
 
     [SerializeField] Tilemap floorTilemap;
-    [SerializeField] Tilemap teleporteurTilemap;
     [SerializeField] Tilemap wallsTilemap;
     [SerializeField] private TileBase floorTile;
-    [SerializeField] private TileBase teleportTileOpen;
-    [SerializeField] private TileBase teleportTileClose;
     [SerializeField] private TileBase wallsTile;
     public Transform spawnPoint;
 
@@ -37,6 +34,8 @@ public class RoomManager : MonoBehaviour
     public GameObject colliderD;
     [SerializeField] private GameObject[] enemies;
     private List<GameObject> enemiesInGame;
+    [SerializeField]
+    private GameObject Teleporter;
 
     void Start()
     {
@@ -52,10 +51,11 @@ public class RoomManager : MonoBehaviour
             
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
             PaintFloorTiles(map);
-            PaintTeleportTiles(false);
+            AddTeleport();
             PaintWallsTiles();
             eventManager.createMap(width,height);
             CreateEnemies();
+            
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -129,29 +129,36 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-    private void PaintTeleportTiles(bool open){
-        HashSet<Vector2Int> path = new HashSet<Vector2Int>();
+    private void AddTeleport(){
+        // HashSet<Vector2Int> path = new HashSet<Vector2Int>();
+        // int diffWallSpawnW = (int) (width/2f);
+        // float diffWallSpawnH = height/2f;
+        // float center = spawnPoint.position.y + (height/2f)-3/2f;
+        // path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1)));
+        // path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH))));
+        // path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,spawnPoint.position.y-1)));
+        // path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH))));
+
+        // teleporteurTilemap.ClearAllTiles();
+        // if (open){
+        //     PaintTiles(path,teleporteurTilemap,teleportTileOpen);
+        // } else {
+        //     PaintTiles(path,teleporteurTilemap,teleportTileClose);
+        // }
         int diffWallSpawnW = (int) (width/2f);
         float diffWallSpawnH = height/2f;
         float center = spawnPoint.position.y + (height/2f)-3/2f;
-        path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1)));
-        path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH))));
-        path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,spawnPoint.position.y-1)));
-        path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH))));
+        Instantiate(Teleporter,new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1),Quaternion.identity);
+        Instantiate(Teleporter,new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH)),Quaternion.identity);
+        Instantiate(Teleporter,new Vector2(-diffWallSpawnW,spawnPoint.position.y-1),Quaternion.identity);
+        Instantiate(Teleporter,new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH)),Quaternion.identity);
 
-        teleporteurTilemap.ClearAllTiles();
-        if (open){
-            PaintTiles(path,teleporteurTilemap,teleportTileOpen);
-        } else {
-            PaintTiles(path,teleporteurTilemap,teleportTileClose);
-        }
     }
     
 
     public void Clear(){
         floorTilemap.ClearAllTiles();
         wallsTilemap.ClearAllTiles();
-        teleporteurTilemap.ClearAllTiles();
         eventManager.Clear();
         enemiesInGame.Clear();
     }
@@ -174,7 +181,6 @@ public class RoomManager : MonoBehaviour
 
     public void RoomCleared(){
         roomCleared = true;
-        PaintTeleportTiles(true);
     }
 
     public void CreateEnemies(){
