@@ -1031,6 +1031,8 @@ MonoBehaviour:
   holeTile: {fileID: 11400000, guid: 85e100aed5f83ad4eb818018b279b6d2, type: 2}
   freezeTile: {fileID: 11400000, guid: 39dac318853d4d644adc17eef5d9492d, type: 2}
   nbTilesVidesParLigne: 1
+  timerDisplay: {fileID: 1377107201}
+  lightManager: {fileID: 0}
 --- !u!4 &735706510
 Transform:
   m_ObjectHideFlags: 0
@@ -1055,6 +1057,7 @@ GameObject:
   m_Component:
   - component: {fileID: 772614053}
   - component: {fileID: 772614052}
+  - component: {fileID: 772614054}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -1117,6 +1120,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &772614054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 772614051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf5e4fc29f95237458fec383419fb857, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lerpSpeed: 1
+  globalLight: {fileID: 772614052}
 --- !u!1 &776368456
 GameObject:
   m_ObjectHideFlags: 0
@@ -2704,6 +2721,17 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1377107201 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9220306428772038324, guid: 215c7ab0f7810cf4c8f3c7faa036dc6e, type: 3}
+  m_PrefabInstance: {fileID: 666817137}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d1dd81462e540d4eaf420779ddb2775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1385516812
 GameObject:
   m_ObjectHideFlags: 0
