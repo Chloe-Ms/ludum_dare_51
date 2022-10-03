@@ -28,18 +28,21 @@ public class RoomManager : MonoBehaviour
     [HideInInspector] public int height;
     [HideInInspector] public int width;
 
-    [SerializeField] private int nbEnemyMax = 10;
+    [SerializeField] private int nbEnemyMax = 8;
     [SerializeField] private int nbEnemyMin = 2;
     public int nbEnemiesLeft;
     public GameObject colliderR;
     public GameObject colliderL;
     public GameObject colliderU;
     public GameObject colliderD;
+    [SerializeField] private GameObject[] enemies;
+    private List<GameObject> enemiesInGame;
 
     void Start()
     {
-        LoadNewRoom();
         player = GameObject.FindWithTag("Player");
+        enemiesInGame = new List<GameObject>();
+        LoadNewRoom();
     }
 
     void LoadNewRoom()
@@ -53,7 +56,6 @@ public class RoomManager : MonoBehaviour
             PaintWallsTiles();
             eventManager.createMap(width,height);
             CreateEnemies();
-
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -151,6 +153,7 @@ public class RoomManager : MonoBehaviour
         wallsTilemap.ClearAllTiles();
         teleporteurTilemap.ClearAllTiles();
         eventManager.Clear();
+        enemiesInGame.Clear();
     }
 
     public int GetRandomHeight (int min, int max){
@@ -176,7 +179,31 @@ public class RoomManager : MonoBehaviour
 
     public void CreateEnemies(){
         nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+        for (int i = 0; i < nbEnemiesLeft; i++){
+            int index = UnityEngine.Random.Range(0,enemies.Length);
+            Vector3 vec = GetRandomPosition();
+            enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+        }
+    } 
+
+    public Vector3 GetRandomPosition(){
+        int diffWallSpawn = (int) (width/2f);
+        int left = - diffWallSpawn, right = width - diffWallSpawn;
+        int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
+        Vector2 playerPos = player.transform.position;
+        float x,y; 
+        do {
+            x = UnityEngine.Random.Range( (float)left, (float) right);
+            y = UnityEngine.Random.Range( (float)bottom, (float) top);
+        } while (Mathf.Abs(playerPos.x - x) < 1f && Mathf.Abs(playerPos.y - y) < 1f );
+        
+        return new Vector3(x,y,0f);
     }
 
-    
+    public void RemoveEnemy(GameObject obj){
+         enemiesInGame.Remove(obj);
+         if (enemiesInGame.Count == 0){
+            RoomCleared();
+         }
+    }
 }
