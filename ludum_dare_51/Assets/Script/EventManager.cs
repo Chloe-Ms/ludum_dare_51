@@ -37,6 +37,8 @@ public class EventManager : MonoBehaviour
     private RoomModificationType[,] mapMod;
     private bool enoughPlacesHole = true;
 
+    [SerializeField] private TimerDisplay timerDisplay;
+
     void Start()
     {
         timer = waitTime;
@@ -46,6 +48,7 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
+        timerDisplay.SetTime(timer);
 
         if (timer < 0)
         {
