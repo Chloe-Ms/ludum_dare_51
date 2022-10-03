@@ -179,8 +179,10 @@ public class EventManager : MonoBehaviour
         return res;
     }
 
-    public void Clear(){
+    public void Clear()
+    {
         holeTilemap.ClearAllTiles();
         freezeTilemap.ClearAllTiles();
+        //Door
     }
 }
