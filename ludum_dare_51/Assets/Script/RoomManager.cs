@@ -212,6 +212,7 @@ public class RoomManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
+        Debug.Log(enemiesInGame.Count);
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
