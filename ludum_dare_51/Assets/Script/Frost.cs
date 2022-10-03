@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Frost : MonoBehaviour
 {
-    [SerializeField] private float speedMultiplier = 4f;
+    [SerializeField] private float speedMultiplier = 2f;
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
         {
             float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
-            collider.gameObject.GetComponent<Player_move>().SetSpeed(speedMultiplier);
+            collider.gameObject.GetComponent<Player_move>().SetSpeed(speed * speedMultiplier);
         }
     }
 
@@ -19,7 +19,7 @@ public class Frost : MonoBehaviour
         if (collider.gameObject.tag == "Player")
         {
             float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
-            collider.gameObject.GetComponent<Player_move>().SetSpeed(-speedMultiplier);
+            collider.gameObject.GetComponent<Player_move>().SetSpeed(speed / speedMultiplier);
         }
     }
 }

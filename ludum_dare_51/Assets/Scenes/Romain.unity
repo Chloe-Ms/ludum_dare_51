@@ -229,7 +229,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233282069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.105302, y: 1.6166428, z: -21.860579}
+  m_LocalPosition: {x: 6.105302, y: 1.6166428, z: -21.86058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 952885554}
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1a150744da38545b6134a164140c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentCharge: 3
+  CurrentCharge: 1000
   bulletPrefab: {fileID: 70127471241892514, guid: 52026f587f95adb49b1637c2ffd86363, type: 3}
   bulletSpeed: 20
   currentWeapon: {fileID: 0}
@@ -523,7 +523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746053249}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.34, y: 1.84, z: 0}
+  m_LocalPosition: {x: 7.64, y: 2.13, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -839,9 +839,6 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
-  attackRadius: 0
-  degats: 2
-  attackPosition: {x: 0, y: 0}
 --- !u!212 &1163812718
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1057,10 +1054,6 @@ MonoBehaviour:
   speed: 2
   range: 100
   Distance: 2
-  Bullet: {fileID: 70127471241892514, guid: 80134296a23de9d4ab476d266b9f0e75, type: 3}
-  bulletSpeed: 0
-  shootDelay: 0
-  shoot_time: 0
 --- !u!58 &1993140499
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1180,7 +1173,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067377133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.98, y: -2.97, z: 0}
+  m_LocalPosition: {x: -6.83, y: -0.47, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1420,7 +1413,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2133388819}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.98, y: 1.84, z: 0}
+  m_LocalPosition: {x: -4.22, y: -2.34, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

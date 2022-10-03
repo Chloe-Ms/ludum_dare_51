@@ -32,8 +32,6 @@ public class AI_Gun : MonoBehaviour
     public float shoot_time;
 
 
-
-
     // Start is called before the first frame update
     void Start()
     {
