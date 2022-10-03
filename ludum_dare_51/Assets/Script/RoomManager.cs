@@ -34,9 +34,10 @@ public class RoomManager : MonoBehaviour
     public GameObject colliderD;
     [SerializeField] private GameObject[] enemies;
     private List<GameObject> enemiesInGame;
-    [SerializeField]
-    private GameObject Teleporter;
+    [SerializeField]private GameObject teleport;
     private GameObject[] teleporter;
+    [SerializeField]private List<GameObject> recompenses;
+    private GameObject recompense = null;
 
     void Start()
     {
@@ -44,8 +45,7 @@ public class RoomManager : MonoBehaviour
         enemiesInGame = new List<GameObject>();
         teleporter = new GameObject[4];
         AddTeleport();
-        LoadNewRoom();
-        
+        LoadNewRoom(); 
     }
 
     void LoadNewRoom()
@@ -61,6 +61,8 @@ public class RoomManager : MonoBehaviour
             CreateEnemies();
             nbRoomsBeforeBoss -= 1;
     }
+
+    
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
         HashSet<Vector2Int> path = new HashSet<Vector2Int>();
@@ -101,10 +103,11 @@ public class RoomManager : MonoBehaviour
     
     }
 
-    public void ChangeRoom()
+    public void ChangeRoom(GameObject rec)
     {
         Clear();
         roomCleared = false;
+        recompense = rec;
         LoadNewRoom();
         if (player != null)
         {
@@ -130,11 +133,11 @@ public class RoomManager : MonoBehaviour
     }
 
     private void AddTeleport(){
-        teleporter[0] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Droite-bas
-        teleporter[1] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//droite-haut
-        teleporter[2] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Gauche-bas
-        teleporter[3] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//Gauche-haut
-        
+        teleporter[0] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity); //Droite-bas
+        teleporter[1] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity);//droite-haut
+        teleporter[2] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity); //Gauche-bas
+        teleporter[3] = Instantiate(teleport,new Vector2(0,0),Quaternion.identity);//Gauche-haut
+        ChooseRecompenses();
     }
 
     public void MoveTeleport(){
@@ -145,7 +148,8 @@ public class RoomManager : MonoBehaviour
         teleporter[0].transform.position = new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1);
         teleporter[1].transform.position = new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH));
         teleporter[2].transform.position = new Vector2(-diffWallSpawnW,spawnPoint.position.y-1);
-        teleporter[3].transform.position = new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH));
+        teleporter[3].transform.position = new Vector2(-diffWallSpawnW,Mathf.Floor( center + diffWallSpawnH));
+        ChooseRecompenses();
     }
     
 
@@ -174,6 +178,9 @@ public class RoomManager : MonoBehaviour
 
     public void RoomCleared(){
         roomCleared = true;
+        if (recompense != null){
+            SpawnRecompense();
+        }
     }
 
     public void CreateEnemies(){
@@ -212,10 +219,24 @@ public class RoomManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
-        Debug.Log(enemiesInGame.Count);
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
          Destroy(obj);
+    }
+
+    public void SpawnRecompense(){
+        int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
+        Vector2 vec = new Vector2(spawnPoint.position.x,bottom + top /2f);
+        Instantiate(recompense,vec,Quaternion.identity);
+    }
+
+    public void ChooseRecompenses(){
+        
+        for(int i = 0; i < teleporter.Length; i++){
+            int rec = UnityEngine.Random.Range(0,recompenses.Count);
+            teleporter[i].transform.Find("Object").GetComponent<Door>().recompense = recompenses[rec];
+        }
+        
     }
 }

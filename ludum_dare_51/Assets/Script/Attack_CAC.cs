@@ -13,7 +13,6 @@ public class Attack_CAC : MonoBehaviour
     private Collider2D[] target;
     public SpriteRenderer skin;
     private Renderer rend;
-    [SerializeField]private Color colorToTurnTo = Color.white;
 
     void Start()
     {
@@ -32,7 +31,6 @@ public class Attack_CAC : MonoBehaviour
         
         if (Input.GetButtonDown("Fire1") && !reloading)
         {
-            rend.material.color = colorToTurnTo;
             degats = PlayerPrefs.GetInt("degatCAC");
             reloading = true;
             bool facing = GetComponent<Player_move>().facing;
@@ -59,9 +57,6 @@ public class Attack_CAC : MonoBehaviour
     IEnumerator waitShoot()
     {
         yield return new WaitForSeconds(reloadTime);
-        colorToTurnTo = Color.white;
-        rend.material.color = colorToTurnTo;
-        colorToTurnTo = Color.red;
         reloading = false;                           
     }
 
