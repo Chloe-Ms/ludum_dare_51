@@ -293,7 +293,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentCharge: 1000
-  bulletPrefab: {fileID: 70127471241892514, guid: 52026f587f95adb49b1637c2ffd86363, type: 3}
+  bulletPrefab: {fileID: 70127471241892514, guid: 1c58ed7ee92ee974c8ae076c2bb1cc32, type: 3}
+  Explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
   bulletSpeed: 20
   currentWeapon: {fileID: 0}
   PistolModel: {fileID: 952885553}
@@ -354,6 +355,7 @@ MonoBehaviour:
   vie: 5
   vieMax: 0
   isDead: 0
+  canTakeDamage: 1
 --- !u!212 &369650716
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -839,6 +841,9 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
+  attackRadius: 0
+  degats: 2
+  attackPosition: {x: 0, y: 0}
 --- !u!212 &1163812718
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1054,6 +1059,10 @@ MonoBehaviour:
   speed: 2
   range: 100
   Distance: 2
+  Bullet: {fileID: 0}
+  bulletSpeed: 0
+  shootDelay: 0
+  shoot_time: 0
 --- !u!58 &1993140499
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1243,6 +1252,7 @@ MonoBehaviour:
   speed: 1
   range: 100
   range_BoomBoom: 1
+  explosion: {fileID: 0}
 --- !u!212 &2084217063
 SpriteRenderer:
   m_ObjectHideFlags: 0
