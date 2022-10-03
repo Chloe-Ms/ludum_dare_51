@@ -51,6 +51,9 @@ public class Player_Weapons : MonoBehaviour
     private bool GrenadeActive;
     private bool ShieldActive;
 
+    private Quaternion aim;
+
+
     private void Start()
     {
         PistolModel.SetActive(false);
@@ -202,6 +205,10 @@ public class Player_Weapons : MonoBehaviour
         // Update is called once per frame
     void Update()
     {
+        Vector3 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 difference = target - transform.position;
+        float angle = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        aim = Quaternion.Euler(0f, 0f, angle - 90);
 
         Inventory inventory = GetComponent<Inventory>();
         
@@ -312,24 +319,12 @@ public class Player_Weapons : MonoBehaviour
     }
     void shoot()
     {
-        Spread = Random.Range(1, -2);
+        float spread = Random.Range(-2, 2);
         Player_move monSprite = GetComponent<Player_move>();
-        if (monSprite.facing == true)
-        {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Spread);
-            Direction = -1;
-
-        }
-        else
-        {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, Spread);
-            Direction = 1;
-
-        }
+        
+        GameObject bullet = Instantiate(bulletPrefab, transform.position, aim);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(spread, bulletSpeed));
         
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponPistol);
         if (hitInfo)
@@ -343,22 +338,14 @@ public class Player_Weapons : MonoBehaviour
     }
     void shootShotGun()
     {
-        Spread = Random.Range(1, -2);
+        float spread = Random.Range(-3, 3);
         Player_move monSprite = GetComponent<Player_move>();
         if (monSprite.facing == true)
         {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, transform.position, aim);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(-bulletSpeed, Spread);
-            Direction = -1;
-        }
-        else
-        {
-            GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            bullet.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed, Spread);
-            Direction = 1;
+            bullet.GetComponent<Rigidbody2D>().AddRelativeForce(new Vector2(spread, bulletSpeed));
         }
         
         RaycastHit2D hitInfo = Physics2D.Raycast(transform.position, new Vector2(Direction, 0) * transform.localScale.y, rangeWeaponShotGun);
