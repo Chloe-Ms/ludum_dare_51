@@ -37,17 +37,18 @@ public class EventManager : MonoBehaviour
     private RoomModificationType[,] mapMod;
     private bool enoughPlacesHole = true;
 
+    [SerializeField] private TimerDisplay timerDisplay;
+
     void Start()
     {
         timer = waitTime;
-        //timerText.text = timer + "";
     }
 
 
     void Update()
     {
-        //timerText.text = timer + "";
         timer -= Time.deltaTime;
+        timerDisplay.SetTime(timer);
 
         if (timer < 0)
         {
@@ -178,7 +179,6 @@ public class EventManager : MonoBehaviour
         if (y<height-1 && mapMod[x,y+1] == RoomModificationType.Hole){
             res = true;
         }
-
         return res;
     }
 

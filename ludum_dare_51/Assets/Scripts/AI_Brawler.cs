@@ -48,8 +48,7 @@ public class AI_Brawler : MonoBehaviour
             {
                 if (truc.tag == "Player")
                 {
-                    truc.SendMessage("takeDamage", degats);
-                    Debug.Log("isoké");
+                    truc.gameObject.GetComponent<Player_Life>().Damage(1);
                 }
             }
         }

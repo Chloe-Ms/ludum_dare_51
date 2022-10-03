@@ -34,13 +34,15 @@ public class AI_Kamikaze : MonoBehaviour
     {
         foreach (GameObject Player in enemis)
         {
-            if (Vector3.Distance(transform.position, Player.transform.position) > range_BoomBoom)
-            {
-              transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
-            } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
-            {
-                Instantiate(explosion, this.transform.position, this.transform.rotation);
-                Destroy(this.gameObject);
+            if (Player != null){
+                if (Vector3.Distance(transform.position, Player.transform.position) > range_BoomBoom)
+                {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
+                } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
+                {
+                    Instantiate(explosion, this.transform.position, this.transform.rotation);
+                    Destroy(this.gameObject);
+                }
             }
         }
     }
