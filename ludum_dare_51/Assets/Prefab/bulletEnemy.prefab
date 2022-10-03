@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 70127471241892515}
   - component: {fileID: -2360948806258936230}
   - component: {fileID: -3841674362895802802}
+  - component: {fileID: 2061754232098259941}
   m_Layer: 3
   m_Name: bulletEnemy
   m_TagString: Piege
@@ -99,7 +100,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.002
-  m_GravityScale: 0.02
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -121,3 +122,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2061754232098259941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 70127471241892514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79ac6cfe976b1274fbd44698b24a9a4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
