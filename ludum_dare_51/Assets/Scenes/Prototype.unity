@@ -201,7 +201,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d95fca5ffb96223458b859b6820cff4c, type: 2}
   - {fileID: 11400000, guid: 6e2cebf8b20e7db4aab7ff9e416f5221, type: 2}
   spawnPoint: {fileID: 1744521204}
-  maxHeight: 10
+  maxHeight: 9
   minHeight: 6
   maxWidth: 12
   minWidth: 6
@@ -892,7 +892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486476, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: dashSpeed
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Color.b
