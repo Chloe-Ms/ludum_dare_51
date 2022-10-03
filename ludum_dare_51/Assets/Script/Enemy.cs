@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         enemy = gameObject;
-        roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
+        //roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
     }
 
     public void TakeDamage(float amount)
@@ -27,9 +27,19 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        roomManager.RemoveEnemy(enemy);
-        Player_Weapons CurrentCharges = GameObject.Find("Player").GetComponent<Player_Weapons>();
+        //roomManager.RemoveEnemy(enemy);
+        Player_Weapons CurrentCharges = GameObject.Find("Square").GetComponent<Player_Weapons>();
         CurrentCharges.CurrentCharge += 1;
+        Destroy(gameObject);
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            Debug.Log("Hit");
+            Die();
+        }
     }
 }
 
