@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nbRoomsBeforeBoss: 9
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -252,6 +253,7 @@ MonoBehaviour:
   colliderU: {fileID: 463696695}
   colliderD: {fileID: 1385516812}
   enemies:
+  - {fileID: 7103832088553496706, guid: 2dfffcc92ccd3a14298000054690c933, type: 3}
   - {fileID: 9068967520523776985, guid: 7cee549868038f44ca160988662dfa72, type: 3}
   - {fileID: 106613087478613618, guid: 0343e9cd2edcdc348922461fbdfbc523, type: 3}
   - {fileID: 7432993418386057611, guid: c62b0d4ce6bfc4a49b37829a57a8c5c8, type: 3}
@@ -931,10 +933,6 @@ PrefabInstance:
     - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Color.r
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
-      propertyPath: m_SortingOrder
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486478, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_RootOrder

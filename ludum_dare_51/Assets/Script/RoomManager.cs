@@ -8,6 +8,7 @@ using UnityEngine.Tilemaps;
 public class RoomManager : MonoBehaviour
 {
     private GameObject player;
+    public int nbRoomsBeforeBoss = 9;
     [SerializeField] public bool roomCleared = false;
     [SerializeField] private EventManager eventManager;
 
@@ -58,6 +59,7 @@ public class RoomManager : MonoBehaviour
             MoveTeleport();
             eventManager.createMap(width,height);
             CreateEnemies();
+            nbRoomsBeforeBoss -= 1;
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -175,10 +177,21 @@ public class RoomManager : MonoBehaviour
     }
 
     public void CreateEnemies(){
-        nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
-        for (int i = 0; i < nbEnemiesLeft; i++){
-            int index = UnityEngine.Random.Range(0,enemies.Length);
+        if (nbRoomsBeforeBoss > 0){
+            nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+            for (int i = 0; i < nbEnemiesLeft; i++){
+                int index = UnityEngine.Random.Range(1,enemies.Length);
+                Vector3 vec = GetRandomPosition();
+                enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
+            }
+        } else {
             Vector3 vec = GetRandomPosition();
+            vec.x = 0f;
+            enemiesInGame.Add(Instantiate(enemies[0],vec,Quaternion.identity));//Boss
+
+            int index = UnityEngine.Random.Range(1,enemies.Length); //Le gars qui pilote
+            vec.x = 0f;
+            vec.y = spawnPoint.position.y + height - 2;
             enemiesInGame.Add(Instantiate(enemies[index],vec,Quaternion.identity));
         }
     } 
@@ -192,7 +205,7 @@ public class RoomManager : MonoBehaviour
         do {
             x = UnityEngine.Random.Range( (float)left, (float) right);
             y = UnityEngine.Random.Range( (float)bottom, (float) top);
-        } while (Mathf.Abs(playerPos.x - x) < 1f && Mathf.Abs(playerPos.y - y) < 1f );
+        } while (Mathf.Abs(playerPos.x - x) < 1.5f && Mathf.Abs(playerPos.y - y) < 1.5f );
         
         return new Vector3(x,y,0f);
     }
