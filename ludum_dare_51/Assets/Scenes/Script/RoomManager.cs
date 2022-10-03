@@ -9,23 +9,32 @@ public class RoomManager : MonoBehaviour
 {
     private int lastRoom = -1;
     private GameObject player;
-    [SerializeField] private bool roomCleared = true;
+    [SerializeField] public bool roomCleared = false;
     [SerializeField] private EventManager eventManager;
 
     [SerializeField] Tilemap floorTilemap;
     [SerializeField] Tilemap teleporteurTilemap;
+    [SerializeField] Tilemap wallsTilemap;
     [SerializeField] private TileBase floorTile;
     [SerializeField] private TileBase teleportTileOpen;
     [SerializeField] private TileBase teleportTileClose;
+    [SerializeField] private TileBase wallsTile;
     public Transform spawnPoint;
 
     [SerializeField] private int maxHeight = 10;
     [SerializeField] private int minHeight = 5;
     [SerializeField] private int maxWidth = 10;
     [SerializeField] private int minWidth = 5;
-    public int height;
-    public int width;
+    [HideInInspector] public int height;
+    [HideInInspector] public int width;
 
+    [SerializeField] private int nbEnemyMax = 10;
+    [SerializeField] private int nbEnemyMin = 2;
+    public int nbEnemiesLeft;
+    public GameObject colliderR;
+    public GameObject colliderL;
+    public GameObject colliderU;
+    public GameObject colliderD;
 
     void Start()
     {
@@ -41,7 +50,10 @@ public class RoomManager : MonoBehaviour
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
             PaintFloorTiles(map);
             PaintTeleportTiles(false);
+            PaintWallsTiles();
             eventManager.createMap(width,height);
+            CreateEnemies();
+
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -58,13 +70,40 @@ public class RoomManager : MonoBehaviour
         return path;
     }
 
+    public void PaintWallsTiles(){
+        Vector2Int positionToAdd;
+        HashSet<Vector2Int> path = new HashSet<Vector2Int>();
+        int diffWallSpawn = (int) (width/2f);
+        for (int i = -1; i < width+1; i++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y -2)); //Mur du bas 
+            path.Add(positionToAdd);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 1)); //Mur du haut
+            path.Add(positionToAdd);
+        }
+
+        for (int j = 0; j < height; j++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(-1 - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur gauche
+            path.Add(positionToAdd);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(width - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur droite
+            path.Add(positionToAdd);
+        }
+        PaintTiles(path,wallsTilemap,wallsTile);
+        colliderL.transform.position = new Vector2((int)-1 -diffWallSpawn,colliderL.transform.position.y);
+        colliderR.transform.position = new Vector2((int)(width + 1 - diffWallSpawn),colliderR.transform.position.y);
+        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 2);
+        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height);
+    
+    }
+
     public void ChangeRoom()
     {
         Clear();
+        roomCleared = false;
         LoadNewRoom();
         if (player != null)
         {
             player.transform.position = spawnPoint.position;
+            player.GetComponent<Player_move>().activeMoveSpeed = player.GetComponent<Player_move>().moveSpeed;
         }
     }
 
@@ -104,12 +143,14 @@ public class RoomManager : MonoBehaviour
         } else {
             PaintTiles(path,teleporteurTilemap,teleportTileClose);
         }
-        
     }
+    
 
     public void Clear(){
         floorTilemap.ClearAllTiles();
+        wallsTilemap.ClearAllTiles();
         teleporteurTilemap.ClearAllTiles();
+        eventManager.Clear();
     }
 
     public int GetRandomHeight (int min, int max){
@@ -128,4 +169,14 @@ public class RoomManager : MonoBehaviour
         return var;
     }
 
+    public void RoomCleared(){
+        roomCleared = true;
+        PaintTeleportTiles(true);
+    }
+
+    public void CreateEnemies(){
+        nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+    }
+
+    
 }
