@@ -50,7 +50,6 @@ public class Player_move : MonoBehaviour
 
             if (canDash)
             {
-
                 activeMoveSpeed = dashSpeed;
                 canDash = false;
                 StartCoroutine(Dash());
