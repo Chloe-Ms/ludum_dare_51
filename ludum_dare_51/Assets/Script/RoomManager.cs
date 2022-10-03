@@ -35,7 +35,7 @@ public class RoomManager : MonoBehaviour
     private List<GameObject> enemiesInGame;
     [SerializeField]
     private GameObject Teleporter;
-    [SerializeField] private GameObject[] teleporter;
+    private GameObject[] teleporter;
 
     void Start()
     {
