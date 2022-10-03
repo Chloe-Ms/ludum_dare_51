@@ -25,6 +25,7 @@ public class Inventory : MonoBehaviour
 
     public void RemoveItem()
     {
+        display.HideIcon();
         GameObject.Destroy(item);
         item = null;
     }
