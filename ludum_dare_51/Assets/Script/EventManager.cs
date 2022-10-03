@@ -8,7 +8,8 @@ enum RoomModificationType
     None,
     Teleporter,
     Frost,
-    Hole
+    Hole,
+    Dark
 }
 
 [System.Serializable]
@@ -36,6 +37,8 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int nbTilesVidesParLigne;
     private RoomModificationType[,] mapMod;
     private bool enoughPlacesHole = true;
+    [SerializeField] private TimerDisplay timerDisplay;
+    [SerializeField] private LightManager lightManager;
 
     void Start()
     {
@@ -46,12 +49,12 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-
         if (timer < 0)
         {
             ApplyRoomModification();
             timer = waitTime - timer;
         }
+        timerDisplay.SetTime(timer);
     }
 
     void ResetTimer()
@@ -63,18 +66,23 @@ public class EventManager : MonoBehaviour
     {
         //Sélectionne le type d'événement
         RoomModificationType mod;
-        do {
-            mod = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length);
-        } while (!enoughPlacesHole && mod == RoomModificationType.Hole);
+        if(lastModType == RoomModificationType.Dark) lightManager.LerpLight(1);
+        if(lastModType == RoomModificationType.Dark && !enoughPlacesHole) mod = RoomModificationType.None;
+        else do mod = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length); 
+        while (!enoughPlacesHole && mod == RoomModificationType.Hole);
         lastModType = mod;
         
-        switch(mod){
+        switch(mod) 
+        {
             case RoomModificationType.Frost:
                 SelectTiles(minNumberTilesFrozen, maxNumberTilesFrozen,freezeTilemap,freezeTile,RoomModificationType.Frost);
-            break;
+                break;
             case RoomModificationType.Hole:
                 SelectTiles(minNumberTilesHole, maxNumberTilesHole,holeTilemap,holeTile,RoomModificationType.Hole);
-            break;
+                break;
+            case RoomModificationType.Dark:
+                lightManager.LerpLight(0);
+                break;
         }
     }
 
