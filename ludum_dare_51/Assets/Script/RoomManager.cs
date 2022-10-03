@@ -99,27 +99,55 @@ public class RoomManager : MonoBehaviour
     }
 
     public void PaintWallsTiles(){
+        TileBase[] tiles = null;
+        switch(type){
+            case TypeRoom.Sol:
+            tiles = solWallsTiles;
+            break;
+            case TypeRoom.Cuisine:
+            tiles = cuisineWallsTiles;
+            break;
+            case TypeRoom.Labo:
+            tiles = laboWallsTiles;
+            break;
+            case TypeRoom.Machine:
+            tiles = machineWallsTiles;
+            break;
+            
+        }
+
         Vector2Int positionToAdd;
         HashSet<Vector2Int> path = new HashSet<Vector2Int>();
         int diffWallSpawn = (int) (width/2f);
-        for (int i = -1; i < width+1; i++){
-            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y -2)); //Mur du bas 
-            path.Add(positionToAdd);
+        Vector3Int tilePosition;
+        for (int i = 0; i < width; i++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y -1)); //Mur du bas 
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[6]);
             positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 1)); //Mur du haut
-            path.Add(positionToAdd);
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[7]);
+        }
+        positionToAdd = Vector2Int.RoundToInt(new Vector2(- diffWallSpawn,spawnPoint.position.y -1));  //Bas g
+        tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+        wallsTilemap.SetTile(tilePosition,tiles[1]);
+        positionToAdd = Vector2Int.RoundToInt(new Vector2(diffWallSpawn - 1,spawnPoint.position.y -1)); //Bas d
+        tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+        wallsTilemap.SetTile(tilePosition,tiles[0]);
+
+        for (int j = 1; j < height; j++){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2( - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur gauche
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[5]);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(width - diffWallSpawn - 1,spawnPoint.position.y + j - 1)); //Mur droite
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[4]);
         }
 
-        for (int j = 0; j < height; j++){
-            positionToAdd = Vector2Int.RoundToInt(new Vector2(-1 - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur gauche
-            path.Add(positionToAdd);
-            positionToAdd = Vector2Int.RoundToInt(new Vector2(width - diffWallSpawn,spawnPoint.position.y + j - 1)); //Mur droite
-            path.Add(positionToAdd);
-        }
-        PaintTiles(path,wallsTilemap,wallsTile);
-        colliderL.transform.position = new Vector2(-diffWallSpawn,colliderL.transform.position.y); //Gauche
-        colliderR.transform.position = new Vector2((int)(width - diffWallSpawn),colliderR.transform.position.y); //Droite
-        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 1); //Bas
-        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height -1); //Haut
+        colliderL.transform.position = new Vector2(-diffWallSpawn + 0.02f,colliderL.transform.position.y); //Gauche
+        colliderR.transform.position = new Vector2((int)(width - diffWallSpawn) - 0.02f,colliderR.transform.position.y); //Droite
+        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 1  + 0.02f); //Bas
+        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height -1  - 0.02f); //Haut
     
     }
 

@@ -164,10 +164,42 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 19d6fcedbc187054599083531f9b1dbd, type: 2}
   floorTile: {fileID: 11400000, guid: 2944ccbddafc8d443bfcd0a9e949eb28, type: 2}
   wallsTile: {fileID: 11400000, guid: 870dac8611e3d9b479999bc2967a0028, type: 2}
-  solWallsTiles: []
-  cuisineWallsTiles: []
-  laboWallsTiles: []
-  machineWallsTiles: []
+  solWallsTiles:
+  - {fileID: 11400000, guid: 1139e3f0dac4eb24fb12c06e94b04dab, type: 2}
+  - {fileID: 11400000, guid: 56acdf312ed2929479f16289ca0d33e9, type: 2}
+  - {fileID: 11400000, guid: 1a328792b7759cc4fb0744931467f44f, type: 2}
+  - {fileID: 11400000, guid: 8be0ea543f6aaa24a891511979e00939, type: 2}
+  - {fileID: 11400000, guid: 612f7df44ad637541a02c722802fb4b9, type: 2}
+  - {fileID: 11400000, guid: f4b0f1fe1db12ad48acea0e9ef39d189, type: 2}
+  - {fileID: 11400000, guid: 4db7c4cee2427114286ea9b74c771d9c, type: 2}
+  - {fileID: 11400000, guid: 5fc01504548021b4394a4c85d5d83867, type: 2}
+  cuisineWallsTiles:
+  - {fileID: 11400000, guid: 5148c1f6acea8384eaf59ab7c2d4fc79, type: 2}
+  - {fileID: 11400000, guid: fe168b36f6c186f4abd318d1b378139d, type: 2}
+  - {fileID: 11400000, guid: 0c3b0ebb1fe4fc7409011becc92f15c2, type: 2}
+  - {fileID: 11400000, guid: b11b599b8de0bae47bf75c576e68da21, type: 2}
+  - {fileID: 11400000, guid: caa27ba77333bdc48b2cd255aa3c36d5, type: 2}
+  - {fileID: 11400000, guid: 82e5311d4743a8a4a88dc5db740562ac, type: 2}
+  - {fileID: 11400000, guid: f0d1c91741e552c4fbbea2f144026e8f, type: 2}
+  - {fileID: 11400000, guid: 038c2011898b82e439048d5442ac7550, type: 2}
+  laboWallsTiles:
+  - {fileID: 11400000, guid: 98f22bfef73628546a0b03226be4add9, type: 2}
+  - {fileID: 11400000, guid: dac4131eeef21cf449a7196a51874f18, type: 2}
+  - {fileID: 11400000, guid: a5656f715ba56c84e9b09ba024826e4e, type: 2}
+  - {fileID: 11400000, guid: 748709e3765d6254b978605e59c114d7, type: 2}
+  - {fileID: 11400000, guid: d2cd87e064acdef44a08aa3e4b86c620, type: 2}
+  - {fileID: 11400000, guid: 099148053a5d24648aa62a264ed06e11, type: 2}
+  - {fileID: 11400000, guid: 8e9fdaf638b69bd4aacd98e877666d01, type: 2}
+  - {fileID: 11400000, guid: 29ec621814192ad46b6e355302ae1743, type: 2}
+  machineWallsTiles:
+  - {fileID: 11400000, guid: daec4154f13a96845bd87b4001d3b73d, type: 2}
+  - {fileID: 11400000, guid: 3c31f1b2f57454341832cbf0d6c574ec, type: 2}
+  - {fileID: 11400000, guid: 0663a0e3eca0a6d4cad20d0c150ebd8b, type: 2}
+  - {fileID: 11400000, guid: 31bd9889fd2fa7c4d8effea41b76f351, type: 2}
+  - {fileID: 11400000, guid: 1f353ef152871174990cfc5bd5f8ead3, type: 2}
+  - {fileID: 11400000, guid: 01cf08ec171848041a81ef92fbd2d129, type: 2}
+  - {fileID: 11400000, guid: d95fca5ffb96223458b859b6820cff4c, type: 2}
+  - {fileID: 11400000, guid: 6e2cebf8b20e7db4aab7ff9e416f5221, type: 2}
   spawnPoint: {fileID: 1744521204}
   maxHeight: 10
   minHeight: 6
