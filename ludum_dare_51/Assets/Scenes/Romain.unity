@@ -293,8 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentCharge: 1000
-  bulletPrefab: {fileID: 70127471241892514, guid: 52026f587f95adb49b1637c2ffd86363, type: 3}
-  bulletSpeed: 20
+  bulletPrefab: {fileID: 70127471241892514, guid: 1c58ed7ee92ee974c8ae076c2bb1cc32, type: 3}
+  Explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
+  bulletSpeed: 400
   currentWeapon: {fileID: 0}
   PistolModel: {fileID: 952885553}
   AssaultRifleModel: {fileID: 954842069}
@@ -354,6 +355,7 @@ MonoBehaviour:
   vie: 5
   vieMax: 0
   isDead: 0
+  canTakeDamage: 1
 --- !u!212 &369650716
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -704,6 +706,7 @@ GameObject:
   - component: {fileID: 971775350}
   - component: {fileID: 971775349}
   - component: {fileID: 971775348}
+  - component: {fileID: 971775351}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -776,6 +779,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &971775351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971775347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1163812714
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,6 +858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6803bb1f65f424ebafb7a7abb542c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomManager: {fileID: 0}
   enemy: {fileID: 1163812714}
   health: 100
 --- !u!114 &1163812717
@@ -839,6 +876,9 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
+  attackRadius: 0
+  degats: 2
+  attackPosition: {x: 0, y: 0}
 --- !u!212 &1163812718
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -985,6 +1025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6803bb1f65f424ebafb7a7abb542c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomManager: {fileID: 0}
   enemy: {fileID: 1993140494}
   health: 100
 --- !u!212 &1993140497
@@ -1054,6 +1095,10 @@ MonoBehaviour:
   speed: 2
   range: 100
   Distance: 2
+  Bullet: {fileID: 70127471241892514, guid: 3d939b9712a5b7741993a08f03315f85, type: 3}
+  bulletSpeed: 0
+  shootDelay: 0
+  shoot_time: 0
 --- !u!58 &1993140499
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1225,6 +1270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e6803bb1f65f424ebafb7a7abb542c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomManager: {fileID: 0}
   enemy: {fileID: 2084217059}
   health: 100
 --- !u!114 &2084217062
@@ -1243,6 +1289,7 @@ MonoBehaviour:
   speed: 1
   range: 100
   range_BoomBoom: 1
+  explosion: {fileID: 0}
 --- !u!212 &2084217063
 SpriteRenderer:
   m_ObjectHideFlags: 0
