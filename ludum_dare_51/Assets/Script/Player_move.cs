@@ -58,6 +58,8 @@ public class Player_move : MonoBehaviour
         }
         IEnumerator Dash()
         {
+            Player_Weapons dashRemaining = GetComponent<Player_Weapons>();
+            dashRemaining.CurrentCharge -= 1;
             yield return new WaitForSeconds(dashLength);
             activeMoveSpeed = moveSpeed;
             yield return new WaitForSeconds(dashCooldown);
