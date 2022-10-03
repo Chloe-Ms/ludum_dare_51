@@ -157,8 +157,17 @@ MonoBehaviour:
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
   wallsTilemap: {fileID: 1349751809}
+  floorTiles:
+  - {fileID: 11400000, guid: 2944ccbddafc8d443bfcd0a9e949eb28, type: 2}
+  - {fileID: 11400000, guid: 76ec2d1e6a1d31a4baf0e4e15621edee, type: 2}
+  - {fileID: 11400000, guid: 31038a39461a7fc47a049069b1472f89, type: 2}
+  - {fileID: 11400000, guid: 19d6fcedbc187054599083531f9b1dbd, type: 2}
   floorTile: {fileID: 11400000, guid: 2944ccbddafc8d443bfcd0a9e949eb28, type: 2}
   wallsTile: {fileID: 11400000, guid: 870dac8611e3d9b479999bc2967a0028, type: 2}
+  solWallsTiles: []
+  cuisineWallsTiles: []
+  laboWallsTiles: []
+  machineWallsTiles: []
   spawnPoint: {fileID: 1744521204}
   maxHeight: 10
   minHeight: 6

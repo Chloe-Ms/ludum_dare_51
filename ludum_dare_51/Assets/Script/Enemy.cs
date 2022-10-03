@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         //roomManager.RemoveEnemy(enemy);
-        Player_Weapons CurrentCharges = GameObject.Find("Square").GetComponent<Player_Weapons>();
+        Player_Weapons CurrentCharges = GameObject.Find("Player").GetComponent<Player_Weapons>();
         CurrentCharges.CurrentCharge += 1;
         Destroy(gameObject);
     }
