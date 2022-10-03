@@ -7,7 +7,6 @@ using UnityEngine.Tilemaps;
 
 public class RoomManager : MonoBehaviour
 {
-    private int lastRoom = -1;
     private GameObject player;
     [SerializeField] public bool roomCleared = false;
     [SerializeField] private EventManager eventManager;
@@ -36,12 +35,16 @@ public class RoomManager : MonoBehaviour
     private List<GameObject> enemiesInGame;
     [SerializeField]
     private GameObject Teleporter;
+    [SerializeField] private GameObject[] teleporter;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         enemiesInGame = new List<GameObject>();
+        teleporter = new GameObject[4];
+        AddTeleport();
         LoadNewRoom();
+        
     }
 
     void LoadNewRoom()
@@ -51,11 +54,10 @@ public class RoomManager : MonoBehaviour
             
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
             PaintFloorTiles(map);
-            AddTeleport();
             PaintWallsTiles();
+            MoveTeleport();
             eventManager.createMap(width,height);
             CreateEnemies();
-            
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -114,10 +116,6 @@ public class RoomManager : MonoBehaviour
         return roomCleared;
     }
 
-    public int GetLastRoom(){
-        return lastRoom;
-    }
-
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions){
         PaintTiles(floorPositions,floorTilemap,floorTile);
     }
@@ -130,29 +128,22 @@ public class RoomManager : MonoBehaviour
     }
 
     private void AddTeleport(){
-        // HashSet<Vector2Int> path = new HashSet<Vector2Int>();
-        // int diffWallSpawnW = (int) (width/2f);
-        // float diffWallSpawnH = height/2f;
-        // float center = spawnPoint.position.y + (height/2f)-3/2f;
-        // path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1)));
-        // path.Add(Vector2Int.RoundToInt(new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH))));
-        // path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,spawnPoint.position.y-1)));
-        // path.Add(Vector2Int.RoundToInt(new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH))));
+        teleporter[0] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Droite-bas
+        teleporter[1] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//droite-haut
+        teleporter[2] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity); //Gauche-bas
+        teleporter[3] = Instantiate(Teleporter,new Vector2(0,0),Quaternion.identity);//Gauche-haut
+        
+    }
 
-        // teleporteurTilemap.ClearAllTiles();
-        // if (open){
-        //     PaintTiles(path,teleporteurTilemap,teleportTileOpen);
-        // } else {
-        //     PaintTiles(path,teleporteurTilemap,teleportTileClose);
-        // }
+    public void MoveTeleport(){
         int diffWallSpawnW = (int) (width/2f);
         float diffWallSpawnH = height/2f;
         float center = spawnPoint.position.y + (height/2f)-3/2f;
-        Instantiate(Teleporter,new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1),Quaternion.identity);
-        Instantiate(Teleporter,new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH)),Quaternion.identity);
-        Instantiate(Teleporter,new Vector2(-diffWallSpawnW,spawnPoint.position.y-1),Quaternion.identity);
-        Instantiate(Teleporter,new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH)),Quaternion.identity);
 
+        teleporter[0].transform.position = new Vector2(diffWallSpawnW-1,spawnPoint.position.y-1);
+        teleporter[1].transform.position = new Vector2(diffWallSpawnW-1,Mathf.Floor(center + diffWallSpawnH));
+        teleporter[2].transform.position = new Vector2(-diffWallSpawnW,spawnPoint.position.y-1);
+        teleporter[3].transform.position = new Vector2(-diffWallSpawnW,Mathf.Floor( center +diffWallSpawnH));
     }
     
 
