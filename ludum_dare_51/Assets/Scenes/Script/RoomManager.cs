@@ -9,7 +9,7 @@ public class RoomManager : MonoBehaviour
 {
     private int lastRoom = -1;
     private GameObject player;
-    [SerializeField] private bool roomCleared = true;
+    [SerializeField] public bool roomCleared = false;
     [SerializeField] private EventManager eventManager;
 
     [SerializeField] Tilemap floorTilemap;
@@ -25,9 +25,16 @@ public class RoomManager : MonoBehaviour
     [SerializeField] private int minHeight = 5;
     [SerializeField] private int maxWidth = 10;
     [SerializeField] private int minWidth = 5;
-    public int height;
-    public int width;
+    [HideInInspector] public int height;
+    [HideInInspector] public int width;
 
+    [SerializeField] private int nbEnemyMax = 10;
+    [SerializeField] private int nbEnemyMin = 2;
+    public int nbEnemiesLeft;
+    public GameObject colliderR;
+    public GameObject colliderL;
+    public GameObject colliderU;
+    public GameObject colliderD;
 
     void Start()
     {
@@ -45,6 +52,8 @@ public class RoomManager : MonoBehaviour
             PaintTeleportTiles(false);
             PaintWallsTiles();
             eventManager.createMap(width,height);
+            CreateEnemies();
+
     }
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -79,11 +88,17 @@ public class RoomManager : MonoBehaviour
             path.Add(positionToAdd);
         }
         PaintTiles(path,wallsTilemap,wallsTile);
+        colliderL.transform.position = new Vector2((int)-1 -diffWallSpawn,colliderL.transform.position.y);
+        colliderR.transform.position = new Vector2((int)(width + 1 - diffWallSpawn),colliderR.transform.position.y);
+        colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 2);
+        colliderU.transform.position = new Vector2(colliderU.transform.position.x,spawnPoint.position.y + height);
+    
     }
 
     public void ChangeRoom()
     {
         Clear();
+        roomCleared = false;
         LoadNewRoom();
         if (player != null)
         {
@@ -127,7 +142,7 @@ public class RoomManager : MonoBehaviour
             PaintTiles(path,teleporteurTilemap,teleportTileOpen);
         } else {
             PaintTiles(path,teleporteurTilemap,teleportTileClose);
-        } 
+        }
     }
     
 
@@ -154,4 +169,14 @@ public class RoomManager : MonoBehaviour
         return var;
     }
 
+    public void RoomCleared(){
+        roomCleared = true;
+        PaintTeleportTiles(true);
+    }
+
+    public void CreateEnemies(){
+        nbEnemiesLeft = UnityEngine.Random.Range(nbEnemyMin,nbEnemyMax+1);
+    }
+
+    
 }
