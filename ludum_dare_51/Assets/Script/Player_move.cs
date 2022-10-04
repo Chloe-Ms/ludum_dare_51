@@ -28,8 +28,6 @@ public class Player_move : MonoBehaviour
     const string PLAYER_ATTACK = "melee";
     const string PLAYER_DEATH = "mort";
 
-    private bool ismooving = false;
-
     private SpriteRenderer Sr;
 
 
@@ -56,9 +54,6 @@ public class Player_move : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0f, 0f, 0f); 
             facing = true;
-            
-            //Sr.flipX = false;
-            //ismooving = true;
         }
 
         if (Input.GetAxis("Horizontal") > 0.1f)
@@ -66,21 +61,7 @@ public class Player_move : MonoBehaviour
             transform.eulerAngles = new Vector3(0f, 180f, 0f);
             facing = false;
 
-            //ismooving = true;
-            //Sr.flipX = true;
         }
-        // if (Input.GetAxis("Horizontal") == -0.1f && Input.GetAxis("Vertical") == 0.1f)
-        // {
-        //     ismooving = false;
-        // }
-        // if (ismooving)
-        // {
-        //     ChangeAnimationState(PLAYER_WALK);
-        // } else if (ismooving == false)
-        // {
-        //     ChangeAnimationState(PLAYER_IDLE);
-        // }
-    
         if (Input.GetKeyDown(KeyCode.Space))
         {
 

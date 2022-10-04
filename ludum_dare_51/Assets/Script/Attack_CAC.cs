@@ -13,6 +13,7 @@ public class Attack_CAC : MonoBehaviour
     private Collider2D[] target;
     public SpriteRenderer skin;
     private Renderer rend;
+    private Animator anim;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class Attack_CAC : MonoBehaviour
 
         attackPositionSave = attackPosition;
         rend = GetComponent<Renderer>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -41,7 +43,7 @@ public class Attack_CAC : MonoBehaviour
             {
                 attackPosition = (Vector2)transform.position + new Vector2(-attackPositionSave.x, attackPositionSave.y);
             }
-
+            anim.SetTrigger("Slashing");
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
             foreach (Collider2D truc in target)
             {
