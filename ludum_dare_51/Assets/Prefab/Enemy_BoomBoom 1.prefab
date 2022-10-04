@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9068967520523776987}
   - component: {fileID: 9068967520523776983}
   - component: {fileID: 202331773645709583}
+  - component: {fileID: 4954397851858033452}
   m_Layer: 3
   m_Name: Enemy_BoomBoom 1
   m_TagString: Enemy
@@ -103,6 +104,8 @@ MonoBehaviour:
   range: 100
   range_BoomBoom: 1
   explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
+  animController: {fileID: 4954397851858033452}
+  isrunning: 0
 --- !u!114 &9068967520523776987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +158,22 @@ CapsuleCollider2D:
   m_Offset: {x: -0.03255917, y: -0.08739567}
   m_Size: {x: 0.12933525, y: 0.4240818}
   m_Direction: 0
+--- !u!95 &4954397851858033452
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9068967520523776985}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9fede4a4050e04745a870e16d559787c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -19,13 +19,30 @@ public class AI_Kamikaze : MonoBehaviour
     [SerializeField]
     public GameObject explosion;
 
-    GameObject[] enemis; 
+    GameObject[] enemis;
+
+    public Animator animController;
+    private string currentAnimaton;
+
+    public bool isrunning = false;
+
+    const string BOOM_RUN = "Run_BoomBoom";
+
+    private SpriteRenderer Sr;
+
+    private Rigidbody2D rb;
+
+   
+
 
 
     // Start is called before the first frame update
     void Start()
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
+        Sr = GetComponentInChildren<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
+
 
     }
 
@@ -37,13 +54,36 @@ public class AI_Kamikaze : MonoBehaviour
             if (Player != null){
                 if (Vector3.Distance(transform.position, Player.transform.position) > range_BoomBoom)
                 {
-                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);  
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+                    if (Player.transform.position.x > transform.position.x )
+                    {
+                        Sr.flipX = true;
+                        
+                    }
+                    else if (Player.transform.position.x < transform.position.x )
+                    {
+                        Sr.flipX = false;
+                    }
+                    isrunning = true;
                 } else if (Vector3.Distance(transform.position, Player.transform.position) <= range_BoomBoom)
                 {
                     StartCoroutine(wait());
                 }
             }
         }
+        if (isrunning == true){
+            ChangeAnimationState(BOOM_RUN);
+        }
+        Vector3 velocity = rb.velocity;
+        /*Debug.Log(velocity);
+        if (velocity.x > 0)
+        {
+            Sr.flipX = false;
+        }
+        else if (velocity.x < 0)
+        {
+            Sr.flipX = true;
+        }*/
     }
     private void boomBoom()
     {
@@ -57,5 +97,13 @@ public class AI_Kamikaze : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         boomBoom();
+    }
+
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimaton == newAnimation) return;
+
+        animController.Play(newAnimation);
+        currentAnimaton = newAnimation;
     }
 }
