@@ -154,6 +154,12 @@ public class RoomManager : MonoBehaviour
     public void ChangeRoom(GameObject rec)
     {
         Clear();
+        if (nbRoomsBeforeBoss > 0){
+            for (int i = 0; i < 4; i++){
+                teleporter[i].gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("IsActivated",false);
+            }
+        }
+        
         roomCleared = false;
         recompense = rec;
         LoadNewRoom();
@@ -230,6 +236,9 @@ public class RoomManager : MonoBehaviour
 
     public void RoomCleared(){
         roomCleared = true;
+        for (int i = 0; i < 4; i++){
+            teleporter[i].gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("IsActivated",true);
+        }
         if (recompense != null){
             SpawnRecompense();
         }
@@ -271,10 +280,10 @@ public class RoomManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
+         Debug.Log(enemiesInGame.Count);
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
-         Destroy(obj);
     }
 
     public void SpawnRecompense(){

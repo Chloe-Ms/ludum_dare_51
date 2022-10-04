@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         enemy = gameObject;
-        //roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
+        roomManager = GameObject.Find("RoomManager").GetComponent<RoomManager>();
     }
 
     public void TakeDamage(float amount)
@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        //roomManager.RemoveEnemy(enemy);
+        roomManager.RemoveEnemy(gameObject);
         Player_Weapons CurrentCharges = GameObject.Find("Player").GetComponent<Player_Weapons>();
         CurrentCharges.CurrentCharge += 1;
         Destroy(gameObject);

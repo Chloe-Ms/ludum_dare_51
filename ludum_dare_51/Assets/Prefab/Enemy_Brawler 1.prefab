@@ -101,7 +101,7 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 1
-  attackRadius: 1
+  attackRadius: 0.25
   degats: 2
   attackPosition: {x: 0, y: 0}
 --- !u!114 &106613087478613616
