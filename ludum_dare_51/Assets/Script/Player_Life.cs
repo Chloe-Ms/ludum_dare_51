@@ -9,11 +9,13 @@ public class Player_Life : MonoBehaviour
     public int vieMax = 1;
     public bool isDead;
     public bool canTakeDamage = true;
+    private Animator anim;
 
     void Start()
     {
         vie = vieMax;
         isDead = false;
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -24,6 +26,7 @@ public class Player_Life : MonoBehaviour
         vie -= damage;
         if (vie <= 0)
         {
+            anim.SetBool("IsDead",true);
             isDead = true;  
         }
     }
