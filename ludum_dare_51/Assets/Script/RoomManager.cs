@@ -280,7 +280,6 @@ public class RoomManager : MonoBehaviour
 
     public void RemoveEnemy(GameObject obj){
          enemiesInGame.Remove(obj);
-         Debug.Log(enemiesInGame.Count);
          if (enemiesInGame.Count == 0){
             RoomCleared();
          }
@@ -289,7 +288,15 @@ public class RoomManager : MonoBehaviour
     public void SpawnRecompense(){
         int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
         Vector2 vec = new Vector2(spawnPoint.position.x,bottom + top /2f);
-        Instantiate(recompense,vec,Quaternion.identity);
+        GameObject clone = Instantiate(recompense,vec,Quaternion.identity);
+        //On renomme le gameobject pour le script player_weapons
+        if (clone.name.Contains("Pistol")){
+            clone.name = "Pistol";
+        } else if (clone.name.Contains("AssaultRifle")){
+             clone.name = "AssaultRifle";
+        } else if (clone.name.Contains("fusil")){
+            clone.name = "fusil";
+        }
     }
 
     public void ChooseRecompenses(){

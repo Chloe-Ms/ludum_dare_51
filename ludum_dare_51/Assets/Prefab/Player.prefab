@@ -34,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 4974547620461486466}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.27, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -232,7 +232,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 70127471241892514, guid: 1c58ed7ee92ee974c8ae076c2bb1cc32, type: 3}
   Explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
   bulletSpeed: 400
-  currentWeapon: {fileID: 0}
+  currentWeapon: 0
   PistolModel: {fileID: 0}
   AssaultRifleModel: {fileID: 0}
   ShotGunModel: {fileID: 0}

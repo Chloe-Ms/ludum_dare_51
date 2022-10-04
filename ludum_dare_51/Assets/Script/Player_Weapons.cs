@@ -5,6 +5,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+public enum Weapon{
+    Pistol,
+    AssaultRifle,
+    ShotGun
+}
 
 public class Player_Weapons : MonoBehaviour
 {
@@ -16,7 +21,7 @@ public class Player_Weapons : MonoBehaviour
     public GameObject Explosion;
     public float bulletSpeed = 20f;
 
-    public GameObject currentWeapon;
+    public Weapon currentWeapon;
 
     public GameObject PistolModel;
     public GameObject AssaultRifleModel;
@@ -55,10 +60,7 @@ public class Player_Weapons : MonoBehaviour
 
     private void Start()
     {
-        PistolModel.SetActive(false);
-        AssaultRifleModel.SetActive(false);
-        ShotGunModel.SetActive(false);
-        
+    
     }
 
     IEnumerator Reload()
@@ -240,31 +242,21 @@ public class Player_Weapons : MonoBehaviour
                 if (collider.gameObject.name == "Pistol")
                 {
                     pistol.SetActive(false);
-                    gameObject.GetComponent<Player_Weapons>().currentWeapon = pistol;
-                    //PistolModel.SetActive(true);
-                    //AssaultRifleModel.SetActive(false);
-                    //ShotGunModel.SetActive(false);
+                    currentWeapon = Weapon.Pistol;
                 }
                 if (collider.gameObject.name == "AssaultRifle")
                 {
                     weaponAssaultRifle.SetActive(false);
-                    gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponAssaultRifle;
-                    // PistolModel.SetActive(false);
-                    // AssaultRifleModel.SetActive(true);
-                    // ShotGunModel.SetActive(false);
+                    currentWeapon = Weapon.AssaultRifle;
                 }
                 if (collider.gameObject.name == "fusil")
                 {
-                    weaponShotGun.SetActive(false);
-                    gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponShotGun;
-                    // PistolModel.SetActive(false);
-                    // AssaultRifleModel.SetActive(false);
-                    // ShotGunModel.SetActive(true);
+                    currentWeapon = Weapon.ShotGun;
                 }
             }
         }
 
-        if (currentWeapon == pistol && !isReloadingWeaponPistol)
+        if (currentWeapon == Weapon.Pistol && !isReloadingWeaponPistol)
         {
             if (Input.GetButtonDown("Fire2"))
             {
@@ -279,7 +271,7 @@ public class Player_Weapons : MonoBehaviour
                 }
             }
         }
-        if (currentWeapon == weaponAssaultRifle && !isReloadingWeaponAssaultRifle)
+        if (currentWeapon == Weapon.AssaultRifle && !isReloadingWeaponAssaultRifle)
         {
             if (Input.GetButtonDown("Fire2"))
             {
@@ -294,7 +286,7 @@ public class Player_Weapons : MonoBehaviour
                 }
             }
         }
-        if (currentWeapon == weaponShotGun && !isReloadingWeaponShotGun)
+        if (currentWeapon == Weapon.ShotGun && !isReloadingWeaponShotGun)
         {
             if (Input.GetButtonDown("Fire2"))
             {
