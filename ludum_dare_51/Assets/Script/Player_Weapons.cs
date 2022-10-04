@@ -241,25 +241,25 @@ public class Player_Weapons : MonoBehaviour
                 {
                     pistol.SetActive(false);
                     gameObject.GetComponent<Player_Weapons>().currentWeapon = pistol;
-                    PistolModel.SetActive(true);
-                    AssaultRifleModel.SetActive(false);
-                    ShotGunModel.SetActive(false);
+                    //PistolModel.SetActive(true);
+                    //AssaultRifleModel.SetActive(false);
+                    //ShotGunModel.SetActive(false);
                 }
                 if (collider.gameObject.name == "AssaultRifle")
                 {
                     weaponAssaultRifle.SetActive(false);
                     gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponAssaultRifle;
-                    PistolModel.SetActive(false);
-                    AssaultRifleModel.SetActive(true);
-                    ShotGunModel.SetActive(false);
+                    // PistolModel.SetActive(false);
+                    // AssaultRifleModel.SetActive(true);
+                    // ShotGunModel.SetActive(false);
                 }
                 if (collider.gameObject.name == "fusil")
                 {
                     weaponShotGun.SetActive(false);
                     gameObject.GetComponent<Player_Weapons>().currentWeapon = weaponShotGun;
-                    PistolModel.SetActive(false);
-                    AssaultRifleModel.SetActive(false);
-                    ShotGunModel.SetActive(true);
+                    // PistolModel.SetActive(false);
+                    // AssaultRifleModel.SetActive(false);
+                    // ShotGunModel.SetActive(true);
                 }
             }
         }

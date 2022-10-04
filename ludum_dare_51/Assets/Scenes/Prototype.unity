@@ -895,6 +895,10 @@ PrefabInstance:
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974547620461486477, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Color.b
       value: 1
       objectReference: {fileID: 0}
@@ -1851,32 +1855,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1a150744da38545b6134a164140c9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentCharge: 3
+  CurrentCharge: 1000
   bulletPrefab: {fileID: 70127471241892514, guid: 1c58ed7ee92ee974c8ae076c2bb1cc32, type: 3}
   Explosion: {fileID: 867991672887715263, guid: d02c586579e8cba41b7bbdbcc34d86a0, type: 3}
-  bulletSpeed: 20
+  bulletSpeed: 400
   currentWeapon: {fileID: 0}
   PistolModel: {fileID: 1541200130}
   AssaultRifleModel: {fileID: 1541200130}
   ShotGunModel: {fileID: 1541200130}
   pistol: {fileID: 7907570687099529658, guid: 3a9378fbb408fbb45a6a45ea1dba9312, type: 3}
-  damageWeaponPistol: 0
-  rangeWeaponPistol: 0
-  fireRateWeaponPistol: 0
-  impactForceWeaponPistol: 0
-  reloadTimeWeaponPistol: 0
+  damageWeaponPistol: 100
+  rangeWeaponPistol: 10
+  fireRateWeaponPistol: 100
+  impactForceWeaponPistol: 100
+  reloadTimeWeaponPistol: 10
   isReloadingWeaponPistol: 0
   weaponAssaultRifle: {fileID: 5430510854373031473, guid: d7e5b2d3c264eda47b1b86aff09f42f7, type: 3}
-  damageWeaponAssaultRifle: 0
-  rangeWeaponAssaultRifle: 0
-  fireRateWeaponAssaultRifle: 0
-  reloadTimeWeaponAssaultRifle: 0
+  damageWeaponAssaultRifle: 100
+  rangeWeaponAssaultRifle: 10
+  fireRateWeaponAssaultRifle: 10
+  reloadTimeWeaponAssaultRifle: 3
   isReloadingWeaponAssaultRifle: 0
   weaponShotGun: {fileID: 5318763871367095949, guid: 320d12b4336e3aa4e8512ef9f433733c, type: 3}
-  damageWeaponShotGun: 0
-  rangeWeaponShotGun: 0
-  fireRateWeaponShotGun: 0
-  reloadTimeWeaponShotGun: 0
+  damageWeaponShotGun: 100
+  rangeWeaponShotGun: 10
+  fireRateWeaponShotGun: 10
+  reloadTimeWeaponShotGun: 5
   isReloadingWeaponShotGun: 0
   Direction: 0
 --- !u!70 &1129879211

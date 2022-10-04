@@ -47,37 +47,39 @@ public class Player_move : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
+        
+        animController.SetFloat("Speed",Mathf.Max(Mathf.Abs(movement.x) + Mathf.Abs(movement.y)));
         movement.Normalize();
-
         rb.velocity = movement * activeMoveSpeed;
 
-        if (Input.GetAxis("Horizontal") < 0.1f)
+        if (Input.GetAxis("Horizontal") < -0.1f)
         {
+            transform.eulerAngles = new Vector3(0f, 0f, 0f); 
             facing = true;
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-            Sr.flipX = false;
-            ismooving = true;
+            
+            //Sr.flipX = false;
+            //ismooving = true;
         }
 
         if (Input.GetAxis("Horizontal") > 0.1f)
         {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f);
             facing = false;
-            transform.eulerAngles = new Vector3(0f, 0f, 0f);
-            ismooving = true;
-            Sr.flipX = true;
 
+            //ismooving = true;
+            //Sr.flipX = true;
         }
-        if (Input.GetAxis("Horizontal") == -0.1f && Input.GetAxis("Vertical") == 0.1f)
-        {
-            ismooving = false;
-        }
-        if (ismooving)
-        {
-            ChangeAnimationState(PLAYER_WALK);
-        } else if (ismooving == false)
-        {
-            ChangeAnimationState(PLAYER_IDLE);
-        }
+        // if (Input.GetAxis("Horizontal") == -0.1f && Input.GetAxis("Vertical") == 0.1f)
+        // {
+        //     ismooving = false;
+        // }
+        // if (ismooving)
+        // {
+        //     ChangeAnimationState(PLAYER_WALK);
+        // } else if (ismooving == false)
+        // {
+        //     ChangeAnimationState(PLAYER_IDLE);
+        // }
     
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -89,7 +91,9 @@ public class Player_move : MonoBehaviour
                 StartCoroutine(Dash());
             }
         }
-        IEnumerator Dash()
+    }
+
+    IEnumerator Dash()
         {
             Player_Weapons dashRemaining = GetComponent<Player_Weapons>();
             if (dashRemaining.CurrentCharge > 0)
@@ -106,8 +110,6 @@ public class Player_move : MonoBehaviour
             activeMoveSpeed = moveSpeed;
             yield return new WaitForSeconds(dashCooldown);
         }
-        
-    }
 
     public void SetSpeed(float newSpeed)
     {
@@ -123,7 +125,7 @@ public class Player_move : MonoBehaviour
     {
         if (currentAnimaton == newAnimation) return;
 
-        animController.Play(newAnimation);
+        //animController.Play(newAnimation);
         currentAnimaton = newAnimation;
     }
 }

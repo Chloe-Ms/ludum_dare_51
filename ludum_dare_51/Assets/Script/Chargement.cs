@@ -13,11 +13,14 @@ public class Chargement : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
-        panel.SetActive(false);
+        if (panel != null){
+            panel.SetActive(false);
+        }
+
     }
     private void Update()
     {
-        if (mort.isDead == true)
+        if (mort != null && mort.isDead == true && panel != null)
         {
             Time.timeScale = 0;
             panel.SetActive(true);

@@ -5,7 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Prototype - Hugo.unity
     guid: 3b454c7714020f94e88b26008590c41b
+  - enabled: 1
+    path: Assets/Scenes/IntroLogo.unity
+    guid: e7fa049fb9d1a6d4ab56e44cc18625ca
+  - enabled: 1
+    path: Assets/Scenes/SceneMenu.unity
+    guid: 94acd07e1d633f345b55231cc8965cf3
+  - enabled: 1
+    path: Assets/Scenes/Prototype.unity
+    guid: c4238d833a764eb4b81db4dbc77e2402
   m_configObjects: {}

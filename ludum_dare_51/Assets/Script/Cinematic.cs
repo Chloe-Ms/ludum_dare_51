@@ -28,7 +28,7 @@ public class Cinematic : MonoBehaviour
     {
         
         if(number == 434) {
-            ChangeScene();
+            StartCoroutine(ChangeScene());
         }
         else {
             Debug.Log("ça marche pas");
@@ -42,7 +42,6 @@ public class Cinematic : MonoBehaviour
 
     IEnumerator ChangeScene()
     {
-        Debug.Log("Changement de scène !");
         yield return new WaitForSeconds(3.5f);
         SceneManager.LoadScene(Menu);
     }
