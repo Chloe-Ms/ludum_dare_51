@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRoomsBeforeBoss: 0
+  nbRoomsBeforeBoss: 1
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -234,6 +234,7 @@ MonoBehaviour:
   - {fileID: 5430510854373031473, guid: d7e5b2d3c264eda47b1b86aff09f42f7, type: 3}
   - {fileID: 5318763871367095949, guid: 320d12b4336e3aa4e8512ef9f433733c, type: 3}
   - {fileID: 7907570687099529658, guid: 3a9378fbb408fbb45a6a45ea1dba9312, type: 3}
+  isFinished: 0
 --- !u!4 &381368365
 Transform:
   m_ObjectHideFlags: 0
@@ -1351,7 +1352,7 @@ RectTransform:
   m_GameObject: {fileID: 833349483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.22, y: 1.22, z: 1}
   m_Children:
   - {fileID: 1090840978}
   - {fileID: 1276242406}
@@ -1622,7 +1623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000019073, y: 32.496}
+  m_AnchoredPosition: {x: 0, y: 32.496}
   m_SizeDelta: {x: 246.5058, y: 64.9913}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989858215
@@ -2326,7 +2327,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00080995, y: -100.0691}
+  m_AnchoredPosition: {x: -0.00079345703, y: -100.0691}
   m_SizeDelta: {x: 246.51, y: 63.0047}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1299720616
@@ -2664,6 +2665,9 @@ MonoBehaviour:
   level_1: Prototype
   panel: {fileID: 1975876614}
   mort: {fileID: 1129879212}
+  roomManager: {fileID: 381368364}
+  endingSprite: {fileID: 21300000, guid: 86305ad958590ed48b81e717e10b31b1, type: 3}
+  deathSprite: {fileID: 21300000, guid: 1eaec19b466ed2e4cb85e248972386a0, type: 3}
 --- !u!114 &1353252456
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3578,7 +3582,7 @@ RectTransform:
   m_GameObject: {fileID: 1975876614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.22, y: 1.22, z: 1}
   m_Children:
   - {fileID: 989858214}
   - {fileID: 1299720615}

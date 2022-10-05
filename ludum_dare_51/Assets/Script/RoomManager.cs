@@ -51,6 +51,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField]private List<GameObject> recompenses;
     private GameObject recompense = null;
     private TypeRoom type;
+    public bool isFinished = false;
 
     void Start()
     {
@@ -84,7 +85,7 @@ public class RoomManager : MonoBehaviour
             }
             eventManager.createMap(width,height);
             CreateEnemies();
-            nbRoomsBeforeBoss -= 1;
+            
     }
 
     
@@ -254,13 +255,20 @@ public class RoomManager : MonoBehaviour
     }
 
     public void RoomCleared(){
+        
         roomCleared = true;
-        for (int i = 0; i < 4; i++){
-            teleporter[i].gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("IsActivated",true);
+        if (nbRoomsBeforeBoss > 0){
+            for (int i = 0; i < 4; i++){
+                teleporter[i].gameObject.transform.GetChild(0).GetComponent<Animator>().SetBool("IsActivated",true);
+            }
+            if (recompense != null){
+                SpawnRecompense();
+            }
+        } else {
+            isFinished = true;
         }
-        if (recompense != null){
-            SpawnRecompense();
-        }
+        nbRoomsBeforeBoss -= 1;
+        
     }
 
     public void CreateEnemies(){
