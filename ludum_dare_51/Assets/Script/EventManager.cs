@@ -45,6 +45,8 @@ public class EventManager : MonoBehaviour
     public bool timerPause = false;
     private HashSet<Vector2Int> map;
     private bool startTimer = true;
+    [SerializeField] private GameObject canvasMessages;
+
     void Start()
     {
         timer = waitTime;
@@ -64,6 +66,9 @@ public class EventManager : MonoBehaviour
         if (timer < 0)
         {
             StartCoroutine(ApplyRoomModification());
+            canvasMessages.transform.GetChild(0).gameObject.SetActive(false);
+            canvasMessages.transform.GetChild(1).gameObject.SetActive(false);
+            canvasMessages.transform.GetChild(2).gameObject.SetActive(false);
             timer = waitTime - timer;
         }
         timerDisplay.SetTime(timer);
@@ -83,9 +88,14 @@ public class EventManager : MonoBehaviour
         Debug.Log(currentModType);
         if (currentModType == RoomModificationType.Frost){
             SelectTiles(minNumberTilesFrozen, maxNumberTilesFrozen,previewTilemap,preview,RoomModificationType.Frost);
+            canvasMessages.transform.GetChild(0).gameObject.SetActive(true);
         }
         if (currentModType == RoomModificationType.Hole){
             SelectTiles(minNumberTilesHole, maxNumberTilesHole,previewTilemap,preview,RoomModificationType.Hole);
+            canvasMessages.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if (currentModType == RoomModificationType.Dark){
+            canvasMessages.transform.GetChild(2).gameObject.SetActive(true);
         }
     }
 
@@ -116,6 +126,7 @@ public class EventManager : MonoBehaviour
         int numberOfTiles = Random.Range(min, max+1);
         map = new HashSet<Vector2Int>();
         for(int i = 0;i < numberOfTiles;i++){
+
             if (!CheckMapFull()){
                 Vector2Int vec = SelectTile();
                 mapMod[vec.x,vec.y] = mod;
@@ -138,6 +149,9 @@ public class EventManager : MonoBehaviour
               randW = Random.Range(0,width);
               randH = Random.Range(0,height);  
               res = (mapMod[randW,randH] != RoomModificationType.None && mapMod[randW,randH] != RoomModificationType.Hole) || (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH));
+              Debug.Log("A "+randW+" "+randH);
+              Debug.Log((lastModType == RoomModificationType.Hole) && CheckHolesNear(randW,randH));
+              Debug.Log(mapMod[randW,randH] != RoomModificationType.None && mapMod[randW,randH] != RoomModificationType.Hole);
               if (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH)){
                 test++;
               }

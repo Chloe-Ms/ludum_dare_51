@@ -26,10 +26,6 @@ public class Explosion : MonoBehaviour
             {
                 collision.gameObject.GetComponent<Enemy>().Die();
             }
-            
-
-
-
         }
 
     }
