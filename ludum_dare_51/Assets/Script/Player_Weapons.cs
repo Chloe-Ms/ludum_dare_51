@@ -253,6 +253,7 @@ public class Player_Weapons : MonoBehaviour
                 {
                     currentWeapon = Weapon.ShotGun;
                 }
+                Destroy(collider.gameObject);
             }
         }
 

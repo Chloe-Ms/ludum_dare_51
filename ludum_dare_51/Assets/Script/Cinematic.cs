@@ -30,9 +30,6 @@ public class Cinematic : MonoBehaviour
         if(number == 434) {
             StartCoroutine(ChangeScene());
         }
-        else {
-            Debug.Log("ça marche pas");
-        }
         
         if(Input.GetButtonUp("Jump"))
         {
@@ -52,16 +49,13 @@ public class Cinematic : MonoBehaviour
         if (count == 0) {
             spriteRenderer.sprite = newSprite; 
             count += 1;
-        }
-        if (count == 1) {
+        } else if (count == 1) {
             spriteRenderer.sprite = newSprite2; 
             count += 1;
-        }
-        if (count == 2) {
+        } else if (count == 2) {
             spriteRenderer.sprite = newSprite3; 
             count += 1;
-        }
-        if (count == 3) {
+        } else if (count == 3) {
             SceneManager.LoadScene(level_1);
         }
         else 

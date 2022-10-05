@@ -876,9 +876,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caffe810b46695e4d8faa0c05cab8b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level_1: Prototype
+  level_1: Cinematic
   panel: {fileID: 0}
   mort: {fileID: 0}
+  roomManager: {fileID: 0}
+  endingSprite: {fileID: 0}
+  deathSprite: {fileID: 0}
 --- !u!1 &2091376785
 GameObject:
   m_ObjectHideFlags: 0
