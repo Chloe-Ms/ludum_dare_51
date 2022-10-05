@@ -241,12 +241,10 @@ public class Player_Weapons : MonoBehaviour
             {
                 if (collider.gameObject.name == "Pistol")
                 {
-                    pistol.SetActive(false);
                     currentWeapon = Weapon.Pistol;
                 }
                 if (collider.gameObject.name == "AssaultRifle")
                 {
-                    weaponAssaultRifle.SetActive(false);
                     currentWeapon = Weapon.AssaultRifle;
                 }
                 if (collider.gameObject.name == "fusil")

@@ -33,15 +33,18 @@ public class EventManager : MonoBehaviour
     [SerializeField] private int minNumberTilesHole = 1;
     [SerializeField] Tilemap holeTilemap;
     [SerializeField] Tilemap freezeTilemap;
+    [SerializeField] Tilemap previewTilemap;
     [SerializeField] private TileBase holeTile;
     [SerializeField] private TileBase freezeTile;
+    [SerializeField] private TileBase preview;
     [SerializeField] private int nbTilesVidesParLigne;
     private RoomModificationType[,] mapMod;
     private bool enoughPlacesHole = true;
     [SerializeField] private TimerDisplay timerDisplay;
     [SerializeField] private LightManager lightManager;
     public bool timerPause = false;
-
+    private HashSet<Vector2Int> map;
+    private bool startTimer = true;
     void Start()
     {
         timer = waitTime;
@@ -50,11 +53,17 @@ public class EventManager : MonoBehaviour
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        if(timer < 4)
-        if (timer < 0 && !timerPause)
+        if(!timerPause){
+            timer -= Time.deltaTime;
+        }
+        if(timer <= 4f && startTimer){
+            startTimer = false;
+            ChooseRoomModification();
+        }
+        
+        if (timer < 0)
         {
-            ApplyRoomModification();
+            StartCoroutine(ApplyRoomModification());
             timer = waitTime - timer;
         }
         timerDisplay.SetTime(timer);
@@ -66,39 +75,46 @@ public class EventManager : MonoBehaviour
     }
 
     void ChooseRoomModification(){
-        RoomModificationType mod;
-        do {
-            mod = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length);
-        } while (!enoughPlacesHole && mod == RoomModificationType.Hole);
+        
+        if(lastModType == RoomModificationType.Dark && !enoughPlacesHole) currentModType = RoomModificationType.None;
+        else do {
+            currentModType = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length);
+        } while (!enoughPlacesHole && currentModType == RoomModificationType.Hole);
+        Debug.Log(currentModType);
+        if (currentModType == RoomModificationType.Frost){
+            SelectTiles(minNumberTilesFrozen, maxNumberTilesFrozen,previewTilemap,preview,RoomModificationType.Frost);
+        }
+        if (currentModType == RoomModificationType.Hole){
+            SelectTiles(minNumberTilesHole, maxNumberTilesHole,previewTilemap,preview,RoomModificationType.Hole);
+        }
     }
 
-    void ApplyRoomModification()
+    IEnumerator ApplyRoomModification()
     {
-        //Sélectionne le type d'événement
-        RoomModificationType mod;
+        Debug.Log("Apply");
+        Debug.Log(lastModType + " "+currentModType);
         if(lastModType == RoomModificationType.Dark) lightManager.LerpLight(1);
-        if(lastModType == RoomModificationType.Dark && !enoughPlacesHole) mod = RoomModificationType.None;
-        else do mod = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length); 
-        while (!enoughPlacesHole && mod == RoomModificationType.Hole);
-        lastModType = mod;
-        
-        switch(mod) 
+        lastModType = currentModType;
+        previewTilemap.ClearAllTiles();
+        switch(currentModType) 
         {
             case RoomModificationType.Frost:
-                SelectTiles(minNumberTilesFrozen, maxNumberTilesFrozen,freezeTilemap,freezeTile,RoomModificationType.Frost);
+                roomManager.PaintTiles(map,freezeTilemap,freezeTile);
                 break;
             case RoomModificationType.Hole:
-                SelectTiles(minNumberTilesHole, maxNumberTilesHole,holeTilemap,holeTile,RoomModificationType.Hole);
+                roomManager.PaintTiles(map,holeTilemap,holeTile);
                 break;
             case RoomModificationType.Dark:
                 lightManager.LerpLight(0);
                 break;
         }
+        yield return new WaitForSeconds(6f);
+        ChooseRoomModification();
     }
 
     void SelectTiles(int min, int max,Tilemap tilemap, TileBase tile, RoomModificationType mod){
         int numberOfTiles = Random.Range(min, max+1);
-        HashSet<Vector2Int> map = new HashSet<Vector2Int>();
+        map = new HashSet<Vector2Int>();
         for(int i = 0;i < numberOfTiles;i++){
             if (!CheckMapFull()){
                 Vector2Int vec = SelectTile();
