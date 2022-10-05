@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRoomsBeforeBoss: 9
+  nbRoomsBeforeBoss: 0
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -162,8 +162,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 76ec2d1e6a1d31a4baf0e4e15621edee, type: 2}
   - {fileID: 11400000, guid: 31038a39461a7fc47a049069b1472f89, type: 2}
   - {fileID: 11400000, guid: 19d6fcedbc187054599083531f9b1dbd, type: 2}
-  floorTile: {fileID: 11400000, guid: 2944ccbddafc8d443bfcd0a9e949eb28, type: 2}
-  wallsTile: {fileID: 11400000, guid: 870dac8611e3d9b479999bc2967a0028, type: 2}
+  - {fileID: 11400000, guid: d8f71f449f4cafd4b8410be6c98c5e88, type: 2}
+  bossWallsTiles:
+  - {fileID: 11400000, guid: 5b8ad1b60e5168d4d9cc9a3799035a09, type: 2}
+  - {fileID: 11400000, guid: 0b42291b7de356947b6e433ce93833cc, type: 2}
+  - {fileID: 11400000, guid: 520a5521539472140886a81ebea52cb5, type: 2}
+  - {fileID: 11400000, guid: 2eaa9a4aba3830c4583bfddc1578c249, type: 2}
+  - {fileID: 11400000, guid: a2be430838d5bdf4cac1ecd9321144c7, type: 2}
+  - {fileID: 11400000, guid: c06c729a2587a4241915d1ae8faf1919, type: 2}
+  - {fileID: 11400000, guid: 980b1bdb97d3cfb488d06a0394459ed7, type: 2}
+  - {fileID: 11400000, guid: 465120ac6dc0c6a40925536ef5445c25, type: 2}
   solWallsTiles:
   - {fileID: 11400000, guid: 1139e3f0dac4eb24fb12c06e94b04dab, type: 2}
   - {fileID: 11400000, guid: 56acdf312ed2929479f16289ca0d33e9, type: 2}
@@ -1027,6 +1035,7 @@ MonoBehaviour:
   nbTilesVidesParLigne: 1
   timerDisplay: {fileID: 1377107201}
   lightManager: {fileID: 772614054}
+  timerPause: 0
 --- !u!4 &735706510
 Transform:
   m_ObjectHideFlags: 0

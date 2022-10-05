@@ -26,6 +26,7 @@ public class EventManager : MonoBehaviour
     public float waitTime = 10.0f;
     public RoomManager roomManager;
     private RoomModificationType lastModType;
+    private RoomModificationType currentModType;
     [SerializeField] private int maxNumberTilesFrozen = 5;
     [SerializeField] private int minNumberTilesFrozen = 1;
     [SerializeField] private int maxNumberTilesHole = 5;
@@ -39,6 +40,7 @@ public class EventManager : MonoBehaviour
     private bool enoughPlacesHole = true;
     [SerializeField] private TimerDisplay timerDisplay;
     [SerializeField] private LightManager lightManager;
+    public bool timerPause = false;
 
     void Start()
     {
@@ -49,7 +51,8 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        if (timer < 0)
+        if(timer < 4)
+        if (timer < 0 && !timerPause)
         {
             ApplyRoomModification();
             timer = waitTime - timer;
@@ -60,6 +63,13 @@ public class EventManager : MonoBehaviour
     void ResetTimer()
     {
         timer = waitTime;
+    }
+
+    void ChooseRoomModification(){
+        RoomModificationType mod;
+        do {
+            mod = (RoomModificationType)Random.Range(2, System.Enum.GetValues(typeof(RoomModificationType)).Length);
+        } while (!enoughPlacesHole && mod == RoomModificationType.Hole);
     }
 
     void ApplyRoomModification()

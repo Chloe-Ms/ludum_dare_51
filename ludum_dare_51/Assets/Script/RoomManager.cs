@@ -9,7 +9,8 @@ enum TypeRoom{
     Sol,
     Cuisine,
     Labo,
-    Machine
+    Machine,
+    Boss
 }
 
 public class RoomManager : MonoBehaviour
@@ -22,8 +23,7 @@ public class RoomManager : MonoBehaviour
     [SerializeField] Tilemap floorTilemap;
     [SerializeField] Tilemap wallsTilemap;
     [SerializeField] private TileBase[] floorTiles;
-    [SerializeField] private TileBase floorTile; //Boss floor tiles
-    [SerializeField] private TileBase wallsTile;
+    public TileBase[] bossWallsTiles;
     public TileBase[] solWallsTiles;
     public TileBase[] cuisineWallsTiles;
     public TileBase[] laboWallsTiles;
@@ -67,7 +67,12 @@ public class RoomManager : MonoBehaviour
             height = GetRandomHeight(minHeight,maxHeight);
             
             HashSet<Vector2Int> map = CreateRectangle(width, height, Vector2Int.RoundToInt((Vector2)spawnPoint.position));
-            type = (TypeRoom)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(TypeRoom)).Length);
+            if (nbRoomsBeforeBoss > 0){
+                type = (TypeRoom)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(TypeRoom)).Length - 1);
+            } else {
+                type = TypeRoom.Boss;
+            }
+            
             PaintFloorTiles(map);
             PaintWallsTiles();
             if (nbRoomsBeforeBoss > 0){
@@ -113,18 +118,25 @@ public class RoomManager : MonoBehaviour
             case TypeRoom.Machine:
             tiles = machineWallsTiles;
             break;
+            case TypeRoom.Boss:
+            tiles = bossWallsTiles;
+            break;
             
         }
 
         Vector2Int positionToAdd;
-        HashSet<Vector2Int> path = new HashSet<Vector2Int>();
         int diffWallSpawn = (int) (width/2f);
         Vector3Int tilePosition;
         for (int i = 0; i < width; i++){
             positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y -1)); //Mur du bas 
             tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
             wallsTilemap.SetTile(tilePosition,tiles[6]);
-            positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 1)); //Mur du haut
+            if (nbRoomsBeforeBoss > 0){
+                positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 1)); //Mur du haut
+            } else {
+                positionToAdd = Vector2Int.RoundToInt(new Vector2(i - diffWallSpawn,spawnPoint.position.y + height - 2)); //Mur du haut
+            }
+            
             tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
             wallsTilemap.SetTile(tilePosition,tiles[7]);
         }
@@ -143,7 +155,14 @@ public class RoomManager : MonoBehaviour
             tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
             wallsTilemap.SetTile(tilePosition,tiles[4]);
         }
-
+        if (nbRoomsBeforeBoss == 0){
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(- diffWallSpawn,spawnPoint.position.y + height-2));  //Haut g
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[2]);
+            positionToAdd = Vector2Int.RoundToInt(new Vector2(diffWallSpawn - 1,spawnPoint.position.y + height -2)); //Haut d
+            tilePosition = wallsTilemap.WorldToCell((Vector3Int) positionToAdd);
+            wallsTilemap.SetTile(tilePosition,tiles[3]);
+        }
         colliderL.transform.position = new Vector2(-diffWallSpawn + 0.02f,colliderL.transform.position.y); //Gauche
         colliderR.transform.position = new Vector2((int)(width - diffWallSpawn) - 0.02f,colliderR.transform.position.y); //Droite
         colliderD.transform.position = new Vector2(colliderD.transform.position.x,spawnPoint.position.y - 1  + 0.02f); //Bas
@@ -179,7 +198,7 @@ public class RoomManager : MonoBehaviour
         if (nbRoomsBeforeBoss > 0){
             PaintTiles(floorPositions,floorTilemap,floorTiles[(int)type]);
         } else {
-            PaintTiles(floorPositions,floorTilemap,floorTile);
+            PaintTiles(floorPositions,floorTilemap,floorTiles[System.Enum.GetValues(typeof(TypeRoom)).Length - 1]);
         }
     }
 
