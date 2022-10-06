@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRoomsBeforeBoss: 0
+  nbRoomsBeforeBoss: 10
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -1021,6 +1021,10 @@ PrefabInstance:
     - target: {fileID: 4974547620461486466, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4974547620461486473, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: degats
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486476, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: dashSpeed

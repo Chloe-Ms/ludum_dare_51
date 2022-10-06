@@ -170,6 +170,8 @@ MonoBehaviour:
   bulletSpeed: 3
   shootDelay: 1
   shoot_time: 0
+  isrunning: 0
+  animController: {fileID: 7059835069006932086}
 --- !u!212 &7432993418386057612
 SpriteRenderer:
   m_ObjectHideFlags: 0

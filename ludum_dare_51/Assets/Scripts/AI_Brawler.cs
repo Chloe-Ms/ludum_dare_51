@@ -5,8 +5,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class AI_Brawler : MonoBehaviour
 {
-    [SerializeField]
-    public int health;
+    
+    private float health;
 
     [SerializeField]
     public int speed;
@@ -25,10 +25,26 @@ public class AI_Brawler : MonoBehaviour
     private Collider2D[] target;
     private bool isAttacking = false;
 
+    public bool isrunning = false;
+
+    const string BRAWL_RUN = "Run_sword";
+
+    const string BRAWL_DEATH = "Death_sword";
+
+    const string BRAWL_ATTACK = "Attack_sword";
+
+    private SpriteRenderer Sr;
+
+    public Animator animController;
+    private string currentAnimaton;
+
     // Start is called before the first frame update
     void Start()
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
+        Sr = GetComponentInChildren<SpriteRenderer>();
+        health = GetComponent<Enemy>().health;
+        
 
     }
 
@@ -39,9 +55,16 @@ public class AI_Brawler : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
             if (transform.position.x < Player.transform.position.x){
-                transform.eulerAngles = new Vector3(0f, 180f, 0f); 
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                ChangeAnimationState(BRAWL_RUN);
+                isrunning = true;
+                Sr.flipX = false;
             } else {
-                transform.eulerAngles = new Vector3(0f, 0f, 0f); 
+                transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                ChangeAnimationState(BRAWL_RUN);
+
+                isrunning = true;
+                Sr.flipX = false;
             }
             attackPosition = (Vector2)transform.position + new Vector2(attackPositionSave.x, attackPositionSave.y);
            
@@ -49,10 +72,16 @@ public class AI_Brawler : MonoBehaviour
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
             if (target.Length > 0 && !isAttacking){
                 isAttacking = true;
+                isrunning = false;
                 StartCoroutine(wait());
             }
             
 
+        }
+        
+        if (health == 0)
+        {
+            ChangeAnimationState(BRAWL_DEATH);
         }
     }
     void OnDrawGizmos()
@@ -76,11 +105,17 @@ public class AI_Brawler : MonoBehaviour
     IEnumerator wait()
     {
         yield return new WaitForSeconds(1.5f);
-        if (animator != null){
-            animator.SetTrigger("IsAttacking");
-        }
+        ChangeAnimationState(BRAWL_ATTACK);
         yield return new WaitForSeconds(0.5f);
         hit();
+    }
+
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentAnimaton == newAnimation) return;
+
+        animController.Play(newAnimation);
+        currentAnimaton = newAnimation;
     }
 
 }
