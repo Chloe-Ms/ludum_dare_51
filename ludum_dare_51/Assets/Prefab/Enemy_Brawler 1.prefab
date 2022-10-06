@@ -98,11 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d53fe7ae717f94347a852d20482298c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   speed: 2
   range: 1
   attackRadius: 0.25
   degats: 2
+  animator: {fileID: 0}
   attackPosition: {x: 0, y: 0}
 --- !u!114 &106613087478613616
 MonoBehaviour:
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   enemy: {fileID: 106613087478613618}
-  health: 100
+  health: 50
 --- !u!50 &106613087478613628
 Rigidbody2D:
   serializedVersion: 4

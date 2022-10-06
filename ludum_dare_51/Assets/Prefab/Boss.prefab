@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6491976327492909940}
   - component: {fileID: 3058107446182641642}
   - component: {fileID: 1522995801835135831}
+  - component: {fileID: 2666880101673804089}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -98,7 +99,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 50
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -148,9 +149,10 @@ MonoBehaviour:
   health: 100
   speed: 2
   range: 50
-  attackRadius: 0.75
+  attackRadius: 0.8
   degats: 2
-  attackPosition: {x: 0, y: -0.5}
+  animator: {fileID: 2666880101673804089}
+  attackPosition: {x: 0, y: -0.4}
 --- !u!114 &1522995801835135831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,3 +168,22 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   enemy: {fileID: 7103832088553496706}
   health: 100
+--- !u!95 &2666880101673804089
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7103832088553496706}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b258060d63d4d154cafab23743ba0222, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

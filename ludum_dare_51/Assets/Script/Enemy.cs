@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Projectile")
         {
-            Die();
+            TakeDamage(50);
+            Destroy(collision.gameObject);
         }
     }
 }

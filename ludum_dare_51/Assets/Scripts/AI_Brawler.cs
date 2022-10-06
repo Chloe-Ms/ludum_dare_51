@@ -18,13 +18,12 @@ public class AI_Brawler : MonoBehaviour
     
     public float attackRadius;
     public int degats = 2;
-    
+    public Animator animator;
 
     public Vector2 attackPosition;
     private Vector2 attackPositionSave;
     private Collider2D[] target;
-    
-
+    private bool isAttacking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,13 +37,21 @@ public class AI_Brawler : MonoBehaviour
     {
         foreach (GameObject Player in enemis)
         {
-             transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
-            
+            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+            if (transform.position.x < Player.transform.position.x){
+                transform.eulerAngles = new Vector3(0f, 180f, 0f); 
+            } else {
+                transform.eulerAngles = new Vector3(0f, 0f, 0f); 
+            }
             attackPosition = (Vector2)transform.position + new Vector2(attackPositionSave.x, attackPositionSave.y);
            
 
             target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
-            StartCoroutine(wait());
+            if (target.Length > 0 && !isAttacking){
+                isAttacking = true;
+                StartCoroutine(wait());
+            }
+            
 
         }
     }
@@ -63,11 +70,16 @@ public class AI_Brawler : MonoBehaviour
                 truc.gameObject.GetComponent<Player_Life>().Damage(1);
             }
         }
+        isAttacking = false;
     }
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1.5f);
+        if (animator != null){
+            animator.SetTrigger("IsAttacking");
+        }
+        yield return new WaitForSeconds(0.5f);
         hit();
     }
 

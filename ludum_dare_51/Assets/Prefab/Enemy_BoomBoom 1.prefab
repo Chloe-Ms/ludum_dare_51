@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 981c23b44a6ab0448ab419da955ccbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   speed: 1
   range: 100
   range_BoomBoom: 1
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   enemy: {fileID: 9068967520523776985}
-  health: 100
+  health: 50
 --- !u!50 &9068967520523776983
 Rigidbody2D:
   serializedVersion: 4

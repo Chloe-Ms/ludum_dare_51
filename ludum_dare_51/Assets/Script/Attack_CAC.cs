@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack_CAC : MonoBehaviour
 {
-    public int degats = 2;
+    public int degats = 50;
     public Vector2 attackPosition;
     private Vector2 attackPositionSave;
     public float attackRadius;
@@ -49,7 +49,8 @@ public class Attack_CAC : MonoBehaviour
             {
                 if (truc.tag == "Enemy")
                 {
-                    truc.gameObject.GetComponent<Enemy>().Die();
+                    //truc.gameObject.GetComponent<Enemy>().Die();
+                    truc.gameObject.GetComponent<Enemy>().TakeDamage(degats);
                 }
             }
             StartCoroutine(waitShoot());
