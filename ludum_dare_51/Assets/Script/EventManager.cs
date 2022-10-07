@@ -12,11 +12,6 @@ enum RoomModificationType
     Dark
 }
 
-[System.Serializable]
-public class ModificationsPerRoom
-{
-    public GameObject[] Modifications;
-}
 
 public class EventManager : MonoBehaviour
 {
@@ -148,7 +143,7 @@ public class EventManager : MonoBehaviour
         do {
               randW = Random.Range(0,width);
               randH = Random.Range(0,height);  
-              res = (mapMod[randW,randH] != RoomModificationType.None && mapMod[randW,randH] != RoomModificationType.Hole) || (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH));
+              res = mapMod[randW,randH] != RoomModificationType.None || (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH));
               Debug.Log("A "+randW+" "+randH);
               Debug.Log((lastModType == RoomModificationType.Hole) && CheckHolesNear(randW,randH));
               Debug.Log(mapMod[randW,randH] != RoomModificationType.None && mapMod[randW,randH] != RoomModificationType.Hole);

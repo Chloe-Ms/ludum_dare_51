@@ -65,6 +65,7 @@ public class AI_Gun : MonoBehaviour
             {
                 Vector2 direction = (Player.transform.position - bullet.transform.position).normalized;
                 Vector2 force = direction * bulletSpeed;
+                //Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
                 rb.velocity = force;
                 //Debug.Log(rb.velocity);
                 shoot_time = 0;

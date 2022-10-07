@@ -332,9 +332,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d95fca5ffb96223458b859b6820cff4c, type: 2}
   - {fileID: 11400000, guid: 6e2cebf8b20e7db4aab7ff9e416f5221, type: 2}
   spawnPoint: {fileID: 1744521204}
-  maxHeight: 9
+  maxHeight: 6
   minHeight: 6
-  maxWidth: 12
+  maxWidth: 6
   minWidth: 6
   height: 0
   width: 0
@@ -4100,8 +4100,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -574, y: -479}
-  m_SizeDelta: {x: 700, y: 100}
+  m_AnchoredPosition: {x: -600, y: -479}
+  m_SizeDelta: {x: 630, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2011912493
 MonoBehaviour:
