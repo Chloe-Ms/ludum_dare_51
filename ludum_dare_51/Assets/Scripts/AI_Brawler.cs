@@ -6,7 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 public class AI_Brawler : MonoBehaviour
 {
     
-    private float health;
+    
 
     [SerializeField]
     public int speed;
@@ -29,7 +29,7 @@ public class AI_Brawler : MonoBehaviour
 
     const string BRAWL_RUN = "Run_Sword";
 
-    const string BRAWL_DEATH = "Death_sword";
+    
 
     const string BRAWL_ATTACK = "Attack_sword";
 
@@ -43,7 +43,7 @@ public class AI_Brawler : MonoBehaviour
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
         Sr = GetComponentInChildren<SpriteRenderer>();
-        health = GetComponent<Enemy>().health;
+        
         
 
     }
@@ -78,11 +78,7 @@ public class AI_Brawler : MonoBehaviour
             
 
         }
-        
-        if (health == 0)
-        {
-            ChangeAnimationState(BRAWL_DEATH);
-        }
+
     }
     void OnDrawGizmos()
     {

@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class AI_Kamikaze : MonoBehaviour
 {
-    [SerializeField]
-    public int health;
+
 
     [SerializeField]
     public int speed;

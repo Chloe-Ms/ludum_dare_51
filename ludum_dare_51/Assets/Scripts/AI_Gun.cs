@@ -35,7 +35,7 @@ public class AI_Gun : MonoBehaviour
 
     const string GUN_RUN = "Run_pistol";
 
-    const string GUN_DEATH = "Death_pistol";
+   
 
     private SpriteRenderer Sr;
 
@@ -51,7 +51,7 @@ public class AI_Gun : MonoBehaviour
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
         Sr = GetComponentInChildren<SpriteRenderer>();
-        health = GetComponent<Enemy>().health;
+        
 
     }
     void shoot()
@@ -107,12 +107,7 @@ public class AI_Gun : MonoBehaviour
         {
             ChangeAnimationState(GUN_RUN);
         }
-        if(health == 0)
-        {
-            
-            ChangeAnimationState(GUN_DEATH);
-            
-        }
+
     }
     void ChangeAnimationState(string newAnimation)
     {
