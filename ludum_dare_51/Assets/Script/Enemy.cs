@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     
     public float health = 100f;
 
+    public bool isdead = false;
+
     private void Start()
     {
         enemy = gameObject;
@@ -27,6 +29,7 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
+        isdead = true;
         roomManager.RemoveEnemy(gameObject);
         Player_Weapons CurrentCharges = GameObject.Find("Player").GetComponent<Player_Weapons>();
         CurrentCharges.CurrentCharge += 1;
