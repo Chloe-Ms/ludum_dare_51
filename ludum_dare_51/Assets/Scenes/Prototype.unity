@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &62535978 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 627750860607518095, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+  m_PrefabInstance: {fileID: 673464243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &87876611 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2355101005359280441, guid: e7f895cc72d2d014d891864a2fd42155, type: 3}
@@ -1014,6 +1025,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 627750860607518095, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: m_Intensity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 627750860607518095, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: m_PointLightOuterRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486466, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1173,6 +1192,7 @@ MonoBehaviour:
   nbTilesVidesParLigne: 1
   timerDisplay: {fileID: 1377107201}
   lightManager: {fileID: 772614054}
+  lightPlayer: {fileID: 62535978}
   timerPause: 0
   canvasMessages: {fileID: 2077061181}
 --- !u!4 &735706510

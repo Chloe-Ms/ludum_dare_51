@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Tilemaps;
+using UnityEngine.Experimental.Rendering.Universal;
+
 enum RoomModificationType
 {
     None,
@@ -37,6 +39,7 @@ public class EventManager : MonoBehaviour
     private bool enoughPlacesHole = true;
     [SerializeField] private TimerDisplay timerDisplay;
     [SerializeField] private LightManager lightManager;
+    [SerializeField] private Light2D lightPlayer;
     public bool timerPause = false;
     private HashSet<Vector2Int> map;
     private bool startTimer = true;
@@ -96,9 +99,11 @@ public class EventManager : MonoBehaviour
 
     IEnumerator ApplyRoomModification()
     {
-        Debug.Log("Apply");
-        Debug.Log(lastModType + " "+currentModType);
-        if(lastModType == RoomModificationType.Dark) lightManager.LerpLight(1);
+        if (lastModType == RoomModificationType.Dark)
+        {
+            lightManager.LerpLight(1);
+            lightPlayer.intensity = 0f;
+        }
         lastModType = currentModType;
         previewTilemap.ClearAllTiles();
         switch(currentModType) 
@@ -111,6 +116,7 @@ public class EventManager : MonoBehaviour
                 break;
             case RoomModificationType.Dark:
                 lightManager.LerpLight(0);
+                lightPlayer.intensity = 1f;
                 break;
         }
         yield return new WaitForSeconds(6f);
@@ -144,9 +150,6 @@ public class EventManager : MonoBehaviour
               randW = Random.Range(0,width);
               randH = Random.Range(0,height);  
               res = mapMod[randW,randH] != RoomModificationType.None || (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH));
-              Debug.Log("A "+randW+" "+randH);
-              Debug.Log((lastModType == RoomModificationType.Hole) && CheckHolesNear(randW,randH));
-              Debug.Log(mapMod[randW,randH] != RoomModificationType.None && mapMod[randW,randH] != RoomModificationType.Hole);
               if (lastModType == RoomModificationType.Hole && CheckHolesNear(randW,randH)){
                 test++;
               }
