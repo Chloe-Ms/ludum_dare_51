@@ -12,7 +12,7 @@ public class Door : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player" && manager.IsRoomCleared())
+        if (collider.gameObject.tag == "PlayerTransform" && manager.IsRoomCleared())
         {
             
             manager.ChangeRoom(recompense);

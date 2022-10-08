@@ -12,6 +12,8 @@ TagManager:
   - Shield
   - Walls
   - Projectile
+  - PlayerTransform
+  - EnemyTransform
   layers:
   - Default
   - TransparentFX

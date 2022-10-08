@@ -7,7 +7,7 @@ public class Frost : MonoBehaviour
     [SerializeField] private float speedMultiplier = 4f;
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "PlayerTransform")
         {
             float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
             collider.gameObject.GetComponent<Player_move>().SetSpeed(speedMultiplier);
@@ -16,7 +16,7 @@ public class Frost : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "PlayerTransform")
         {
             float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
             collider.gameObject.GetComponent<Player_move>().SetSpeed(-speedMultiplier);
