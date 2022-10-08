@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
         health -= amount;
         if (health <= 0f)
         {
-            Die();
+            StartCoroutine(WaitDie());
         }
     }
 
@@ -40,6 +40,14 @@ public class Enemy : MonoBehaviour
             TakeDamage(50);
             Destroy(collision.gameObject);
         }
+    }
+    
+    IEnumerator WaitDie()
+    {
+        
+            yield return new WaitForSeconds(1f);
+            Die();
+        
     }
 }
 

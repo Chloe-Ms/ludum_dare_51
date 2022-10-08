@@ -1026,6 +1026,10 @@ PrefabInstance:
       propertyPath: degats
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 4974547620461486473, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: attackRadius
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486476, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: dashSpeed
       value: 20
