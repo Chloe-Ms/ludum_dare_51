@@ -27,7 +27,7 @@ public class AI_Brawler : MonoBehaviour
 
     public bool isrunning = false;
 
-    const string BRAWL_RUN = "Run_sword";
+    const string BRAWL_RUN = "Run_Sword";
 
     const string BRAWL_DEATH = "Death_sword";
 
