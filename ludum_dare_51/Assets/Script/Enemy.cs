@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 
     public RoomManager roomManager;
     public GameObject enemy;
+    public Animator animator;
     
     public float health = 100f;
 
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
         health -= amount;
         if (health <= 0f)
         {
+            Debug.Log(health);
             StartCoroutine(WaitDie());
         }
     }
@@ -47,9 +49,12 @@ public class Enemy : MonoBehaviour
     
     IEnumerator WaitDie()
     {
-        
-            yield return new WaitForSeconds(1f);
-            Die();
+        if (animator != null)
+        {
+            animator.SetTrigger("IsDead");
+        }
+        yield return new WaitForSeconds(1f);
+        Die();
         
     }
 }

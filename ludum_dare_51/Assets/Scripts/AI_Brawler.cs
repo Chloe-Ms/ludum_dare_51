@@ -43,9 +43,6 @@ public class AI_Brawler : MonoBehaviour
     {
         enemis = GameObject.FindGameObjectsWithTag("Player");
         Sr = GetComponentInChildren<SpriteRenderer>();
-        
-        
-
     }
 
     // Update is called once per frame
@@ -101,7 +98,10 @@ public class AI_Brawler : MonoBehaviour
     IEnumerator wait()
     {
         yield return new WaitForSeconds(1.5f);
-        ChangeAnimationState(BRAWL_ATTACK);
+        if (animator != null)
+        {
+            animator.SetTrigger("IsAttacking");
+        }
         yield return new WaitForSeconds(0.5f);
         hit();
     }

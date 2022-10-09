@@ -69,6 +69,7 @@ public class Player_move : MonoBehaviour
             {
                 activeMoveSpeed = dashSpeed;
                 canDash = false;
+                animController.SetTrigger("IsDashing");
                 StartCoroutine(Dash());
             }
         }

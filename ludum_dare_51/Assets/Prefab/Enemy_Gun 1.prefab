@@ -295,6 +295,7 @@ MonoBehaviour:
   roomManager: {fileID: 0}
   enemy: {fileID: 7432993418386057611}
   health: 50
+  isdead: 0
 --- !u!50 &7432993418386057601
 Rigidbody2D:
   serializedVersion: 4
@@ -307,7 +308,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 50
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
