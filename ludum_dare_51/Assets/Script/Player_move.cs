@@ -24,12 +24,6 @@ public class Player_move : MonoBehaviour
     public Animator animController;
     private string currentAnimaton;
 
-    const string PLAYER_IDLE = "Idle";
-    const string PLAYER_WALK = "Walk";
-    //const string PLAYER_DASH = "Dash";
-    const string PLAYER_ATTACK = "melee";
-    const string PLAYER_DEATH = "mort";
-
     private SpriteRenderer Sr;
 
 
@@ -74,7 +68,7 @@ public class Player_move : MonoBehaviour
                 {
                     activeMoveSpeed = dashSpeed;
                     canDash = false;
-                    animController.SetTrigger("IsDashing");
+                    //animController.SetTrigger("IsDashing");
                     StartCoroutine(Dash());
                 }
             }
@@ -108,12 +102,5 @@ public class Player_move : MonoBehaviour
                 activeMoveSpeed = moveSpeed;
             }
         }
-    }
-    void ChangeAnimationState(string newAnimation)
-    {
-        if (currentAnimaton == newAnimation) return;
-
-        //animController.Play(newAnimation);
-        currentAnimaton = newAnimation;
     }
 }

@@ -266,7 +266,7 @@ public class Player_Weapons : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(Reload());
+                    //StartCoroutine(Reload());
                 }
             }
         }
@@ -281,7 +281,7 @@ public class Player_Weapons : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(ReloadAssaultRifle());
+                    //StartCoroutine(ReloadAssaultRifle());
                 }
             }
         }
@@ -296,7 +296,7 @@ public class Player_Weapons : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(ReloadShotGun());
+                    //StartCoroutine(ReloadShotGun());
                 }
             }
         }

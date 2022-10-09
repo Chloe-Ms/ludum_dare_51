@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: sol_boss
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 7482667652216324306, guid: 86b4d1f21c6b1724ca0db93afe65d89c, type: 3}
-  m_Color: {r: 0.87169814, g: 1, b: 0.88628787, a: 1}
+  m_Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
   m_Transform:
     e00: 1
     e01: 0

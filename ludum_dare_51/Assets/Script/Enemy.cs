@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     public float health = 100f;
 
     public bool isdead = false;
+    public bool isDying = false;
 
     private void Start()
     {
@@ -24,7 +25,6 @@ public class Enemy : MonoBehaviour
         health -= amount;
         if (health <= 0f)
         {
-            Debug.Log(health);
             StartCoroutine(WaitDie());
         }
     }
@@ -34,7 +34,10 @@ public class Enemy : MonoBehaviour
         isdead = true;
         roomManager.RemoveEnemy(gameObject);
         Player_Weapons CurrentCharges = GameObject.Find("Player").GetComponent<Player_Weapons>();
-        CurrentCharges.CurrentCharge += 1;
+        if (CurrentCharges.CurrentCharge < 3)
+        {
+            CurrentCharges.CurrentCharge += 1;
+        }
         Destroy(gameObject);
     }
 
@@ -52,7 +55,22 @@ public class Enemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("IsDead");
-            Debug.Log("AH");
+            
+        }
+        isDying = true;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.mass = 1000;
+        rb.velocity = new Vector2(0f, 0f);
+        CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();
+        if (capsule != null)
+        {
+            capsule.enabled = false;
+        }
+
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        if (box != null)
+        {
+            box.enabled = false;
         }
         yield return new WaitForSeconds(1f);
         Die();

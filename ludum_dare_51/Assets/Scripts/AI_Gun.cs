@@ -42,9 +42,6 @@ public class AI_Gun : MonoBehaviour
     public Animator animController;
     private string currentAnimaton;
 
-    
-    
-
 
     // Start is called before the first frame update
     void Start()
@@ -60,12 +57,22 @@ public class AI_Gun : MonoBehaviour
         if (shoot_time > shootDelay)
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation);
+            Bulletdestroy bd = bullet.GetComponent<Bulletdestroy>();
+            Physics2D.IgnoreCollision(bullet.GetComponent<CapsuleCollider2D>(), GetComponent<CapsuleCollider2D>(), true); //Ignore les collisions entre le perso qui a lancé la balle et la balle
+            Physics2D.IgnoreCollision(bullet.GetComponent<CapsuleCollider2D>(), transform.GetChild(2).GetComponent<BoxCollider2D>(), true);
+            if (bd != null)
+            {
+                bd.enemy = gameObject;
+            }
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             foreach (GameObject Player in enemis)
             {
                 Vector2 direction = (Player.transform.position - bullet.transform.position).normalized;
                 Vector2 force = direction * bulletSpeed;
                 //Vector3.RotateTowards(transform.forward, targetDirection, singleStep, 0.0f);
+                //bullet.transform.rotation = Quaternion.LookRotation(direction);
+                float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+                bullet.transform.rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
                 rb.velocity = force;
                 //Debug.Log(rb.velocity);
                 shoot_time = 0;
@@ -80,42 +87,36 @@ public class AI_Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject Player in enemis)
+        if (!GetComponent<Enemy>().isDying)
         {
-            if (Player != null){
-                if (Vector3.Distance(transform.position, Player.transform.position) > Distance)
+            foreach (GameObject Player in enemis)
+            {
+                if (Player != null)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
-                    isrunning = true;
-                    if (Player.transform.position.x > transform.position.x)
+                    if (Vector3.Distance(transform.position, Player.transform.position) > Distance)
                     {
-                        Sr.flipX = true;
+                        transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+                        isrunning = true;
+                        if (Player.transform.position.x > transform.position.x)
+                        {
+                            Sr.flipX = true;
+
+                        }
+                        else if (Player.transform.position.x < transform.position.x)
+                        {
+                            Sr.flipX = false;
+                        }
+                        animController.SetFloat("Speed", Mathf.Max(Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.y)));
 
                     }
-                    else if (Player.transform.position.x < transform.position.x)
+                    else
                     {
-                        Sr.flipX = false;
+                        shoot();
+                        isrunning = false;
+                        animController.SetFloat("Speed", 0);
                     }
-                    animController.SetFloat("Speed", Mathf.Max(Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.y)));
-
-                } else{
-                    shoot();
-                    isrunning = false;
-                    animController.SetFloat("Speed", 0);
                 }
-            } 
-        } 
-        if(isrunning == true)
-        {
-            ChangeAnimationState(GUN_RUN);
+            }
         }
-
-    }
-    void ChangeAnimationState(string newAnimation)
-    {
-        if (currentAnimaton == newAnimation) return;
-
-        animController.Play(newAnimation);
-        currentAnimaton = newAnimation;
     }
 }

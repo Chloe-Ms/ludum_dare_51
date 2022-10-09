@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f672868f19d7e4e9c168e2dab87662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nbRoomsBeforeBoss: 10
+  nbRoomsBeforeBoss: 9
   roomCleared: 0
   eventManager: {fileID: 735706509}
   floorTilemap: {fileID: 611324969}
@@ -1100,7 +1100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486473, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: degats
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486473, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: attackRadius
@@ -1128,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486478, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486478, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4437,7 +4437,7 @@ RectTransform:
   m_Children:
   - {fileID: 1406458856}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

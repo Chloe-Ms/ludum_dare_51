@@ -48,32 +48,39 @@ public class AI_Brawler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        foreach (GameObject Player in enemis)
+        if (!GetComponent<Enemy>().isDying)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
-            if (transform.position.x < Player.transform.position.x){
-                transform.eulerAngles = new Vector3(0f, 180f, 0f);
-                ChangeAnimationState(BRAWL_RUN);
-                isrunning = true;
-                Sr.flipX = false;
-            } else {
-                transform.eulerAngles = new Vector3(0f, 0f, 0f);
-                ChangeAnimationState(BRAWL_RUN);
+            foreach (GameObject Player in enemis)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+                if (transform.position.x < Player.transform.position.x)
+                {
+                    transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                    ChangeAnimationState(BRAWL_RUN);
+                    isrunning = true;
+                    Sr.flipX = false;
+                }
+                else
+                {
+                    transform.eulerAngles = new Vector3(0f, 0f, 0f);
+                    ChangeAnimationState(BRAWL_RUN);
 
-                isrunning = true;
-                Sr.flipX = false;
+                    isrunning = true;
+                    Sr.flipX = false;
+                }
+                attackPosition = (Vector2)transform.position + new Vector2(attackPositionSave.x, attackPositionSave.y);
+
+
+                target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
+                if (target.Length > 0 && !isAttacking)
+                {
+                    isAttacking = true;
+                    isrunning = false;
+                    StartCoroutine(wait());
+                }
+
+
             }
-            attackPosition = (Vector2)transform.position + new Vector2(attackPositionSave.x, attackPositionSave.y);
-           
-
-            target = Physics2D.OverlapCircleAll(attackPosition, attackRadius);
-            if (target.Length > 0 && !isAttacking){
-                isAttacking = true;
-                isrunning = false;
-                StartCoroutine(wait());
-            }
-            
-
         }
 
     }

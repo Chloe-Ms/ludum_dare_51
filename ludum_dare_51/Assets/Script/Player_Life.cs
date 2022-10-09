@@ -31,7 +31,10 @@ public class Player_Life : MonoBehaviour
             //On joue l'animation de mort
             anim.SetBool("IsDead",true);
             //Aucun ennemi ne peut le pousser
-            GetComponent<Rigidbody2D>().mass = 100;
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.mass = 1000;
+            rb.velocity = new Vector2(0f, 0f);
+            GetComponent<CapsuleCollider2D>().enabled = false;
             StartCoroutine(StartEndScene());
         }
     }

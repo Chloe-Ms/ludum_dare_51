@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bulletdestroy : MonoBehaviour
 {
+
+    public GameObject enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,7 @@ public class Bulletdestroy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Walls" || collision.gameObject.tag == "Enemy") 
+        if(collision.gameObject.tag == "Walls" || (collision.gameObject.tag == "Enemy" && collision.gameObject != enemy)) 
         {
             Destroy(gameObject);
         }
