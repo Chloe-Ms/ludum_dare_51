@@ -94,7 +94,7 @@ public class AI_Brawler : MonoBehaviour
     {
         foreach (Collider2D truc in target)
         {
-            if (truc.tag == "Player")
+            if (truc != null && truc.tag == "Player")
             {
                 truc.gameObject.GetComponent<Player_Life>().Damage(1);
             }

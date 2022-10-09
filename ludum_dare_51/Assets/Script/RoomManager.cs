@@ -52,6 +52,7 @@ public class RoomManager : MonoBehaviour
     private GameObject recompense = null;
     private TypeRoom type;
     public bool isFinished = false;
+    private GameObject clone = null;
 
     void Start()
     {
@@ -87,7 +88,6 @@ public class RoomManager : MonoBehaviour
             CreateEnemies();
             
     }
-
     
 
     protected HashSet<Vector2Int> CreateRectangle(int width, int height, Vector2Int spawnPosition){
@@ -236,6 +236,10 @@ public class RoomManager : MonoBehaviour
         wallsTilemap.ClearAllTiles();
         eventManager.Clear();
         enemiesInGame.Clear();
+        if (clone != null)
+        {
+            Destroy(clone);
+        }
     }
 
     public int GetRandomHeight (int min, int max){
@@ -315,7 +319,7 @@ public class RoomManager : MonoBehaviour
     public void SpawnRecompense(){
         int bottom = (int)(spawnPoint.position.y - 1), top = (int)(spawnPoint.position.y + height - 1);
         Vector2 vec = new Vector2(spawnPoint.position.x,bottom + top /2f);
-        GameObject clone = Instantiate(recompense,vec,Quaternion.identity);
+        clone = Instantiate(recompense,vec,Quaternion.identity);
         //On renomme le gameobject pour le script player_weapons
         if (clone.name.Contains("Pistol")){
             clone.name = "Pistol";
