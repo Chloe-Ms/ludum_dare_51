@@ -19,6 +19,8 @@ public class Player_move : MonoBehaviour
 
     public bool facing;
 
+    public Player_Life life;
+
     public Animator animController;
     private string currentAnimaton;
 
@@ -42,35 +44,39 @@ public class Player_move : MonoBehaviour
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (!life.inAnimationDead)
+        {
+
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
         
-        animController.SetFloat("Speed",Mathf.Max(Mathf.Abs(movement.x) + Mathf.Abs(movement.y)));
-        movement.Normalize();
-        rb.velocity = movement * activeMoveSpeed;
+            animController.SetFloat("Speed",Mathf.Max(Mathf.Abs(movement.x) + Mathf.Abs(movement.y)));
+            movement.Normalize();
+            rb.velocity = movement * activeMoveSpeed;
 
-        if (Input.GetAxis("Horizontal") < -0.1f)
-        {
-            transform.eulerAngles = new Vector3(0f, 0f, 0f); 
-            facing = true;
-        }
-
-        if (Input.GetAxis("Horizontal") > 0.1f)
-        {
-            transform.eulerAngles = new Vector3(0f, 180f, 0f);
-            facing = false;
-
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-
-            if (canDash)
+            if (Input.GetAxis("Horizontal") < -0.1f)
             {
-                activeMoveSpeed = dashSpeed;
-                canDash = false;
-                animController.SetTrigger("IsDashing");
-                StartCoroutine(Dash());
+                transform.eulerAngles = new Vector3(0f, 0f, 0f); 
+                facing = true;
+            }
+
+            if (Input.GetAxis("Horizontal") > 0.1f)
+            {
+                transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                facing = false;
+
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+
+                if (canDash)
+                {
+                    activeMoveSpeed = dashSpeed;
+                    canDash = false;
+                    animController.SetTrigger("IsDashing");
+                    StartCoroutine(Dash());
+                }
             }
         }
     }

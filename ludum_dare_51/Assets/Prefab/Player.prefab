@@ -183,6 +183,7 @@ MonoBehaviour:
   dashCooldown: 1
   canDash: 0
   facing: 0
+  life: {fileID: 4974547620461486472}
   animController: {fileID: 2408510876490268749}
 --- !u!50 &4974547620461486467
 Rigidbody2D:

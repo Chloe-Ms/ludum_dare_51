@@ -52,6 +52,7 @@ public class Enemy : MonoBehaviour
         if (animator != null)
         {
             animator.SetTrigger("IsDead");
+            Debug.Log("AH");
         }
         yield return new WaitForSeconds(1f);
         Die();

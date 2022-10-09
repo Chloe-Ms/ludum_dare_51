@@ -10,6 +10,7 @@ public class Player_Life : MonoBehaviour
     public bool isDead;
     public bool canTakeDamage = true;
     private Animator anim;
+    public bool inAnimationDead = false;
 
     void Start()
     {
@@ -26,9 +27,19 @@ public class Player_Life : MonoBehaviour
         vie -= damage;
         if (vie <= 0)
         {
+            inAnimationDead = true;
+            //On joue l'animation de mort
             anim.SetBool("IsDead",true);
-            isDead = true;  
+            //Aucun ennemi ne peut le pousser
+            GetComponent<Rigidbody2D>().mass = 100;
+            StartCoroutine(StartEndScene());
         }
+    }
+
+    IEnumerator StartEndScene()
+    {
+        yield return new WaitForSeconds(1f);
+        isDead = true;
     }
 
     void OnCollisionEnter2D(Collision2D truc)

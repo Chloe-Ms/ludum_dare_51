@@ -294,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomManager: {fileID: 0}
   enemy: {fileID: 7432993418386057611}
+  animator: {fileID: 7059835069006932086}
   health: 50
   isdead: 0
 --- !u!50 &7432993418386057601

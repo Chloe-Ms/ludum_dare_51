@@ -96,10 +96,12 @@ public class AI_Gun : MonoBehaviour
                     {
                         Sr.flipX = false;
                     }
+                    animController.SetFloat("Speed", Mathf.Max(Mathf.Abs(transform.position.x) + Mathf.Abs(transform.position.y)));
 
                 } else{
                     shoot();
                     isrunning = false;
+                    animController.SetFloat("Speed", 0);
                 }
             } 
         } 

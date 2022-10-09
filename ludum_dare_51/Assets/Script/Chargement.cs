@@ -31,12 +31,12 @@ public class Chargement : MonoBehaviour
             panel.GetComponent<Image>().sprite = endingSprite;
 
         } 
-        /*else if (mort != null && mort.isDead == true && panel != null)
+        else if (mort != null && mort.isDead == true && panel != null)
         {
             Time.timeScale = 0;
             panel.SetActive(true);
             panel.GetComponent<Image>().sprite = deathSprite;
-        }*/
+        }
     }
     public void load() 
     {
