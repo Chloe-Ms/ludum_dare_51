@@ -94,7 +94,9 @@ public class AI_Kamikaze : MonoBehaviour
 
     IEnumerator wait()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        animController.SetTrigger("Suicide");
+        yield return new WaitForSeconds(0.5f);
         boomBoom();
     }
 

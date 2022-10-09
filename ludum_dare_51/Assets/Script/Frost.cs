@@ -9,8 +9,8 @@ public class Frost : MonoBehaviour
     {
         if (collider.gameObject.tag == "PlayerTransform")
         {
-            float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
-            collider.gameObject.GetComponent<Player_move>().SetSpeed(speedMultiplier);
+            float speed = collider.gameObject.transform.parent.gameObject.GetComponent<Player_move>().moveSpeed;
+            collider.gameObject.transform.parent.gameObject.GetComponent<Player_move>().SetSpeed(speedMultiplier);
         }
     }
 
@@ -18,8 +18,8 @@ public class Frost : MonoBehaviour
     {
         if (collider.gameObject.tag == "PlayerTransform")
         {
-            float speed = collider.gameObject.GetComponent<Player_move>().moveSpeed;
-            collider.gameObject.GetComponent<Player_move>().SetSpeed(-speedMultiplier);
+            float speed = collider.gameObject.transform.parent.gameObject.GetComponent<Player_move>().moveSpeed;
+            collider.gameObject.transform.parent.gameObject.GetComponent<Player_move>().SetSpeed(-speedMultiplier);
         }
     }
 }
