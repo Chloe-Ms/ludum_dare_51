@@ -1090,6 +1090,18 @@ PrefabInstance:
       propertyPath: m_PointLightOuterRadius
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1316115207153277987, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1316115207153277987, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.398
+      objectReference: {fileID: 0}
+    - target: {fileID: 1651584851475757729, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
+      propertyPath: attackRange
+      value: 1.13
+      objectReference: {fileID: 0}
     - target: {fileID: 4974547620461486466, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1202,7 +1214,8 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.015414789
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4974547620461486473, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bebc788485ccc4a45889acb52c5466ba, type: 3}
 --- !u!4 &673464244 stripped
 Transform:
